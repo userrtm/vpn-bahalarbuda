@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UserrTM Plans</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,0.15), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(250,204,21,0.08), transparent 24%),
+        linear-gradient(135deg, #020617, #0f172a 45%, #1e293b);
+      color: #fff;
+      padding: 18px 12px 40px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 28px 12px 18px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(56,189,248,0.12), transparent 65%);
+      filter: blur(18px);
+      z-index: 0;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .site-name {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      margin-bottom: 10px;
+    }
+
+    .site-desc {
+      max-width: 760px;
+      margin: 0 auto 16px;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #cbd5e1;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 8px;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+    }
+
+    .lang-btn {
+      border: none;
+      cursor: pointer;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #e2e8f0;
+      background: transparent;
+      font-size: 14px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .lang-btn.active {
+      background: rgba(56,189,248,0.16);
+      color: #bae6fd;
+      box-shadow: inset 0 0 0 1px rgba(56,189,248,0.3);
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .plans-wrap {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(230px, 1fr));
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 24px;
+      padding: 24px;
+      min-height: 100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.30);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      overflow: visible;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), transparent 35%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 22px 50px rgba(0,0,0,0.42);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .plan-title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .plan-subtitle {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .price {
+      font-size: 33px;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .week {
+      font-size: 17px;
+      color: #f8fafc;
+      margin-bottom: 18px;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.10);
+      margin: 18px 0;
+    }
+
+    .features {
+      list-style: none;
+    }
+
+    .features li {
+      margin-bottom: 12px;
+      color: #e2e8f0;
+      line-height: 1.5;
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .features li svg {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      margin-top: 2px;
+      color: #38bdf8;
+    }
+
+    .badge {
+      position: absolute;
+      top: -12px;
+      right: 16px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      z-index: 3;
+      white-space: nowrap;
+    }
+
+    .badge-new {
+      position: absolute;
+      top: -12px;
+      left: 16px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      background: #22c55e;
+      box-shadow: 0 8px 20px rgba(34,197,94,0.35);
+      z-index: 3;
+      white-space: nowrap;
+    }
+
+    .mini .price { color: #22c55e; }
+    .econom .price { color: #60a5fa; }
+    .standart .price { color: #a78bfa; }
+    .vip .price { color: #fb923c; }
+
+    .mini .buy-btn {
+      background: rgba(34,197,94,0.14);
+      color: #dcfce7;
+      border-color: rgba(34,197,94,0.32);
+    }
+
+    .econom .buy-btn {
+      background: rgba(96,165,250,0.13);
+      color: #dbeafe;
+      border-color: rgba(96,165,250,0.32);
+    }
+
+    .standart .buy-btn {
+      background: rgba(167,139,250,0.14);
+      color: #ede9fe;
+      border-color: rgba(167,139,250,0.32);
+    }
+
+    .vip .buy-btn {
+      background: rgba(249,115,22,0.14);
+      color: #ffedd5;
+      border-color: rgba(249,115,22,0.32);
+    }
+
+    .premium {
+      transform: scale(1.03);
+      border: 1px solid rgba(250,204,21,0.45);
+      background:
+        radial-gradient(circle at top, rgba(250,204,21,0.18), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+      box-shadow: 0 18px 55px rgba(250,204,21,0.12), 0 18px 45px rgba(0,0,0,0.38);
+      padding-top: 34px;
+    }
+
+    .premium:hover {
+      transform: scale(1.03) translateY(-8px);
+    }
+
+    .premium .price { color: #facc15; }
+
+    .premium .badge {
+      background: linear-gradient(90deg, #facc15, #fde68a);
+      color: #111827;
+      box-shadow: 0 8px 22px rgba(250,204,21,0.35);
+    }
+
+    .buy-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 22px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 800;
+      border: 1px solid transparent;
+      overflow: hidden;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      z-index: 1;
+    }
+
+    .buy-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.98;
+    }
+
+    .buy-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -130%;
+      width: 90%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.38), transparent);
+      transform: skewX(-25deg);
+      animation: shine 2.8s linear infinite;
+    }
+
+    .premium .buy-btn {
+      background: linear-gradient(90deg, #facc15, #eab308);
+      color: #111827;
+      border: none;
+      box-shadow: 0 12px 26px rgba(250,204,21,0.25);
+    }
+
+    @keyframes shine {
+      100% { left: 150%; }
+    }
+
+    .main-site-box {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top right, rgba(56,189,248,0.16), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .main-site-box::before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -60px;
+      top: -60px;
+      background: radial-gradient(circle, rgba(56,189,248,0.18), transparent 65%);
+      filter: blur(8px);
+    }
+
+    .main-site-box > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .main-site-badge {
+      display: inline-block;
+      width: fit-content;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.14);
+      border: 1px solid rgba(56,189,248,0.28);
+      color: #7dd3fc;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .main-site-box h3 {
+      font-size: 34px;
+      margin-bottom: 12px;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .main-site-box p {
+      color: #cbd5e1;
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 22px;
+      max-width: 420px;
+    }
+
+    .main-site-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 14px 22px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 800;
+      color: #111827;
+      background: linear-gradient(90deg, #38bdf8, #7dd3fc);
+      box-shadow: 0 10px 24px rgba(56,189,248,0.28);
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .main-site-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.98;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 28px;
+      padding: 20px;
+      color: #cbd5e1;
+      font-size: 17px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .contacts {
+      margin-top: 30px;
+      padding: 28px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+      backdrop-filter: blur(12px);
+    }
+
+    .contacts-title {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #7dd3fc;
+      font-weight: 800;
+    }
+
+    .contact-single {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .contact-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .contact-icon {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .icon-link { background: linear-gradient(135deg, #38bdf8, #0ea5e9); }
+    .icon-imo { background: linear-gradient(135deg, #60a5fa, #2563eb); }
+    .icon-sms { background: linear-gradient(135deg, #a78bfa, #7c3aed); }
+    .icon-wa { background: linear-gradient(135deg, #22c55e, #16a34a); }
+    .icon-mail { background: linear-gradient(135deg, #f97316, #ea580c); }
+    .icon-tg { background: linear-gradient(135deg, #38bdf8, #2563eb); }
+
+    .contact-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .contact-label {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .contact-value {
+      color: #f8fafc;
+      text-decoration: none;
+      font-size: 15px;
+      word-break: break-word;
+    }
+
+    .contact-value:hover {
+      text-decoration: underline;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 1100px) {
+      .top-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 16px 10px 30px; }
+      .site-name { font-size: 30px; }
+      .site-desc { font-size: 15px; }
+      .plan-title { font-size: 24px; }
+      .price { font-size: 28px; }
+      .premium, .premium:hover { transform: none; }
+      .plans-wrap { grid-template-columns: 1fr; }
+      .contact-single { max-width: 100%; }
+      .main-site-box h3 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div class="site-name" id="siteName">UserrTM Plans</div>
+      <div class="site-desc" id="siteDesc">Özüňize laýyk plany saýlaň we ýokary tizlikli, durnukly hem-de amatly hyzmatdan peýdalanyň.</div>
+
+      <div class="lang-switch">
+        <button class="lang-btn active" id="btnTk" onclick="setLang('tk')">🇹🇲 Türkmençe</button>
+        <button class="lang-btn" id="btnRu" onclick="setLang('ru')">🇷🇺 Русский</button>
+      </div>
+    </div>
+
+    <div class="top-grid">
+      <div class="plans-wrap">
+        <div class="card mini">
+          <div class="badge-new" id="miniBadge">NEW</div>
+          <div class="card-content">
+            <div class="plan-title" id="miniTitle">Mini</div>
+            <div class="plan-subtitle" id="miniSubtitle">(Basic)</div>
+            <div class="price" id="miniPrice">70 TMT / aýyna</div>
+            <div class="week" id="miniWeek">18 TMT / hepdä</div>
+            <div class="divider"></div>
+            <ul class="features">
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="miniF1">Diňe Niderland serweri</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="miniF2">TikTok, YouTube, Instagram, Telegram</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="miniF3">Ýeňil ulanmak üçin amatly</span></li>
+            </ul>
+          </div>
+          <a class="buy-btn" id="miniBtn" href="https://linkm.me/users/userrtm" target="_blank">Satyn al</a>
+        </div>
+
+        <div class="card econom">
+          <div class="card-content">
+            <div class="plan-title" id="economTitle">Econom</div>
+            <div class="price" id="economPrice">100 TMT / aýyna</div>
+            <div class="week" id="economWeek">25 TMT / hepdä</div>
+            <div class="divider"></div>
+            <ul class="features">
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="economF1">5 ýurt serweri</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="economF2">TikTok, YouTube, Instagram, Telegram</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="economF3">Ähli programmalara laýyk</span></li>
+            </ul>
+          </div>
+          <a class="buy-btn" id="economBtn" href="https://linkm.me/users/userrtm" target="_blank">Satyn al</a>
+        </div>
+
+        <div class="card premium">
+          <div class="badge" id="premiumBadge">⭐ Iň köp saýlanylýan</div>
+          <div class="card-content">
+            <div class="plan-title" id="premiumTitle">Premium</div>
+            <div class="price" id="premiumPrice">200 TMT / aýyna</div>
+            <div class="week" id="premiumWeek">50 TMT / hepdä</div>
+            <div class="divider"></div>
+            <ul class="features">
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="premiumF1">Dünýä boýunça serwerler</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="premiumF2">Ähli platformalara doly</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="premiumF3">TikTok, YouTube, Instagram, Telegram, Copart we ş.m</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="premiumF4">Ähli VPN programmalara laýyk</span></li>
+            </ul>
+          </div>
+          <a class="buy-btn" id="premiumBtn" href="https://linkm.me/users/userrtm" target="_blank">Satyn al</a>
+        </div>
+
+        <div class="card vip">
+          <div class="card-content">
+            <div class="plan-title" id="vipTitle">VIP</div>
+            <div class="price" id="vipPrice">300 TMT / aýyna</div>
+            <div class="week" id="vipWeek">70 TMT / hepdä</div>
+            <div class="divider"></div>
+            <ul class="features">
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="vipF1">Dünýä boýunça serwerler</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="vipF2">Ähli platformalara doly</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="vipF3">Oýun üçin niýetlenen</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="vipF4">Ähli VPN programmalara laýyk</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="vipF5">Iň ýokary tizlik</span></li>
+            </ul>
+          </div>
+          <a class="buy-btn" id="vipBtn" href="https://linkm.me/users/userrtm" target="_blank">Satyn al</a>
+        </div>
+      </div>
+
+      <div class="main-site-box">
+        <div class="main-site-badge" id="mainSiteBadge">Resmi saýt</div>
+        <h3 id="mainSiteTitle">UserrTM.vip</h3>
+        <p id="mainSiteDesc">
+          Giňişleýin maglumat, ähli hyzmatlar we resmi sahypamyzy görmek üçin esasy saýtymyza geçiň.
+        </p>
+        <a href="https://userrtm.vip" target="_blank" class="main-site-btn" id="mainSiteBtn">Saýta geç</a>
+      </div>
+    </div>
+
+    <div class="footer" id="footerText">Ähli planlara 30 günlük pul yzyna kepilligi giryär</div>
+
+    <div class="contacts">
+      <div class="contacts-title" id="contactsTitle">Habarlaşmak üçin</div>
+
+      <div class="contact-single">
+        <div class="contact-box" id="contactTkBox">
+          <div class="contact-list">
+            <div class="contact-item">
+              <div class="contact-icon icon-link">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M15 7h3a5 5 0 010 10h-3" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M9 17H6a5 5 0 010-10h3" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M8 12h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">Link</div>
+                <a class="contact-value" href="tel:+99362723560">+993 62 72 35 60</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-imo">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3C7 3 3 6.6 3 11c0 2.1.9 4 2.3 5.4L4.5 21l4.6-1.9c.9.2 1.9.4 2.9.4 5 0 9-3.6 9-8s-4-8.5-9-8.5z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><circle cx="9" cy="11" r="1.1" fill="#fff"/><circle cx="12" cy="11" r="1.1" fill="#fff"/><circle cx="15" cy="11" r="1.1" fill="#fff"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">IMO</div>
+                <a class="contact-value" href="tel:+99364125409">+993 64 12 54 09</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-sms">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#fff" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">SMS</div>
+                <a class="contact-value" href="sms:+99362434203">+993 62 43 42 03</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-wa">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 01-11.8 7l-4.2 1 1.1-4A8 8 0 1120 12z" stroke="#fff" stroke-width="1.9" stroke-linejoin="round"/><path d="M9.5 9.8c.3-.7.7-.7 1-.7h.3c.1 0 .4 0 .6.4.2.4.7 1.7.8 1.8.1.1.1.3 0 .5-.1.2-.2.3-.4.5-.2.2-.3.3-.1.6.2.3.8 1.3 1.8 2 .4.3.8.5 1.1.2.3-.3.5-.6.7-.6s1.2.5 1.4.6c.2.1.4.2.4.4 0 .2-.1.9-.6 1.3-.4.4-1 .6-1.6.6-.6 0-1.3-.1-2.7-.8s-3.2-2.9-3.5-5c-.1-.8.1-1.5.4-1.8z" fill="#fff"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">WhatsApp</div>
+                <a class="contact-value" href="https://wa.me/99362434203" target="_blank">+993 62 43 42 03</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-mail">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#fff" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">Gmail</div>
+                <a class="contact-value" href="mailto:userrtmservers@gmail.com">userrtmservers@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-tg">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M21 4L3 11.5l6 2 2 6L21 4z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 13.5l8-6.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">Telegram</div>
+                <a class="contact-value" href="https://t.me/UserrTM" target="_blank">@UserrTM</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-box hidden" id="contactRuBox">
+          <div class="contact-list">
+            <div class="contact-item">
+              <div class="contact-icon icon-link">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M15 7h3a5 5 0 010 10h-3" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M9 17H6a5 5 0 010-10h3" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M8 12h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">Link</div>
+                <a class="contact-value" href="tel:+99362723560">+993 62 72 35 60</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-imo">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3C7 3 3 6.6 3 11c0 2.1.9 4 2.3 5.4L4.5 21l4.6-1.9c.9.2 1.9.4 2.9.4 5 0 9-3.6 9-8s-4-8.5-9-8.5z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><circle cx="9" cy="11" r="1.1" fill="#fff"/><circle cx="12" cy="11" r="1.1" fill="#fff"/><circle cx="15" cy="11" r="1.1" fill="#fff"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">IMO</div>
+                <a class="contact-value" href="tel:+99364125409">+993 64 12 54 09</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-sms">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#fff" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">SMS</div>
+                <a class="contact-value" href="sms:+99362434203">+993 62 43 42 03</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-wa">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 01-11.8 7l-4.2 1 1.1-4A8 8 0 1120 12z" stroke="#fff" stroke-width="1.9" stroke-linejoin="round"/><path d="M9.5 9.8c.3-.7.7-.7 1-.7h.3c.1 0 .4 0 .6.4.2.4.7 1.7.8 1.8.1.1.1.3 0 .5-.1.2-.2.3-.4.5-.2.2-.3.3-.1.6.2.3.8 1.3 1.8 2 .4.3.8.5 1.1.2.3-.3.5-.6.7-.6s1.2.5 1.4.6c.2.1.4.2.4.4 0 .2-.1.9-.6 1.3-.4.4-1 .6-1.6.6-.6 0-1.3-.1-2.7-.8s-3.2-2.9-3.5-5c-.1-.8.1-1.5.4-1.8z" fill="#fff"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">WhatsApp</div>
+                <a class="contact-value" href="https://wa.me/99362434203" target="_blank">+993 62 43 42 03</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-mail">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#fff" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">Gmail</div>
+                <a class="contact-value" href="mailto:userrtmservers@gmail.com">userrtmservers@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-tg">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M21 4L3 11.5l6 2 2 6L21 4z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 13.5l8-6.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="contact-text">
+                <div class="contact-label">Telegram</div>
+                <a class="contact-value" href="https://t.me/UserrTM" target="_blank">@UserrTM</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const texts = {
+      tk: {
+        siteName: "UserrTM Plans",
+        siteDesc: "Özüňize laýyk plany saýlaň we ýokary tizlikli, durnukly hem-de amatly hyzmatdan peýdalanyň.",
+
+        miniBadge: "NEW",
+        miniTitle: "Mini",
+        miniSubtitle: "(Basic)",
+        miniPrice: "70 TMT / aýyna",
+        miniWeek: "18 TMT / hepdä",
+        miniF1: "Diňe Niderland serweri",
+        miniF2: "TikTok, YouTube, Instagram, Telegram",
+        miniF3: "Ýeňil ulanmak üçin amatly",
+        miniBtn: "Satyn al",
+
+        economTitle: "Econom",
+        economPrice: "100 TMT / aýyna",
+        economWeek: "25 TMT / hepdä",
+        economF1: "5 ýurt serweri",
+        economF2: "TikTok, YouTube, Instagram, Telegram",
+        economF3: "Ähli programmalara laýyk",
+        economBtn: "Satyn al",
+
+        premiumBadge: "⭐ Iň köp saýlanylýan",
+        premiumTitle: "Premium",
+        premiumPrice: "200 TMT / aýyna",
+        premiumWeek: "50 TMT / hepdä",
+        premiumF1: "Dünýä boýunça serwerler",
+        premiumF2: "Ähli platformalara doly",
+        premiumF3: "TikTok, YouTube, Instagram, Telegram, Copart we ş.m",
+        premiumF4: "Ähli VPN programmalara laýyk",
+        premiumBtn: "Satyn al",
+
+        vipTitle: "VIP",
+        vipPrice: "300 TMT / aýyna",
+        vipWeek: "70 TMT / hepdä",
+        vipF1: "Dünýä boýunça serwerler",
+        vipF2: "Ähli platformalara doly",
+        vipF3: "Oýun üçin niýetlenen",
+        vipF4: "Ähli VPN programmalara laýyk",
+        vipF5: "Iň ýokary tizlik",
+        vipBtn: "Satyn al",
+
+        mainSiteBadge: "Resmi saýt",
+        mainSiteTitle: "UserrTM.vip",
+        mainSiteDesc: "Giňişleýin maglumat, ähli hyzmatlar we resmi sahypamyzy görmek üçin esasy saýtymyza geçiň.",
+        mainSiteBtn: "Saýta geç",
+
+        footerText: "Ähli planlara 30 günlük pul yzyna kepilligi giryär",
+        contactsTitle: "Habarlaşmak üçin"
+      },
+      ru: {
+        siteName: "UserrTM Plans",
+        siteDesc: "Выберите подходящий тариф и пользуйтесь высокой скоростью, стабильным и удобным сервисом.",
+
+        miniBadge: "NEW",
+        miniTitle: "Мини",
+        miniSubtitle: "(Базовый)",
+        miniPrice: "70 TMT / в месяц",
+        miniWeek: "18 TMT / в неделю",
+        miniF1: "Только сервер Нидерланды",
+        miniF2: "TikTok, YouTube, Instagram, Telegram",
+        miniF3: "Удобно для лёгкого использования",
+        miniBtn: "Купить",
+
+        economTitle: "Эконом",
+        economPrice: "100 TMT / в месяц",
+        economWeek: "25 TMT / в неделю",
+        economF1: "5 стран серверов",
+        economF2: "TikTok, YouTube, Instagram, Telegram",
+        economF3: "Подходит для всех программ",
+        economBtn: "Купить",
+
+        premiumBadge: "⭐ Самый популярный",
+        premiumTitle: "Премиум",
+        premiumPrice: "200 TMT / в месяц",
+        premiumWeek: "50 TMT / в неделю",
+        premiumF1: "Серверы по всему миру",
+        premiumF2: "Полный доступ ко всем платформам",
+        premiumF3: "TikTok, YouTube, Instagram, Telegram, Copart и др.",
+        premiumF4: "Подходит для всех VPN приложений",
+        premiumBtn: "Купить",
+
+        vipTitle: "VIP",
+        vipPrice: "300 TMT / в месяц",
+        vipWeek: "70 TMT / в неделю",
+        vipF1: "Серверы по всему миру",
+        vipF2: "Полный доступ ко всем платформам",
+        vipF3: "Предназначен для игр",
+        vipF4: "Подходит для всех VPN приложений",
+        vipF5: "Максимальная скорость",
+        vipBtn: "Купить",
+
+        mainSiteBadge: "Официальный сайт",
+        mainSiteTitle: "UserrTM.vip",
+        mainSiteDesc: "Для подробной информации, всех услуг и просмотра официального сайта перейдите на нашу основную страницу.",
+        mainSiteBtn: "Перейти на сайт",
+
+        footerText: "На все тарифы действует 30-дневная гарантия возврата денег",
+        contactsTitle: "Контакты для связи"
+      }
+    };
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function setLang(lang) {
+      const t = texts[lang];
+
+      setText("siteName", t.siteName);
+      setText("siteDesc", t.siteDesc);
+
+      setText("miniBadge", t.miniBadge);
+      setText("miniTitle", t.miniTitle);
+      setText("miniSubtitle", t.miniSubtitle);
+      setText("miniPrice", t.miniPrice);
+      setText("miniWeek", t.miniWeek);
+      setText("miniF1", t.miniF1);
+      setText("miniF2", t.miniF2);
+      setText("miniF3", t.miniF3);
+      setText("miniBtn", t.miniBtn);
+
+      setText("economTitle", t.economTitle);
+      setText("economPrice", t.economPrice);
+      setText("economWeek", t.economWeek);
+      setText("economF1", t.economF1);
+      setText("economF2", t.economF2);
+      setText("economF3", t.economF3);
+      setText("economBtn", t.economBtn);
+
+      setText("premiumBadge", t.premiumBadge);
+      setText("premiumTitle", t.premiumTitle);
+      setText("premiumPrice", t.premiumPrice);
+      setText("premiumWeek", t.premiumWeek);
+      setText("premiumF1", t.premiumF1);
+      setText("premiumF2", t.premiumF2);
+      setText("premiumF3", t.premiumF3);
+      setText("premiumF4", t.premiumF4);
+      setText("premiumBtn", t.premiumBtn);
+
+      setText("vipTitle", t.vipTitle);
+      setText("vipPrice", t.vipPrice);
+      setText("vipWeek", t.vipWeek);
+      setText("vipF1", t.vipF1);
+      setText("vipF2", t.vipF2);
+      setText("vipF3", t.vipF3);
+      setText("vipF4", t.vipF4);
+      setText("vipF5", t.vipF5);
+      setText("vipBtn", t.vipBtn);
+
+      setText("mainSiteBadge", t.mainSiteBadge);
+      setText("mainSiteTitle", t.mainSiteTitle);
+      setText("mainSiteDesc", t.mainSiteDesc);
+      setText("mainSiteBtn", t.mainSiteBtn);
+
+      setText("footerText", t.footerText);
+      setText("contactsTitle", t.contactsTitle);
+
+      document.getElementById("btnTk").classList.toggle("active", lang === "tk");
+      document.getElementById("btnRu").classList.toggle("active", lang === "ru");
+
+      document.getElementById("contactTkBox").classList.toggle("hidden", lang !== "tk");
+      document.getElementById("contactRuBox").classList.toggle("hidden", lang !== "ru");
+
+      document.documentElement.lang = lang;
+    }
+  </script>
+</body>
+</html>
