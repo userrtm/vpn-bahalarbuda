@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UserrTM Plans</title>
+  <title>UserrTM Servers</title>
   <style>
     :root {
       --bg-main:
@@ -99,11 +99,63 @@
       color: var(--text-main);
       padding: 18px 12px 40px;
       transition: background 0.3s ease, color 0.3s ease;
+      position: relative;
+      overflow-x: hidden;
     }
+
+    /* premium moving background */
+    .hero-streaks,
+    .hero-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero-streak {
+      position: absolute;
+      width: 1.5px;
+      height: 260px;
+      background: linear-gradient(to bottom, transparent, rgba(125,211,252,0.65), transparent);
+      opacity: 0.28;
+      transform: rotate(28deg);
+      filter: blur(.2px);
+      animation: slideDown linear infinite;
+    }
+
+    .hero-streak:nth-child(1){ left: 8%; top: -20%; animation-duration: 8s; animation-delay: 0s; }
+    .hero-streak:nth-child(2){ left: 20%; top: -25%; animation-duration: 10s; animation-delay: 1.5s; }
+    .hero-streak:nth-child(3){ left: 34%; top: -22%; animation-duration: 9s; animation-delay: 3s; }
+    .hero-streak:nth-child(4){ left: 48%; top: -28%; animation-duration: 11s; animation-delay: 2s; }
+    .hero-streak:nth-child(5){ left: 62%; top: -24%; animation-duration: 8.5s; animation-delay: 4s; }
+    .hero-streak:nth-child(6){ left: 76%; top: -30%; animation-duration: 10.5s; animation-delay: 2.5s; }
+    .hero-streak:nth-child(7){ left: 90%; top: -20%; animation-duration: 9.5s; animation-delay: 5s; }
+
+    .hero-particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      box-shadow: 0 0 12px rgba(255,255,255,0.45);
+      animation: twinkle 4s ease-in-out infinite;
+    }
+
+    .hero-particle:nth-child(1){ top: 16%; left: 18%; animation-delay: 0s; }
+    .hero-particle:nth-child(2){ top: 22%; left: 68%; animation-delay: 1s; }
+    .hero-particle:nth-child(3){ top: 70%; left: 22%; animation-delay: 2s; }
+    .hero-particle:nth-child(4){ top: 62%; left: 78%; animation-delay: 1.6s; }
+    .hero-particle:nth-child(5){ top: 42%; left: 88%; animation-delay: 2.6s; }
+    .hero-particle:nth-child(6){ top: 32%; left: 38%; animation-delay: .8s; }
+    .hero-particle:nth-child(7){ top: 78%; left: 55%; animation-delay: 3s; }
+    .hero-particle:nth-child(8){ top: 12%; left: 84%; animation-delay: 1.8s; }
 
     .container {
       max-width: 1280px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .hero {
@@ -111,6 +163,20 @@
       padding: 28px 12px 18px;
       margin-bottom: 28px;
       position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 92%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     .hero::after {
@@ -119,11 +185,12 @@
       left: 50%;
       top: 0;
       transform: translateX(-50%);
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle, rgba(56,189,248,0.12), transparent 65%);
-      filter: blur(18px);
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(56,189,248,0.14), transparent 65%);
+      filter: blur(20px);
       z-index: 0;
+      animation: pulseGlow 6s ease-in-out infinite;
     }
 
     .hero > * {
@@ -158,18 +225,36 @@
     }
 
     .site-name {
-      font-size: 40px;
-      font-weight: 800;
-      letter-spacing: 0.4px;
-      margin-bottom: 10px;
-      color: var(--text-main);
+      font-size: clamp(40px, 8vw, 78px);
+      font-weight: 900;
+      letter-spacing: -1.8px;
+      line-height: 1.03;
+      margin-bottom: 12px;
+      background: linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #dbeafe 18%,
+        #7dd3fc 40%,
+        #ffffff 62%,
+        #fde68a 85%,
+        #ffffff 100%
+      );
+      background-size: 240% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 26px rgba(255,255,255,0.08);
+      animation: textFlow 7s linear infinite;
+    }
+
+    body.light .site-name {
+      text-shadow: none;
     }
 
     .site-desc {
       max-width: 760px;
-      margin: 0 auto 16px;
+      margin: 0 auto 18px;
       font-size: 17px;
-      line-height: 1.7;
+      line-height: 1.8;
       color: var(--text-soft);
     }
 
@@ -183,6 +268,7 @@
       padding: 8px;
       border-radius: 999px;
       backdrop-filter: blur(10px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.10);
     }
 
     .lang-btn {
@@ -451,10 +537,6 @@
       box-shadow: 0 12px 26px rgba(250,204,21,0.25);
     }
 
-    @keyframes shine {
-      100% { left: 150%; }
-    }
-
     .main-site-box {
       min-height: 100%;
       display: flex;
@@ -643,6 +725,54 @@
       display: none;
     }
 
+    @keyframes shine {
+      100% { left: 150%; }
+    }
+
+    @keyframes textFlow {
+      0% { background-position: 0% center; }
+      100% { background-position: 240% center; }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        transform: translateX(-50%) scale(1);
+        opacity: .78;
+      }
+      50% {
+        transform: translateX(-50%) scale(1.1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideDown {
+      0% {
+        transform: translateY(-180px) rotate(28deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: .34;
+      }
+      85% {
+        opacity: .18;
+      }
+      100% {
+        transform: translateY(120vh) rotate(28deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        transform: scale(0.8);
+        opacity: .25;
+      }
+      50% {
+        transform: scale(1.8);
+        opacity: 1;
+      }
+    }
+
     @media (max-width: 1100px) {
       .top-grid {
         grid-template-columns: 1fr;
@@ -651,7 +781,7 @@
 
     @media (max-width: 768px) {
       body { padding: 16px 10px 30px; }
-      .site-name { font-size: 30px; }
+      .site-name { font-size: 32px; }
       .site-desc { font-size: 15px; }
       .plan-title { font-size: 24px; }
       .price { font-size: 28px; }
@@ -660,18 +790,40 @@
       .contact-single { max-width: 100%; }
       .main-site-box h3 { font-size: 28px; }
       .top-controls { flex-direction: column; align-items: center; }
+      .hero-streak { opacity: 0.18; }
     }
   </style>
 </head>
 <body>
+  <div class="hero-streaks">
+    <div class="hero-streak"></div>
+    <div class="hero-streak"></div>
+    <div class="hero-streak"></div>
+    <div class="hero-streak"></div>
+    <div class="hero-streak"></div>
+    <div class="hero-streak"></div>
+    <div class="hero-streak"></div>
+  </div>
+
+  <div class="hero-particles">
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+  </div>
+
   <div class="container">
     <div class="hero">
       <div class="top-controls">
         <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">☀️ Light</button>
       </div>
 
-      <div class="site-name" id="siteName">UserrTM Plans</div>
-      <div class="site-desc" id="siteDesc">Özüňize laýyk plany saýlaň we ýokary tizlikli, durnukly hem-de amatly hyzmatdan peýdalanyň.</div>
+      <div class="site-name" id="siteName">UserrTM Servers</div>
+      <div class="site-desc" id="siteDesc">Özüňize laýyk serwer hyzmatyny saýlaň we ýokary tizlikli, durnukly hem-de amatly tejribeden peýdalanyň.</div>
 
       <div class="lang-switch">
         <button class="lang-btn active" id="btnTk" onclick="setLang('tk')">🇹🇲 Türkmençe</button>
@@ -914,8 +1066,8 @@
   <script>
     const texts = {
       tk: {
-        siteName: "UserrTM Plans",
-        siteDesc: "Özüňize laýyk plany saýlaň we ýokary tizlikli, durnukly hem-de amatly hyzmatdan peýdalanyň.",
+        siteName: "UserrTM Servers",
+        siteDesc: "Özüňize laýyk serwer hyzmatyny saýlaň we ýokary tizlikli, durnukly hem-de amatly tejribeden peýdalanyň.",
 
         miniBadge: "NEW",
         miniTitle: "Mini",
@@ -975,8 +1127,8 @@
         themeDark: "🌙 Dark"
       },
       ru: {
-        siteName: "UserrTM Plans",
-        siteDesc: "Выберите подходящий тариф и пользуйтесь высокой скоростью, стабильным и удобным сервисом.",
+        siteName: "UserrTM Servers",
+        siteDesc: "Выберите подходящий серверный тариф и пользуйтесь высокой скоростью, стабильным и удобным сервисом.",
 
         miniBadge: "NEW",
         miniTitle: "Мини",
