@@ -3,18 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>UserrTM Servers</title>
 
   <meta name="description" content="UserrTM Servers - Dünýä boýunça serwerler, TikTok, YouTube, Instagram, Telegram we beýleki platformalar üçin ýokary tizlikli, durnukly VPN hyzmaty." />
   <link rel="canonical" href="https://userrtm.com/" />
-
   <meta name="google-site-verification" content="6AnpEnicDSm4vwaTVfxBRVacsqPzbEnGtTsfsFWh6eY" />
 
   <link rel="icon" href="/favicon.ico?v=3">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
-
   <meta name="theme-color" content="#020617" />
 
   <meta property="og:title" content="UserrTM Servers" />
@@ -110,7 +107,11 @@
       --white-soft: #0f172a;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: Arial, sans-serif;
@@ -152,12 +153,12 @@
 
     .hero-particle {
       position: absolute;
-      width: 3px;
-      height: 3px;
+      width: 4px;
+      height: 4px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.85);
-      box-shadow: 0 0 12px rgba(255,255,255,0.45);
-      animation: twinkle 4s ease-in-out infinite;
+      background: rgba(125,211,252,0.85);
+      box-shadow: 0 0 10px rgba(125,211,252,0.7);
+      animation: twinkle 3s ease-in-out infinite;
     }
 
     .hero-particle:nth-child(1){ top: 16%; left: 18%; animation-delay: 0s; }
@@ -214,6 +215,79 @@
     .hero > * {
       position: relative;
       z-index: 1;
+    }
+
+    .menu-wrap {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      left: auto;
+      z-index: 1000;
+    }
+
+    .menu-btn {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(15,23,42,0.88);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .menu-dropdown {
+      position: absolute;
+      top: 56px;
+      right: 0;
+      min-width: 220px;
+      background: rgba(15,23,42,0.96);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+      backdrop-filter: blur(12px);
+      display: none;
+    }
+
+    .menu-dropdown.show {
+      display: block;
+    }
+
+    .menu-link {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      color: #fff;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      transition: 0.25s ease;
+    }
+
+    .menu-link:last-child {
+      margin-bottom: 0;
+    }
+
+    .menu-link:hover {
+      background: rgba(56,189,248,0.18);
+      border-color: rgba(56,189,248,0.28);
+    }
+
+    body.light .menu-dropdown {
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(15,23,42,0.08);
+    }
+
+    body.light .menu-link {
+      color: #0f172a;
+      background: rgba(15,23,42,0.04);
+      border: 1px solid rgba(15,23,42,0.08);
     }
 
     .top-controls {
@@ -457,6 +531,7 @@
       color: #166534;
       border-color: rgba(34,197,94,0.32);
     }
+
     body:not(.light) .mini .buy-btn {
       color: #dcfce7;
     }
@@ -466,6 +541,7 @@
       color: #1e3a8a;
       border-color: rgba(96,165,250,0.32);
     }
+
     body:not(.light) .econom .buy-btn {
       color: #dbeafe;
     }
@@ -475,6 +551,7 @@
       color: #5b21b6;
       border-color: rgba(167,139,250,0.32);
     }
+
     body:not(.light) .standart .buy-btn {
       color: #ede9fe;
     }
@@ -484,6 +561,7 @@
       color: #9a3412;
       border-color: rgba(249,115,22,0.32);
     }
+
     body:not(.light) .vip .buy-btn {
       color: #ffedd5;
     }
@@ -506,7 +584,9 @@
       transform: scale(1.03) translateY(-8px);
     }
 
-    .premium .price { color: #facc15; }
+    .premium .price {
+      color: #facc15;
+    }
 
     .premium .badge {
       background: linear-gradient(90deg, #facc15, #fde68a);
@@ -836,6 +916,13 @@
 
   <div class="container">
     <div class="hero">
+      <div class="menu-wrap">
+        <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">☰ Menü</button>
+        <div class="menu-dropdown" id="menuDropdown">
+          <a class="menu-link" id="workLink" href="islesmek.html">🤝 Biz bilen işleşmek</a>
+        </div>
+      </div>
+
       <div class="top-controls">
         <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">☀️ Light</button>
       </div>
@@ -943,7 +1030,7 @@
       </div>
     </div>
 
-    <div class="footer" id="footerText">Ähli planlara 30 günlük pul yzyna kepilligi giryär</div>
+    <div class="footer" id="footerGuarantee">Ähli planlara 30 günlük pul yzyna kepilligi giryär</div>
 
     <div class="contacts">
       <div class="contacts-title" id="contactsTitle">Habarlaşmak üçin</div>
@@ -1080,18 +1167,16 @@
     </div>
 
   </div>
-  <div class="footer" id="footerText">
-  © <span id="year"></span> UserrTM Servers
-</div>
+
+  <div class="footer" id="footerCopyright">© <span id="year"></span> UserrTM Servers</div>
 
   <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-  
+    document.getElementById("year").textContent = new Date().getFullYear();
+
     const texts = {
       tk: {
         siteName: "UserrTM Servers",
         siteDesc: "Özüňize laýyk serwer hyzmatyny saýlaň we ýokary tizlikli, durnukly hem-de amatly tejribeden peýdalanyň.",
-
         miniBadge: "NEW",
         miniTitle: "Mini",
         miniSubtitle: "(Basic)",
@@ -1101,7 +1186,6 @@
         miniF2: "TikTok, YouTube, Instagram, Telegram",
         miniF3: "Ýeňil ulanmak üçin amatly",
         miniBtn: "Satyn al",
-
         economTitle: "Econom",
         economPrice: "100 TMT / aýyna",
         economWeek: "25 TMT / hepdä",
@@ -1109,7 +1193,6 @@
         economF2: "TikTok, YouTube, Instagram, Telegram",
         economF3: "Ähli programmalara laýyk",
         economBtn: "Satyn al",
-
         standartTitle: "Standart",
         standartPrice: "150 TMT / aýyna",
         standartWeek: "40 TMT / hepdä",
@@ -1117,7 +1200,6 @@
         standartF2: "TikTok, YouTube, Instagram, Telegram, Copart we ş.m",
         standartF3: "Ähli programmalara laýyk",
         standartBtn: "Satyn al",
-
         premiumBadge: "⭐ Iň köp saýlanylýan",
         premiumTitle: "Premium",
         premiumPrice: "200 TMT / aýyna",
@@ -1127,7 +1209,6 @@
         premiumF3: "TikTok, YouTube, Instagram, Telegram, Copart we ş.m",
         premiumF4: "Ähli VPN programmalara laýyk",
         premiumBtn: "Satyn al",
-
         vipTitle: "VIP",
         vipPrice: "300 TMT / aýyna",
         vipWeek: "70 TMT / hepdä",
@@ -1137,22 +1218,20 @@
         vipF4: "Ähli VPN programmalara laýyk",
         vipF5: "Iň ýokary tizlik",
         vipBtn: "Satyn al",
-
         mainSiteBadge: "Resmi saýt",
         mainSiteTitle: "UserrTM.vip",
         mainSiteDesc: "Giňişleýin maglumat, ähli hyzmatlar we resmi sahypamyzy görmek üçin esasy saýtymyza geçiň.",
         mainSiteBtn: "Saýta geç",
-
-        footerText: "Ähli planlara 30 günlük pul yzyna kepilligi giryär",
+        footerGuarantee: "Ähli planlara 30 günlük pul yzyna kepilligi giryär",
         contactsTitle: "Habarlaşmak üçin",
-
         themeLight: "☀️ Light",
-        themeDark: "🌙 Dark"
+        themeDark: "🌙 Dark",
+        menuBtn: "☰ Menü",
+        workLink: "🤝 Biz bilen işleşmek"
       },
       ru: {
         siteName: "UserrTM Servers",
         siteDesc: "Выберите подходящий серверный тариф и пользуйтесь высокой скоростью, стабильным и удобным сервисом.",
-
         miniBadge: "NEW",
         miniTitle: "Мини",
         miniSubtitle: "(Базовый)",
@@ -1162,7 +1241,6 @@
         miniF2: "TikTok, YouTube, Instagram, Telegram",
         miniF3: "Удобно для лёгкого использования",
         miniBtn: "Купить",
-
         economTitle: "Эконом",
         economPrice: "100 TMT / в месяц",
         economWeek: "25 TMT / в неделю",
@@ -1170,7 +1248,6 @@
         economF2: "TikTok, YouTube, Instagram, Telegram",
         economF3: "Подходит для всех программ",
         economBtn: "Купить",
-
         standartTitle: "Стандарт",
         standartPrice: "150 TMT / в месяц",
         standartWeek: "40 TMT / в неделю",
@@ -1178,7 +1255,6 @@
         standartF2: "TikTok, YouTube, Instagram, Telegram, Copart и др.",
         standartF3: "Подходит для всех программ",
         standartBtn: "Купить",
-
         premiumBadge: "⭐ Самый популярный",
         premiumTitle: "Премиум",
         premiumPrice: "200 TMT / в месяц",
@@ -1188,7 +1264,6 @@
         premiumF3: "TikTok, YouTube, Instagram, Telegram, Copart и др.",
         premiumF4: "Подходит для всех VPN приложений",
         premiumBtn: "Купить",
-
         vipTitle: "VIP",
         vipPrice: "300 TMT / в месяц",
         vipWeek: "70 TMT / в неделю",
@@ -1198,17 +1273,16 @@
         vipF4: "Подходит для всех VPN приложений",
         vipF5: "Максимальная скорость",
         vipBtn: "Купить",
-
         mainSiteBadge: "Официальный сайт",
         mainSiteTitle: "UserrTM.vip",
         mainSiteDesc: "Для подробной информации, всех услуг и просмотра официального сайта перейдите на нашу основную страницу.",
         mainSiteBtn: "Перейти на сайт",
-
-        footerText: "На все тарифы действует 30-дневная гарантия возврата денег",
+        footerGuarantee: "На все тарифы действует 30-дневная гарантия возврата денег",
         contactsTitle: "Контакты для связи",
-
         themeLight: "☀️ Light",
-        themeDark: "🌙 Dark"
+        themeDark: "🌙 Dark",
+        menuBtn: "☰ Меню",
+        workLink: "🤝 Сотрудничество с нами"
       }
     };
 
@@ -1232,7 +1306,6 @@
 
       setText("siteName", t.siteName);
       setText("siteDesc", t.siteDesc);
-
       setText("miniBadge", t.miniBadge);
       setText("miniTitle", t.miniTitle);
       setText("miniSubtitle", t.miniSubtitle);
@@ -1242,7 +1315,6 @@
       setText("miniF2", t.miniF2);
       setText("miniF3", t.miniF3);
       setText("miniBtn", t.miniBtn);
-
       setText("economTitle", t.economTitle);
       setText("economPrice", t.economPrice);
       setText("economWeek", t.economWeek);
@@ -1250,7 +1322,6 @@
       setText("economF2", t.economF2);
       setText("economF3", t.economF3);
       setText("economBtn", t.economBtn);
-
       setText("standartTitle", t.standartTitle);
       setText("standartPrice", t.standartPrice);
       setText("standartWeek", t.standartWeek);
@@ -1258,7 +1329,6 @@
       setText("standartF2", t.standartF2);
       setText("standartF3", t.standartF3);
       setText("standartBtn", t.standartBtn);
-
       setText("premiumBadge", t.premiumBadge);
       setText("premiumTitle", t.premiumTitle);
       setText("premiumPrice", t.premiumPrice);
@@ -1268,7 +1338,6 @@
       setText("premiumF3", t.premiumF3);
       setText("premiumF4", t.premiumF4);
       setText("premiumBtn", t.premiumBtn);
-
       setText("vipTitle", t.vipTitle);
       setText("vipPrice", t.vipPrice);
       setText("vipWeek", t.vipWeek);
@@ -1278,14 +1347,14 @@
       setText("vipF4", t.vipF4);
       setText("vipF5", t.vipF5);
       setText("vipBtn", t.vipBtn);
-
       setText("mainSiteBadge", t.mainSiteBadge);
       setText("mainSiteTitle", t.mainSiteTitle);
       setText("mainSiteDesc", t.mainSiteDesc);
       setText("mainSiteBtn", t.mainSiteBtn);
-
-      setText("footerText", t.footerText);
+      setText("footerGuarantee", t.footerGuarantee);
       setText("contactsTitle", t.contactsTitle);
+      setText("menuBtn", t.menuBtn);
+      setText("workLink", t.workLink);
 
       document.getElementById("btnTk").classList.toggle("active", lang === "tk");
       document.getElementById("btnRu").classList.toggle("active", lang === "ru");
@@ -1309,6 +1378,19 @@
       const isLight = document.body.classList.contains("light");
       applyTheme(isLight ? "dark" : "light");
     }
+
+    function toggleMenu() {
+      document.getElementById("menuDropdown").classList.toggle("show");
+    }
+
+    document.addEventListener("click", function(e) {
+      const menuWrap = document.querySelector(".menu-wrap");
+      const menuDropdown = document.getElementById("menuDropdown");
+
+      if (menuWrap && !menuWrap.contains(e.target)) {
+        menuDropdown.classList.remove("show");
+      }
+    });
 
     window.addEventListener("DOMContentLoaded", () => {
       const savedLang = localStorage.getItem("lang") || "tk";
