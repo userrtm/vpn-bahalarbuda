@@ -1080,8 +1080,13 @@
     </div>
 
   </div>
+  <div class="footer" id="footerText">
+  © <span id="year"></span> UserrTM Servers
+</div>
 
   <script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  
     const texts = {
       tk: {
         siteName: "UserrTM Servers",
