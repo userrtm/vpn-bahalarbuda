@@ -16,6 +16,28 @@
       --soft: #b8c2dd;
       --shadow: 0 20px 60px rgba(0,0,0,0.35);
       --radius: 24px;
+      --input-bg: rgba(7, 16, 39, 0.96);
+      --input-border: rgba(98,112,159,0.42);
+      --section-icon-bg: rgba(59,130,246,0.14);
+      --section-icon-color: #6ea8ff;
+      --footer-link: #7dd3fc;
+      --top-control-bg: rgba(255,255,255,0.06);
+    }
+
+    body.light-theme {
+      --bg-1: #eef4ff;
+      --bg-2: #dce8ff;
+      --card: rgba(255,255,255,0.92);
+      --border: rgba(15,23,42,0.08);
+      --text: #0f172a;
+      --soft: #475569;
+      --shadow: 0 20px 60px rgba(15,23,42,0.12);
+      --input-bg: rgba(255,255,255,0.96);
+      --input-border: rgba(148,163,184,0.45);
+      --section-icon-bg: rgba(37,99,235,0.10);
+      --section-icon-color: #2563eb;
+      --footer-link: #2563eb;
+      --top-control-bg: rgba(255,255,255,0.8);
     }
 
     body {
@@ -28,12 +50,39 @@
         radial-gradient(circle at bottom right, rgba(168,85,247,0.18), transparent 30%),
         linear-gradient(135deg, var(--bg-1), var(--bg-2));
       padding: 16px;
+      transition: background .25s ease, color .25s ease;
     }
 
     .wrap {
       max-width: 980px;
       margin: 0 auto;
       padding: 18px 0 26px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .top-select,
+    .theme-btn {
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--top-control-bg);
+      color: var(--text);
+      padding: 0 14px;
+      font-size: 14px;
+      outline: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .theme-btn {
+      cursor: pointer;
+      font-weight: 700;
     }
 
     .hero {
@@ -53,7 +102,7 @@
         radial-gradient(circle at 30% 30%, rgba(59,130,246,0.35), transparent 45%),
         linear-gradient(145deg, rgba(37,99,235,0.30), rgba(147,51,234,0.30)),
         rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
       box-shadow:
         0 18px 40px rgba(0,0,0,0.35),
         inset 0 1px 0 rgba(255,255,255,0.08);
@@ -115,6 +164,7 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 26px;
+      transition: background .25s ease, border-color .25s ease;
     }
 
     .section {
@@ -140,8 +190,8 @@
       border-radius: 12px;
       display: grid;
       place-items: center;
-      background: rgba(59,130,246,0.14);
-      color: #6ea8ff;
+      background: var(--section-icon-bg);
+      color: var(--section-icon-color);
       font-size: 18px;
       flex: 0 0 auto;
     }
@@ -162,15 +212,20 @@
       height: 66px;
       padding: 0 56px 0 18px;
       border-radius: 18px;
-      border: 1px solid rgba(98,112,159,0.42);
-      background: rgba(7, 16, 39, 0.96);
-      color: #fff;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text);
       font-size: 16px;
       outline: none;
+      transition: background .25s ease, border-color .25s ease, color .25s ease;
     }
 
     input[type="text"]::placeholder {
       color: #8897bb;
+    }
+
+    body.light-theme input[type="text"]::placeholder {
+      color: #64748b;
     }
 
     .input-check {
@@ -193,6 +248,10 @@
       height: 1px;
       background: rgba(255,255,255,0.07);
       margin: 22px 0;
+    }
+
+    body.light-theme .divider {
+      background: rgba(15,23,42,0.08);
     }
 
     .apps {
@@ -275,6 +334,13 @@
       border: 1px solid rgba(255,255,255,0.06);
       background: rgba(6, 15, 38, 0.82);
       padding: 20px;
+      transition: background .25s ease, border-color .25s ease;
+    }
+
+    body.light-theme .info-box,
+    body.light-theme .status-box {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(15,23,42,0.08);
     }
 
     .info-box ul {
@@ -286,7 +352,7 @@
     }
 
     .status-box {
-      color: #dbe7ff;
+      color: var(--text);
       font-size: 15px;
       line-height: 1.6;
       min-height: 64px;
@@ -296,14 +362,14 @@
 
     .footer-simple {
       text-align: center;
-      color: #9fb0d1;
+      color: var(--soft);
       font-size: 14px;
       line-height: 1.8;
       margin-top: 20px;
     }
 
     .footer-simple a {
-      color: #7dd3fc;
+      color: var(--footer-link);
       text-decoration: none;
     }
 
@@ -326,17 +392,29 @@
         height: 82px;
         border-radius: 24px;
       }
+      .topbar {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
+    <div class="topbar">
+      <select class="top-select" id="langSelect" onchange="setLanguage(this.value)">
+        <option value="tk">Türkmençe</option>
+        <option value="tr">Türkçe</option>
+        <option value="ru">Русский</option>
+      </select>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀️ Aýdyňlyk</button>
+    </div>
+
     <div class="hero">
       <div class="badge">
         <div class="badge-icon">U</div>
       </div>
-      <h1><span class="grad">UserrTM Auto Import</span></h1>
-      <div class="subtitle">
+      <h1><span class="grad" id="heroTitle">UserrTM Auto Import</span></h1>
+      <div class="subtitle" id="heroSubtitle">
         Subscription URL salyň we ulanýan VPN programmagyňyzy saýlaň.
         Goldaýan programmalarda bir basyş bilen açylar.
       </div>
@@ -346,9 +424,9 @@
       <div class="section">
         <div class="section-title">
           <div class="section-icon">🔗</div>
-          <div>Subscription URL</div>
+          <div id="urlTitle">Subscription URL</div>
         </div>
-        <div class="section-desc">
+        <div class="section-desc" id="urlDesc">
           V2Ray / VLESS / Clash / Sing-Box subscription linkiňizi şu ýere salyň.
         </div>
 
@@ -363,9 +441,9 @@
       <div class="section">
         <div class="section-title">
           <div class="section-icon">▦</div>
-          <div>VPN Programmaňyzy Saýlaň</div>
+          <div id="appsTitle">VPN Programmaňyzy Saýlaň</div>
         </div>
-        <div class="section-desc">
+        <div class="section-desc" id="appsDesc">
           Aşakdaky programmalaryň birine basyp subscription linkini açyp bilersiňiz.
         </div>
 
@@ -375,8 +453,8 @@
               <img src="img/hiddify.png" alt="Hiddify">
             </div>
             <div class="app-content">
-              <div class="app-title">Hiddify'a Goş</div>
-              <div class="app-sub">Hiddify programmasynda aç</div>
+              <div class="app-title" id="hiddifyTitle">Hiddify'a Goş</div>
+              <div class="app-sub" id="hiddifySub">Hiddify programmasynda aç</div>
             </div>
             <div class="arrow">›</div>
           </button>
@@ -386,8 +464,8 @@
               <img src="img/v2raytun.png" alt="v2RayTun">
             </div>
             <div class="app-content">
-              <div class="app-title">v2RayTun'a Goş</div>
-              <div class="app-sub">v2RayTun programmasynda aç</div>
+              <div class="app-title" id="v2raytunTitle">v2RayTun'a Goş</div>
+              <div class="app-sub" id="v2raytunSub">v2RayTun programmasynda aç</div>
             </div>
             <div class="arrow">›</div>
           </button>
@@ -397,8 +475,8 @@
               <img src="img/v2rayng.png" alt="v2RayNG">
             </div>
             <div class="app-content">
-              <div class="app-title">v2RayNG'ye Goş</div>
-              <div class="app-sub">v2RayNG programmasynda aç</div>
+              <div class="app-title" id="v2rayngTitle">v2RayNG'ye Goş</div>
+              <div class="app-sub" id="v2rayngSub">v2RayNG programmasynda aç</div>
             </div>
             <div class="arrow">›</div>
           </button>
@@ -408,8 +486,8 @@
               <img src="img/v2box.png" alt="V2Box">
             </div>
             <div class="app-content">
-              <div class="app-title">V2Box'a Goş</div>
-              <div class="app-sub">V2Box programmasynda aç</div>
+              <div class="app-title" id="v2boxTitle">V2Box'a Goş</div>
+              <div class="app-sub" id="v2boxSub">V2Box programmasynda aç</div>
             </div>
             <div class="arrow">›</div>
           </button>
@@ -419,8 +497,8 @@
               <img src="img/happ.png" alt="Happ">
             </div>
             <div class="app-content">
-              <div class="app-title">Happ'e Goş</div>
-              <div class="app-sub">Happ programmasynda aç</div>
+              <div class="app-title" id="happTitle">Happ'a Goş</div>
+              <div class="app-sub" id="happSub">Happ programmasynda aç</div>
             </div>
             <div class="arrow">›</div>
           </button>
@@ -431,11 +509,11 @@
         <div class="info-box">
           <div class="section-title" style="margin-bottom:0;">
             <div class="section-icon">i</div>
-            <div>Maglumat</div>
+            <div id="infoTitle">Maglumat</div>
           </div>
           <ul>
-            <li>Programma gurnalan bolmasa, baglanyşyk işlemezligi mümkin.</li>
-            <li>Eger Happ açylmasa, brauzer ýa-da telefon deeplinki bloklaýan bolup biler.</li>
+            <li id="info1">Programma gurnalan bolmasa, baglanyşyk işlemezligi mümkin.</li>
+            <li id="info2">Eger Happ açylmasa, brauzer ýa-da telefon deeplinki bloklaýan bolup biler.</li>
           </ul>
         </div>
       </div>
@@ -445,13 +523,156 @@
 
     <div class="footer-simple">
       <div>© 2026 UserrTM Servers</div>
-      <div>Resmi sahypamyz: <a href="https://www.userrtm.com" target="_blank">www.userrtm.com</a></div>
+      <div id="footerText">Resmi sahypamyz: <a href="https://www.userrtm.com" target="_blank">www.userrtm.com</a></div>
     </div>
   </div>
 
   <script>
+    const texts = {
+      tk: {
+        themeLight: "☀️ Aýdyňlyk",
+        themeDark: "🌙 Garaňky",
+        heroTitle: "UserrTM Auto Import",
+        heroSubtitle: "Subscription URL salyň we ulanýan VPN programmagyňyzy saýlaň. Goldaýan programmalarda bir basyş bilen açylar.",
+        urlTitle: "Subscription URL",
+        urlDesc: "V2Ray / VLESS / Clash / Sing-Box subscription linkiňizi şu ýere salyň.",
+        appsTitle: "VPN Programmaňyzy Saýlaň",
+        appsDesc: "Aşakdaky programmalaryň birine basyp subscription linkini açyp bilersiňiz.",
+        hiddifyTitle: "Hiddify'a Goş",
+        hiddifySub: "Hiddify programmasynda aç",
+        v2raytunTitle: "v2RayTun'a Goş",
+        v2raytunSub: "v2RayTun programmasynda aç",
+        v2rayngTitle: "v2RayNG'ye Goş",
+        v2rayngSub: "v2RayNG programmasynda aç",
+        v2boxTitle: "V2Box'a Goş",
+        v2boxSub: "V2Box programmasynda aç",
+        happTitle: "Happ'a Goş",
+        happSub: "Happ programmasynda aç",
+        infoTitle: "Maglumat",
+        info1: "Programma gurnalan bolmasa, baglanyşyk işlemezligi mümkin.",
+        info2: "Eger Happ açylmasa, brauzer ýa-da telefon deeplinki bloklaýan bolup biler.",
+        footerText: 'Resmi sahypamyz: <a href="https://www.userrtm.com" target="_blank">www.userrtm.com</a>',
+        ready: "Taýýar.",
+        enterUrl: "Ilki subscription URL salyň.",
+        invalidUrl: "Link http:// ýa-da https:// bilen başlamaly.",
+        hiddifyOpening: "Hiddify açylmaga synanyşylýar...",
+        v2raytunOpening: "v2RayTun açylmaga synanyşylýar...",
+        v2rayngOpening: "v2RayNG açylmaga synanyşylýar...",
+        v2boxOpening: "V2Box açylmagyna synanyşylýar...",
+        happOpening: "Happ açylmaga synanyşylýar..."
+      },
+      tr: {
+        themeLight: "☀️ Aydınlık",
+        themeDark: "🌙 Karanlık",
+        heroTitle: "UserrTM Auto Import",
+        heroSubtitle: "Subscription URL girin ve kullandığınız VPN uygulamasını seçin. Destekleyen uygulamalarda tek dokunuşla açılır.",
+        urlTitle: "Subscription URL",
+        urlDesc: "V2Ray / VLESS / Clash / Sing-Box subscription linkinizi buraya girin.",
+        appsTitle: "VPN Uygulamanızı Seçin",
+        appsDesc: "Aşağıdaki uygulamalardan birine basarak subscription linkini açabilirsiniz.",
+        hiddifyTitle: "Hiddify'a Ekle",
+        hiddifySub: "Hiddify uygulamasında aç",
+        v2raytunTitle: "v2RayTun'a Ekle",
+        v2raytunSub: "v2RayTun uygulamasında aç",
+        v2rayngTitle: "v2RayNG'ye Ekle",
+        v2rayngSub: "v2RayNG uygulamasında aç",
+        v2boxTitle: "V2Box'a Ekle",
+        v2boxSub: "V2Box uygulamasında aç",
+        happTitle: "Happ'a Goş",
+        happSub: "Happ uygulamasında aç",
+        infoTitle: "Bilgi",
+        info1: "Uygulama yüklü değilse bağlantı çalışmayabilir.",
+        info2: "Eğer Happ açılmazsa, tarayıcı veya telefon deeplinki engelliyor olabilir.",
+        footerText: 'Resmi sayfamız: <a href="https://www.userrtm.com" target="_blank">www.userrtm.com</a>',
+        ready: "Hazır.",
+        enterUrl: "Önce subscription URL girin.",
+        invalidUrl: "Link http:// veya https:// ile başlamalı.",
+        hiddifyOpening: "Hiddify açılmaya çalışılıyor...",
+        v2raytunOpening: "v2RayTun açılmaya çalışılıyor...",
+        v2rayngOpening: "v2RayNG açılmaya çalışılıyor...",
+        v2boxOpening: "V2Box açılmaya çalışılıyor...",
+        happOpening: "Happ açılmaya çalışılıyor..."
+      },
+      ru: {
+        themeLight: "☀️ Светлая",
+        themeDark: "🌙 Тёмная",
+        heroTitle: "UserrTM Auto Import",
+        heroSubtitle: "Введите subscription URL и выберите VPN-приложение. В поддерживаемых приложениях ссылка откроется в одно нажатие.",
+        urlTitle: "Subscription URL",
+        urlDesc: "Введите сюда ваш V2Ray / VLESS / Clash / Sing-Box subscription URL.",
+        appsTitle: "Выберите VPN-приложение",
+        appsDesc: "Нажмите на одно из приложений ниже, чтобы открыть subscription ссылку.",
+        hiddifyTitle: "Добавить в Hiddify",
+        hiddifySub: "Открыть в приложении Hiddify",
+        v2raytunTitle: "Добавить в v2RayTun",
+        v2raytunSub: "Открыть в приложении v2RayTun",
+        v2rayngTitle: "Добавить в v2RayNG",
+        v2rayngSub: "Открыть в приложении v2RayNG",
+        v2boxTitle: "Добавить в V2Box",
+        v2boxSub: "Открыть в приложении V2Box",
+        happTitle: "Добавить в Happ",
+        happSub: "Открыть в приложении Happ",
+        infoTitle: "Информация",
+        info1: "Если приложение не установлено, ссылка может не сработать.",
+        info2: "Если Happ не открывается, браузер или телефон может блокировать deeplink.",
+        footerText: 'Наш официальный сайт: <a href="https://www.userrtm.com" target="_blank">www.userrtm.com</a>',
+        ready: "Готово.",
+        enterUrl: "Сначала введите subscription URL.",
+        invalidUrl: "Ссылка должна начинаться с http:// или https://.",
+        hiddifyOpening: "Пробуем открыть Hiddify...",
+        v2raytunOpening: "Пробуем открыть v2RayTun...",
+        v2rayngOpening: "Пробуем открыть v2RayNG...",
+        v2boxOpening: "Пробуем открыть V2Box...",
+        happOpening: "Пробуем открыть Happ..."
+      }
+    };
+
+    let currentLang = "tk";
+    let lightTheme = false;
+
+    function t(key) {
+      return texts[currentLang][key];
+    }
+
     function setStatus(text) {
       document.getElementById("statusBox").textContent = text;
+    }
+
+    function applyTexts() {
+      document.documentElement.lang = currentLang;
+      document.getElementById("heroTitle").textContent = t("heroTitle");
+      document.getElementById("heroSubtitle").textContent = t("heroSubtitle");
+      document.getElementById("urlTitle").textContent = t("urlTitle");
+      document.getElementById("urlDesc").textContent = t("urlDesc");
+      document.getElementById("appsTitle").textContent = t("appsTitle");
+      document.getElementById("appsDesc").textContent = t("appsDesc");
+      document.getElementById("hiddifyTitle").textContent = t("hiddifyTitle");
+      document.getElementById("hiddifySub").textContent = t("hiddifySub");
+      document.getElementById("v2raytunTitle").textContent = t("v2raytunTitle");
+      document.getElementById("v2raytunSub").textContent = t("v2raytunSub");
+      document.getElementById("v2rayngTitle").textContent = t("v2rayngTitle");
+      document.getElementById("v2rayngSub").textContent = t("v2rayngSub");
+      document.getElementById("v2boxTitle").textContent = t("v2boxTitle");
+      document.getElementById("v2boxSub").textContent = t("v2boxSub");
+      document.getElementById("happTitle").textContent = t("happTitle");
+      document.getElementById("happSub").textContent = t("happSub");
+      document.getElementById("infoTitle").textContent = t("infoTitle");
+      document.getElementById("info1").textContent = t("info1");
+      document.getElementById("info2").textContent = t("info2");
+      document.getElementById("footerText").innerHTML = t("footerText");
+      document.getElementById("themeBtn").textContent = lightTheme ? t("themeDark") : t("themeLight");
+      setStatus(t("ready"));
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      applyTexts();
+    }
+
+    function toggleTheme() {
+      lightTheme = !lightTheme;
+      document.body.classList.toggle("light-theme", lightTheme);
+      document.getElementById("themeBtn").textContent = lightTheme ? t("themeDark") : t("themeLight");
     }
 
     function getSubUrl() {
@@ -459,13 +680,13 @@
       const sub = el.value.trim();
 
       if (!sub) {
-        setStatus("Ilki subscription URL salyň.");
+        setStatus(t("enterUrl"));
         el.focus();
         return null;
       }
 
       if (!/^https?:\/\//i.test(sub)) {
-        setStatus("Link http:// ýa-da https:// bilen başlamaly.");
+        setStatus(t("invalidUrl"));
         el.focus();
         return null;
       }
@@ -481,13 +702,13 @@
     function openHiddify() {
       const sub = getSubUrl();
       if (!sub) return;
-      openDeepLink("hiddify://import/" + sub + "#VPN", "Hiddify açylmaga synanyşylýar...");
+      openDeepLink("hiddify://import/" + sub + "#VPN", t("hiddifyOpening"));
     }
 
     function openV2RayTun() {
       const sub = getSubUrl();
       if (!sub) return;
-      openDeepLink("v2raytun://import/" + sub, "v2RayTun açylmaga synanyşylýar...");
+      openDeepLink("v2raytun://import/" + sub, t("v2raytunOpening"));
     }
 
     function openV2RayNG() {
@@ -496,7 +717,7 @@
       const name = "VPN";
       openDeepLink(
         "v2rayng://install-sub?url=" + encodeURIComponent(sub) + "&name=" + encodeURIComponent(name),
-        "v2RayNG açylmaga synanyşylýar..."
+        t("v2rayngOpening")
       );
     }
 
@@ -505,18 +726,19 @@
       if (!sub) return;
       openDeepLink(
         "v2box://install-config?url=" + encodeURIComponent(sub),
-        "V2Box açylmagyna synanyşylýar..."
+        t("v2boxOpening")
       );
     }
 
     function openHapp() {
       const sub = getSubUrl();
       if (!sub) return;
-
       const happUrl = "happ://add/" + sub;
       window.location.href = happUrl;
-      setStatus("Happ açylmaga synanyşylýar...");
+      setStatus(t("happOpening"));
     }
+
+    applyTexts();
   </script>
 </body>
 </html>
