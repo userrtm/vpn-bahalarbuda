@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UserrTM Speed Test</title>
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef1f5;
+      color: #1f2937;
+    }
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      line-height: 1.25;
+      margin: 18px 0 24px;
+    }
+    .back {
+      color: #5b62f4;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .start-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 26px 0 22px;
+    }
+    .start-btn {
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      border: 4px solid #5b62f4;
+      background: #fff;
+      color: #5b62f4;
+      font-size: 34px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .start-btn:disabled {
+      opacity: .7;
+      cursor: not-allowed;
+    }
+    .status {
+      text-align: center;
+      min-height: 28px;
+      font-size: 18px;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+    .progress {
+      width: 100%;
+      max-width: 640px;
+      height: 14px;
+      margin: 0 auto 24px;
+      background: #dbe2ea;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar {
+      width: 0%;
+      height: 100%;
+      background: #5b62f4;
+      transition: width .2s linear;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 28px 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.05);
+      text-align: center;
+    }
+    .label {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    .value {
+      font-size: 54px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .unit {
+      color: #6b7280;
+      font-size: 18px;
+    }
+    .meta {
+      margin-top: 22px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.05);
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .row:last-child { border-bottom: 0; }
+    .k { color: #6b7280; }
+    .v { text-align: right; word-break: break-word; }
+    @media (max-width: 700px) {
+      h1 { font-size: 22px; }
+      .grid { grid-template-columns: 1fr; }
+      .start-btn { width: 180px; height: 180px; font-size: 30px; }
+      .value { font-size: 46px; }
+      .row { flex-direction: column; }
+      .v { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="/">← Yza / Home</a>
+
+    <h1>Internet tizliginizi ölçäň<br>UserrTM Speed Test</h1>
+
+    <div class="start-wrap">
+      <button id="startBtn" class="start-btn">Start</button>
+    </div>
+
+    <div id="status" class="status">Taýar</div>
+
+    <div class="progress">
+      <div id="bar" class="bar"></div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="label">Download</div>
+        <div id="download" class="value">0.00</div>
+        <div class="unit">Mbps</div>
+      </div>
+      <div class="card">
+        <div class="label">Upload</div>
+        <div id="upload" class="value">0.00</div>
+        <div class="unit">Mbps</div>
+      </div>
+      <div class="card">
+        <div class="label">Ping</div>
+        <div id="ping" class="value">0.00</div>
+        <div class="unit">ms</div>
+      </div>
+      <div class="card">
+        <div class="label">Jitter</div>
+        <div id="jitter" class="value">0.00</div>
+        <div class="unit">ms</div>
+      </div>
+    </div>
+
+    <div class="meta">
+      <div class="row">
+        <div class="k">IP Address</div>
+        <div id="ip" class="v">-</div>
+      </div>
+      <div class="row">
+        <div class="k">Server</div>
+        <div class="v">api.userrtmspeedtest.vip</div>
+      </div>
+      <div class="row">
+        <div class="k">Last Test</div>
+        <div id="lastTest" class="v">-</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = "https://api.userrtmspeedtest.vip";
+
+    const startBtn = document.getElementById("startBtn");
+    const statusEl = document.getElementById("status");
+    const barEl = document.getElementById("bar");
+    const downloadEl = document.getElementById("download");
+    const uploadEl = document.getElementById("upload");
+    const pingEl = document.getElementById("ping");
+    const jitterEl = document.getElementById("jitter");
+    const ipEl = document.getElementById("ip");
+    const lastTestEl = document.getElementById("lastTest");
+
+    function setBar(v) {
+      barEl.style.width = v + "%";
+    }
+
+    function resetUI() {
+      statusEl.textContent = "Taýar";
+      setBar(0);
+      downloadEl.textContent = "0.00";
+      uploadEl.textContent = "0.00";
+      pingEl.textContent = "0.00";
+      jitterEl.textContent = "0.00";
+    }
+
+    function sleep(ms) {
+      return new Promise(r => setTimeout(r, ms));
+    }
+
+    function avg(arr) {
+      return arr.reduce((a, b) => a + b, 0) / arr.length;
+    }
+
+    function calcJitter(arr) {
+      if (arr.length < 2) return 0;
+      const diffs = [];
+      for (let i = 1; i < arr.length; i++) {
+        diffs.push(Math.abs(arr[i] - arr[i - 1]));
+      }
+      return avg(diffs);
+    }
+
+    function mbpsFromBytes(bytes, seconds) {
+      if (!seconds || seconds <= 0) return 0;
+      return (bytes * 8 / seconds / 1000000);
+    }
+
+    async function apiJson(url, options = {}) {
+      const res = await fetch(url, {
+        cache: "no-store",
+        mode: "cors",
+        ...options
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }
+
+    async function fetchIP() {
+      const data = await apiJson(`${API}/ip?t=${Date.now()}`);
+      ipEl.textContent = data.ip || "-";
+    }
+
+    async function checkAPI() {
+      await apiJson(`${API}/?t=${Date.now()}`);
+    }
+
+    async function runPing() {
+      statusEl.textContent = "Ping ölçelýär...";
+      const samples = [];
+
+      for (let i = 0; i < 6; i++) {
+        const s = performance.now();
+        await apiJson(`${API}/ping?t=${Date.now()}_${i}`);
+        const e = performance.now();
+        samples.push(e - s);
+
+        pingEl.textContent = avg(samples).toFixed(2);
+        jitterEl.textContent = calcJitter(samples).toFixed(2);
+        setBar(10 + ((i + 1) / 6) * 20);
+
+        await sleep(120);
+      }
+    }
+
+    async function runDownload() {
+      statusEl.textContent = "Download ölçelýär...";
+
+      const res = await fetch(`${API}/download?nn=${Date.now()}`, {
+        cache: "no-store",
+        mode: "cors"
+      });
+
+      if (!res.ok || !res.body) {
+        throw new Error(`Download HTTP ${res.status}`);
+      }
+
+      const reader = res.body.getReader();
+      const start = performance.now();
+      let received = 0;
+      const maxSeconds = 5;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        received += value.length;
+        const sec = (performance.now() - start) / 1000;
+        downloadEl.textContent = mbpsFromBytes(received, sec).toFixed(2);
+        setBar(35 + Math.min((sec / maxSeconds) * 25, 25));
+
+        if (sec >= maxSeconds) {
+          try { await reader.cancel(); } catch {}
+          break;
+        }
+      }
+
+      const totalSec = (performance.now() - start) / 1000;
+      return mbpsFromBytes(received, totalSec);
+    }
+
+    async function runUpload() {
+      statusEl.textContent = "Upload ölçelýär...";
+
+      const chunkSize = 128 * 1024;
+      const maxSeconds = 5;
+      const start = performance.now();
+      let sent = 0;
+
+      while (true) {
+        const secNow = (performance.now() - start) / 1000;
+        if (secNow >= maxSeconds) break;
+
+        const data = new Uint8Array(chunkSize);
+        crypto.getRandomValues(data);
+
+        const res = await fetch(`${API}/upload?nn=${Date.now()}`, {
+          method: "POST",
+          body: new Blob([data.buffer]),
+          cache: "no-store",
+          mode: "cors"
+        });
+
+        if (!res.ok) {
+          throw new Error(`Upload HTTP ${res.status}`);
+        }
+
+        await res.json();
+
+        sent += chunkSize;
+        const sec = (performance.now() - start) / 1000;
+        uploadEl.textContent = mbpsFromBytes(sent, sec).toFixed(2);
+        setBar(65 + Math.min((sec / maxSeconds) * 35, 35));
+      }
+
+      const totalSec = (performance.now() - start) / 1000;
+      return mbpsFromBytes(sent, totalSec);
+    }
+
+    async function startTest() {
+      startBtn.disabled = true;
+      resetUI();
+
+      try {
+        statusEl.textContent = "API barlanýar...";
+        await checkAPI();
+        await fetchIP();
+        await runPing();
+
+        const d = await runDownload();
+        downloadEl.textContent = d.toFixed(2);
+
+        const u = await runUpload();
+        uploadEl.textContent = u.toFixed(2);
+
+        statusEl.textContent = "Test tamamlandı ✔";
+        setBar(100);
+        lastTestEl.textContent = new Date().toLocaleString();
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Ýalňyşlyk boldy ❌";
+      } finally {
+        startBtn.disabled = false;
+      }
+    }
+
+    startBtn.addEventListener("click", startTest);
+    fetchIP().catch(() => {});
+  </script>
+</body>
+</html>
