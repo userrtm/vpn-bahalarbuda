@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UserrTM Speed Test</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     :root {
       --bg: #eef1f5;
@@ -16,7 +14,7 @@
       --muted: #6b7280;
       --line: #dbe2ea;
       --primary: #5b62f4;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      --shadow: 0 10px 30px rgba(0,0,0,0.06);
     }
 
     body {
@@ -32,18 +30,7 @@
       padding: 32px 16px 50px;
     }
 
-    h1 {
-      text-align: center;
-      font-size: 28px;
-      line-height: 1.3;
-      margin: 0 0 28px;
-      font-weight: 700;
-    }
-
     .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       margin-bottom: 18px;
     }
 
@@ -51,6 +38,14 @@
       text-decoration: none;
       color: var(--primary);
       font-weight: 600;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      line-height: 1.3;
+      margin: 0 0 28px;
+      font-weight: 700;
     }
 
     .start-wrap {
@@ -70,11 +65,6 @@
       font-weight: 700;
       cursor: pointer;
       box-shadow: var(--shadow);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .start-btn:hover {
-      transform: scale(1.02);
     }
 
     .start-btn:disabled {
@@ -176,31 +166,16 @@
     }
 
     @media (max-width: 700px) {
-      h1 {
-        font-size: 22px;
-      }
-
+      h1 { font-size: 22px; }
       .start-btn {
         width: 180px;
         height: 180px;
         font-size: 30px;
       }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .value {
-        font-size: 46px;
-      }
-
-      .meta-row {
-        flex-direction: column;
-      }
-
-      .meta-value {
-        text-align: left;
-      }
+      .grid { grid-template-columns: 1fr; }
+      .value { font-size: 46px; }
+      .meta-row { flex-direction: column; }
+      .meta-value { text-align: left; }
     }
   </style>
 </head>
@@ -332,9 +307,11 @@
         await fetch(`${API_BASE}/ping?t=${Date.now()}_${i}`, { cache: "no-store" });
         const end = performance.now();
         samples.push(end - start);
+
         pingEl.textContent = average(samples).toFixed(2);
         jitterEl.textContent = calcJitter(samples).toFixed(2);
         setProgress(10 + (i + 1) * 4);
+
         await sleep(120);
       }
 
@@ -381,34 +358,37 @@
     async function runUploadTest() {
       statusEl.textContent = "Upload ölçelýär...";
 
-      const chunkSize = 1024 * 1024;
+      const chunkSize = 256 * 1024;
       const maxDuration = 8000;
       let uploadedBytes = 0;
       const startTime = performance.now();
 
       while (true) {
-        const elapsed = performance.now() - startTime;
-        if (elapsed >= maxDuration) break;
+        const elapsedMs = performance.now() - startTime;
+        if (elapsedMs >= maxDuration) break;
 
         const data = new Uint8Array(chunkSize);
         crypto.getRandomValues(data);
 
+        const blob = new Blob([data.buffer]);
+
         const res = await fetch(`${API_BASE}/upload?nn=${Date.now()}`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/octet-stream"
-          },
-          body: data
+          body: blob,
+          cache: "no-store"
         });
 
         if (!res.ok) {
-          throw new Error("Upload request failed");
+          throw new Error(`Upload request failed: ${res.status}`);
         }
+
+        await res.json();
 
         uploadedBytes += chunkSize;
 
         const seconds = (performance.now() - startTime) / 1000;
         const bps = (uploadedBytes * 8) / seconds;
+
         uploadEl.textContent = formatMbps(bps);
         setProgress(70 + Math.min((seconds / 8) * 30, 30));
       }
