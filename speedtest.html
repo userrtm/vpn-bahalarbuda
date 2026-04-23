@@ -1,512 +1,184 @@
 <!DOCTYPE html>
 <html lang="tk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UserrTM Speed Test</title>
-  <meta name="description" content="UserrTM Speed Test — internet tizligiňizi barlaň." />
-  <meta http-equiv="Cache-Control" content="no-store" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UserrTM Speed Test</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+body{
+  font-family: Arial;
+  background:#f4f6fb;
+  text-align:center;
+  padding:20px;
+}
 
-    :root {
-      --bg: #f3f5fb;
-      --card: rgba(255, 255, 255, 0.95);
-      --text: #18212f;
-      --muted: #6e7a8f;
-      --primary: #5b62f4;
-      --line: rgba(20, 28, 45, 0.08);
-      --shadow: 0 12px 30px rgba(18, 26, 45, 0.08);
-      --radius: 22px;
-    }
+h1{
+  font-size:28px;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top, rgba(91, 98, 244, 0.10), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(91, 98, 244, 0.06), transparent 24%),
-        var(--bg);
-    }
+#startBtn{
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  border:6px solid #5b6cff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:30px auto;
+  font-size:26px;
+  color:#5b6cff;
+  cursor:pointer;
+}
 
-    .wrap {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 26px 16px 50px;
-    }
+.card{
+  background:white;
+  margin:10px auto;
+  padding:20px;
+  border-radius:12px;
+  width:90%;
+  max-width:400px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
 
-    .top-link {
-      display: inline-block;
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
+.big{
+  font-size:30px;
+  font-weight:bold;
+}
 
-    .hero {
-      text-align: center;
-      margin-bottom: 18px;
-    }
+.footer{
+  margin-top:20px;
+  color:#666;
+}
 
-    .hero h1 {
-      margin: 0;
-      font-size: 38px;
-      line-height: 1.15;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-
-    .hero p {
-      margin: 12px 0 0;
-      color: var(--muted);
-      font-size: 17px;
-    }
-
-    .start-wrap {
-      display: flex;
-      justify-content: center;
-      margin: 34px 0 22px;
-    }
-
-    .start-btn {
-      width: 230px;
-      height: 230px;
-      border-radius: 50%;
-      border: 5px solid var(--primary);
-      background: linear-gradient(180deg, #ffffff, #f8f9ff);
-      color: var(--primary);
-      font-size: 38px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-    }
-
-    .start-btn:hover {
-      transform: scale(1.02);
-    }
-
-    .start-btn:disabled {
-      cursor: not-allowed;
-      opacity: 0.75;
-      transform: none;
-    }
-
-    .status {
-      text-align: center;
-      min-height: 28px;
-      font-size: 18px;
-      color: var(--muted);
-      margin-bottom: 16px;
-      font-weight: 600;
-    }
-
-    .progress {
-      width: 100%;
-      max-width: 620px;
-      height: 14px;
-      margin: 0 auto 26px;
-      background: #dfe5f1;
-      border-radius: 999px;
-      overflow: hidden;
-      box-shadow: inset 0 1px 1px rgba(0,0,0,0.04);
-    }
-
-    .bar {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #6b72ff, #5b62f4);
-      transition: width 0.2s linear;
-      border-radius: 999px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 28px 22px;
-    }
-
-    .stat-card {
-      text-align: center;
-      min-height: 220px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .label {
-      font-size: 22px;
-      margin-bottom: 14px;
-      font-weight: 700;
-    }
-
-    .value {
-      font-size: 64px;
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 10px;
-    }
-
-    .unit {
-      color: var(--muted);
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .info-card h3 {
-      margin: 0 0 18px;
-      font-size: 24px;
-    }
-
-    .rows {
-      display: grid;
-      gap: 14px;
-    }
-
-    .row {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line);
-      align-items: center;
-    }
-
-    .row:last-child {
-      border-bottom: none;
-    }
-
-    .k {
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    .v {
-      text-align: right;
-      font-weight: 700;
-      word-break: break-word;
-    }
-
-    .country-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-    }
-
-    .flag {
-      width: 34px;
-      height: 24px;
-      border-radius: 5px;
-      object-fit: cover;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      background: #fff;
-    }
-
-    .footer {
-      margin-top: 28px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.8;
-    }
-
-    .footer a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .brand {
-      font-weight: 800;
-      color: var(--text);
-    }
-
-    @media (max-width: 760px) {
-      .hero h1 {
-        font-size: 28px;
-      }
-
-      .hero p {
-        font-size: 15px;
-      }
-
-      .start-btn {
-        width: 190px;
-        height: 190px;
-        font-size: 32px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .value {
-        font-size: 52px;
-      }
-
-      .row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .v,
-      .country-box {
-        text-align: left;
-        justify-content: flex-start;
-      }
-    }
-  </style>
+.flag{
+  font-size:30px;
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <a class="top-link" href="/">← Yza / Home</a>
 
-    <div class="hero">
-      <h1>UserrTM Speed Test</h1>
-      <p>Internet tizligiňizi çalt we aňsat barlaň</p>
-    </div>
+<h1>UserrTM Speed Test</h1>
 
-    <div class="start-wrap">
-      <button id="startBtn" class="start-btn">Start</button>
-    </div>
+<div id="startBtn">Start</div>
 
-    <div id="status" class="status">Taýar</div>
+<div class="card">
+  <div>Download</div>
+  <div class="big" id="download">0.00</div>
+  Mbps
+</div>
 
-    <div class="progress">
-      <div id="bar" class="bar"></div>
-    </div>
+<div class="card">
+  <div>Ping</div>
+  <div class="big" id="ping">0</div>
+  ms
+</div>
 
-    <div class="grid">
-      <div class="card stat-card">
-        <div class="label">Download</div>
-        <div id="download" class="value">0.00</div>
-        <div class="unit">Mbps</div>
-      </div>
+<div class="card">
+  <div>Jitter</div>
+  <div class="big" id="jitter">0</div>
+  ms
+</div>
 
-      <div class="card stat-card">
-        <div class="label">Ping</div>
-        <div id="ping" class="value">0.00</div>
-        <div class="unit">ms</div>
-      </div>
+<div class="card">
+  <div>IP Info</div>
+  <br>
+  <div id="ip">-</div>
+  <div id="country">-</div>
+  <div class="flag" id="flag"></div>
+</div>
 
-      <div class="card stat-card">
-        <div class="label">Jitter</div>
-        <div id="jitter" class="value">0.00</div>
-        <div class="unit">ms</div>
-      </div>
+<div class="footer">
+© 2026 UserrTM Servers<br>
+<b>userrtm.com</b>
+</div>
 
-      <div class="card info-card">
-        <h3>IP Info</h3>
-        <div class="rows">
-          <div class="row">
-            <div class="k">IP Address</div>
-            <div id="ip" class="v">-</div>
-          </div>
+<script>
+const API = "https://api.userrtmspeedtest.vip";
 
-          <div class="row">
-            <div class="k">Country</div>
-            <div class="country-box">
-              <img id="flag" class="flag" alt="Flag" style="display:none;">
-              <span id="countryName" class="v">-</span>
-            </div>
-          </div>
+function sleep(ms){
+  return new Promise(r => setTimeout(r, ms));
+}
 
-          <div class="row">
-            <div class="k">Last Test</div>
-            <div id="lastTest" class="v">-</div>
-          </div>
-        </div>
-      </div>
-    </div>
+function flagEmoji(code){
+  if(!code) return "";
+  return code
+    .toUpperCase()
+    .replace(/./g, c => String.fromCodePoint(127397 + c.charCodeAt()));
+}
 
-    <div class="footer">
-      <div>© 2026 <span class="brand">UserrTM Servers</span></div>
-      <div><a href="https://userrtm.com" target="_blank" rel="noopener">userrtm.com</a></div>
-    </div>
-  </div>
+async function getIP(){
+  try{
+    let res = await fetch(API + "/ipinfo");
+    let data = await res.json();
 
-  <script>
-    const API = "https://api.userrtmspeedtest.vip";
+    document.getElementById("ip").innerText = data.ip;
+    document.getElementById("country").innerText = data.country;
+    document.getElementById("flag").innerText = flagEmoji(data.country_code);
+  }catch(e){}
+}
 
-    const startBtn = document.getElementById("startBtn");
-    const statusEl = document.getElementById("status");
-    const barEl = document.getElementById("bar");
-    const downloadEl = document.getElementById("download");
-    const pingEl = document.getElementById("ping");
-    const jitterEl = document.getElementById("jitter");
-    const ipEl = document.getElementById("ip");
-    const countryNameEl = document.getElementById("countryName");
-    const flagEl = document.getElementById("flag");
-    const lastTestEl = document.getElementById("lastTest");
+async function testPing(){
+  let times = [];
 
-    function setBar(v) {
-      barEl.style.width = v + "%";
-    }
+  for(let i=0;i<10;i++){
+    let t1 = performance.now();
+    await fetch(API + "/ping");
+    let t2 = performance.now();
 
-    function resetUI() {
-      statusEl.textContent = "Taýar";
-      setBar(0);
-      downloadEl.textContent = "0.00";
-      pingEl.textContent = "0.00";
-      jitterEl.textContent = "0.00";
-      lastTestEl.textContent = "-";
-    }
+    times.push(t2 - t1);
+    await sleep(180);
+  }
 
-    function sleep(ms) {
-      return new Promise(r => setTimeout(r, ms));
-    }
+  let avg = times.reduce((a,b)=>a+b,0)/times.length;
+  let jitter = Math.max(...times) - Math.min(...times);
 
-    function avg(arr) {
-      return arr.reduce((a, b) => a + b, 0) / arr.length;
-    }
+  document.getElementById("ping").innerText = avg.toFixed(0);
+  document.getElementById("jitter").innerText = jitter.toFixed(0);
+}
 
-    function calcJitter(arr) {
-      if (arr.length < 2) return 0;
-      const diffs = [];
-      for (let i = 1; i < arr.length; i++) {
-        diffs.push(Math.abs(arr[i] - arr[i - 1]));
-      }
-      return avg(diffs);
-    }
+async function testDownload(){
+  let start = performance.now();
+  let bytes = 0;
 
-    function mbpsFromBytes(bytes, seconds) {
-      if (!seconds || seconds <= 0) return 0;
-      return (bytes * 8 / seconds / 1000000);
-    }
+  const controller = new AbortController();
 
-    async function apiJson(url) {
-      const res = await fetch(url, {
-        cache: "no-store",
-        mode: "cors"
+  fetch(API + "/download", {signal: controller.signal}).then(res=>{
+    const reader = res.body.getReader();
+
+    function read(){
+      reader.read().then(({done,value})=>{
+        if(done) return;
+
+        bytes += value.length;
+
+        let now = performance.now();
+        let speed = (bytes * 8) / ((now - start)/1000) / 1024 / 1024;
+
+        document.getElementById("download").innerText = speed.toFixed(2);
+
+        read();
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.json();
     }
 
-    async function fetchIPInfo() {
-      try {
-        const data = await apiJson(`${API}/ip?t=${Date.now()}`);
-        const ip = data.ip || "-";
-        ipEl.textContent = ip;
+    read();
+  });
 
-        const geoRes = await fetch(`https://ipapi.co/${ip}/json/`, { cache: "no-store" });
-        const geo = await geoRes.json();
+  await sleep(15000); // 🔥 15 SEKUNT
+  controller.abort();
+}
 
-        if (geo && geo.country_name) {
-          countryNameEl.textContent = geo.country_name;
+document.getElementById("startBtn").onclick = async ()=>{
+  document.getElementById("download").innerText = "0.00";
+  document.getElementById("ping").innerText = "0";
+  document.getElementById("jitter").innerText = "0";
 
-          if (geo.country_code) {
-            flagEl.src = `https://flagcdn.com/w40/${geo.country_code.toLowerCase()}.png`;
-            flagEl.style.display = "inline-block";
-          } else {
-            flagEl.style.display = "none";
-          }
-        } else {
-          countryNameEl.textContent = "-";
-          flagEl.style.display = "none";
-        }
-      } catch (e) {
-        ipEl.textContent = "-";
-        countryNameEl.textContent = "-";
-        flagEl.style.display = "none";
-      }
-    }
+  await getIP();
+  await testPing();
+  await testDownload();
+};
+</script>
 
-    async function runPing() {
-      statusEl.textContent = "Ping ölçelýär...";
-      const samples = [];
-
-      for (let i = 0; i < 8; i++) {
-        const s = performance.now();
-        await apiJson(`${API}/ping?t=${Date.now()}_${i}`);
-        const e = performance.now();
-        samples.push(e - s);
-
-        pingEl.textContent = avg(samples).toFixed(2);
-        jitterEl.textContent = calcJitter(samples).toFixed(2);
-        setBar(10 + ((i + 1) / 8) * 20);
-
-        await sleep(140);
-      }
-    }
-
-    async function runDownload() {
-      statusEl.textContent = "Download ölçelýär...";
-
-      const res = await fetch(`${API}/download?nn=${Date.now()}`, {
-        cache: "no-store",
-        mode: "cors"
-      });
-
-      if (!res.ok || !res.body) {
-        throw new Error(`Download HTTP ${res.status}`);
-      }
-
-      const reader = res.body.getReader();
-      const start = performance.now();
-      let received = 0;
-      const maxSeconds = 12;
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        received += value.length;
-        const sec = (performance.now() - start) / 1000;
-        downloadEl.textContent = mbpsFromBytes(received, sec).toFixed(2);
-        setBar(35 + Math.min((sec / maxSeconds) * 65, 65));
-
-        if (sec >= maxSeconds) {
-          try { await reader.cancel(); } catch {}
-          break;
-        }
-      }
-
-      const totalSec = (performance.now() - start) / 1000;
-      return mbpsFromBytes(received, totalSec);
-    }
-
-    async function startTest() {
-      startBtn.disabled = true;
-      resetUI();
-
-      try {
-        await fetchIPInfo();
-        await runPing();
-
-        const d = await runDownload();
-        downloadEl.textContent = d.toFixed(2);
-
-        statusEl.textContent = "Test tamamlandı ✔";
-        setBar(100);
-        lastTestEl.textContent = new Date().toLocaleString();
-      } catch (err) {
-        console.error(err);
-        statusEl.textContent = "Ýalňyşlyk boldy ❌";
-      } finally {
-        startBtn.disabled = false;
-      }
-    }
-
-    startBtn.addEventListener("click", startTest);
-    fetchIPInfo();
-  </script>
 </body>
 </html>
