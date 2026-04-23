@@ -240,11 +240,10 @@
       return (bytes * 8 / seconds / 1000000);
     }
 
-    async function apiJson(url, options = {}) {
+    async function apiJson(url) {
       const res = await fetch(url, {
         cache: "no-store",
-        mode: "cors",
-        ...options
+        mode: "cors"
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return res.json();
