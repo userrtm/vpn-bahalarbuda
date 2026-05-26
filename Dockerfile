@@ -1,9 +1,7 @@
-FROM node:20-alpine
+FROM nginx:alpine
 
-WORKDIR /app
-COPY package.json ./
-RUN npm install
-COPY . .
+COPY . /usr/share/nginx/html
 
-EXPOSE 8080
-CMD ["npm", "start"]
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
