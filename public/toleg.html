@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UserrTM Payment</title>
+
+  <meta name="description" content="Töleg görnüşini saýlaň we aňsat töleg ediň." />
+  <link rel="canonical" href="https://www.userrtm.com/toleg.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="UserrTM Payment" />
+  <meta property="og:description" content="Töleg görnüşini saýlaň we aňsat töleg ediň." />
+  <meta property="og:url" content="https://www.userrtm.com/toleg.html" />
+  <meta property="og:site_name" content="UserrTM Servers" />
+  <meta property="og:image" content="https://www.userrtm.com/payment-preview.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="UserrTM Payment" />
+  <meta name="twitter:description" content="Töleg görnüşini saýlaň we aňsat töleg ediň." />
+  <meta name="twitter:image" content="https://www.userrtm.com/payment-preview.jpg" />
+
+  <style>
+    :root{
+      --bg-main:
+        radial-gradient(circle at 20% 10%, rgba(56,189,248,0.18), transparent 28%),
+        radial-gradient(circle at 85% 85%, rgba(250,204,21,0.12), transparent 26%),
+        linear-gradient(135deg, #06142b, #0b1f3d 50%, #07111f);
+
+      --card-bg: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      --card-border: rgba(255,255,255,0.10);
+
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --soft: #94a3b8;
+
+      --hero-bg: linear-gradient(135deg, rgba(15,23,42,0.82), rgba(30,41,59,0.72));
+      --info-bg: rgba(250,204,21,0.10);
+      --info-border: rgba(250,204,21,0.18);
+      --info-text: #f8f3d3;
+
+      --yellow1:#facc15;
+      --yellow2:#fde047;
+      --blue1:#38bdf8;
+      --blue2:#60a5fa;
+      --green1:#22c55e;
+      --green2:#4ade80;
+
+      --footer-bg: rgba(255,255,255,0.05);
+      --footer-border: rgba(255,255,255,0.08);
+
+      --lang-bg: rgba(255,255,255,0.06);
+      --lang-border: rgba(255,255,255,0.10);
+      --lang-active: rgba(56,189,248,0.18);
+    }
+
+    body.light{
+      --bg-main:
+        radial-gradient(circle at 20% 10%, rgba(59,130,246,0.14), transparent 30%),
+        radial-gradient(circle at 85% 85%, rgba(250,204,21,0.14), transparent 26%),
+        linear-gradient(135deg, #f8fafc, #e2e8f0 45%, #cbd5e1);
+
+      --card-bg: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.86));
+      --card-border: rgba(15,23,42,0.08);
+
+      --text: #0f172a;
+      --muted: #334155;
+      --soft: #475569;
+
+      --hero-bg: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(241,245,249,0.88));
+      --info-bg: rgba(250,204,21,0.16);
+      --info-border: rgba(250,204,21,0.24);
+      --info-text: #4b5563;
+
+      --footer-bg: rgba(255,255,255,0.66);
+      --footer-border: rgba(15,23,42,0.08);
+
+      --lang-bg: rgba(255,255,255,0.75);
+      --lang-border: rgba(15,23,42,0.08);
+      --lang-active: rgba(56,189,248,0.16);
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      font-family:Arial,sans-serif;
+      color:var(--text);
+      background: var(--bg-main);
+      background-attachment: fixed;
+      min-height:100vh;
+      padding:20px 12px 40px;
+      transition: background 0.3s ease, color 0.3s ease;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      width:420px;
+      height:420px;
+      top:-120px;
+      left:-120px;
+      background:rgba(56,189,248,0.18);
+      filter:blur(120px);
+      border-radius:50%;
+      z-index:0;
+      pointer-events:none;
+      animation: floatGlow1 10s ease-in-out infinite alternate;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      width:420px;
+      height:420px;
+      right:-120px;
+      bottom:-120px;
+      background:rgba(250,204,21,0.14);
+      filter:blur(120px);
+      border-radius:50%;
+      z-index:0;
+      pointer-events:none;
+      animation: floatGlow2 12s ease-in-out infinite alternate;
+    }
+
+    .bg-grid{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size:40px 40px;
+      mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+      opacity:0.45;
+    }
+
+    body.light .bg-grid{
+      opacity:0.22;
+      background-image:
+        linear-gradient(rgba(15,23,42,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,0.05) 1px, transparent 1px);
+    }
+
+    .container{
+      max-width:760px;
+      margin:0 auto;
+      position: relative;
+      z-index:1;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+
+    .lang-switch{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      background:var(--lang-bg);
+      border:1px solid var(--lang-border);
+      border-radius:999px;
+      padding:7px;
+      backdrop-filter:blur(10px);
+      box-shadow:0 10px 28px rgba(0,0,0,0.12);
+    }
+
+    .lang-btn,
+    .theme-btn{
+      border:none;
+      cursor:pointer;
+      transition:0.25s ease;
+      font-weight:800;
+    }
+
+    .lang-btn{
+      padding:10px 14px;
+      border-radius:999px;
+      background:transparent;
+      color:var(--text);
+      font-size:14px;
+    }
+
+    .lang-btn.active{
+      background:var(--lang-active);
+      box-shadow:inset 0 0 0 1px rgba(56,189,248,0.28);
+    }
+
+    .theme-btn{
+      padding:12px 16px;
+      border-radius:999px;
+      background:var(--card-bg);
+      border:1px solid var(--card-border);
+      color:var(--text);
+      font-size:14px;
+      backdrop-filter:blur(10px);
+      box-shadow:0 10px 28px rgba(0,0,0,0.12);
+    }
+
+    .theme-btn:hover,
+    .lang-btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      background:var(--hero-bg);
+      border:1px solid var(--card-border);
+      border-radius:28px;
+      padding:28px 18px;
+      text-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,0.18);
+      margin-bottom:18px;
+      backdrop-filter:blur(14px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size:32px 32px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
+      pointer-events:none;
+    }
+
+    body.light .hero::before{
+      background:
+        linear-gradient(rgba(15,23,42,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,0.03) 1px, transparent 1px);
+    }
+
+    .hero h1,
+    .hero p{
+      position: relative;
+      z-index:1;
+    }
+
+    .hero h1{
+      font-size:clamp(34px, 8vw, 64px);
+      font-weight:900;
+      line-height:1.05;
+      margin-bottom:14px;
+      background:linear-gradient(90deg,#e0f2fe,#7dd3fc,#fef08a);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:0 0 30px rgba(125,211,252,0.08);
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.7;
+    }
+
+    .section{
+      background:var(--card-bg);
+      border:1px solid var(--card-border);
+      border-radius:28px;
+      padding:20px;
+      box-shadow:0 18px 45px rgba(0,0,0,0.14);
+      backdrop-filter:blur(14px);
+      margin-bottom:18px;
+    }
+
+    .section-title{
+      font-size:24px;
+      font-weight:900;
+      margin-bottom:16px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .tab-buttons{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      margin-bottom:16px;
+    }
+
+    .tab-btn{
+      width:100%;
+      border:none;
+      border-radius:999px;
+      padding:20px 16px;
+      font-size:18px;
+      font-weight:900;
+      cursor:pointer;
+      transition:0.25s ease;
+    }
+
+    .tab-btn:hover{
+      transform:translateY(-2px);
+      opacity:0.98;
+    }
+
+    .tab-btn.active-terminal{
+      background:linear-gradient(90deg,var(--yellow1),var(--yellow2));
+      color:#1e293b;
+      box-shadow:0 12px 26px rgba(250,204,21,0.24);
+    }
+
+    .tab-btn.active-phone{
+      background:linear-gradient(90deg,var(--blue1),var(--blue2));
+      color:#082f49;
+      box-shadow:0 12px 26px rgba(56,189,248,0.24);
+    }
+
+    .tab-note{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.8;
+    }
+
+    .terminal-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:24px;
+      padding:22px 16px;
+    }
+
+    body.light .terminal-card,
+    body.light .phone-card,
+    body.light .shot-box{
+      border:1px solid rgba(15,23,42,0.08);
+    }
+
+    .terminal-number{
+      font-size:34px;
+      font-weight:900;
+      letter-spacing:1px;
+      margin-bottom:14px;
+    }
+
+    .terminal-sub{
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.8;
+      margin-bottom:18px;
+    }
+
+    .copy-btn{
+      width:100%;
+      border:none;
+      border-radius:18px;
+      padding:18px 16px;
+      font-size:18px;
+      font-weight:900;
+      cursor:pointer;
+      color:#fff;
+      background:linear-gradient(90deg,var(--green1),var(--green2));
+      box-shadow:0 12px 28px rgba(34,197,94,0.22);
+      transition:0.25s ease;
+    }
+
+    .copy-btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .shot-box{
+      margin-top:16px;
+      border-radius:22px;
+      padding:18px 16px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.8;
+    }
+
+    .shot-box strong{
+      color:var(--text);
+    }
+
+    .info-box{
+      background:var(--info-bg);
+      border:1px solid var(--info-border);
+      color:var(--info-text);
+      border-radius:22px;
+      padding:18px 16px;
+      line-height:1.8;
+      font-size:16px;
+      margin-bottom:18px;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .phone-list{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .phone-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:24px;
+      padding:18px 16px;
+      box-shadow:0 14px 35px rgba(0,0,0,0.12);
+    }
+
+    .phone-number{
+      font-size:24px;
+      font-weight:900;
+      margin-bottom:14px;
+      word-break:break-word;
+    }
+
+    .phone-badge{
+      display:inline-block;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:800;
+      color:var(--muted);
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      margin-bottom:16px;
+    }
+
+    body.light .phone-badge{
+      border:1px solid rgba(15,23,42,0.08);
+    }
+
+    .btn-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn-half{
+      flex:1 1 220px;
+      border:none;
+      border-radius:18px;
+      padding:18px 14px;
+      font-size:18px;
+      font-weight:900;
+      cursor:pointer;
+      transition:0.25s ease;
+    }
+
+    .btn-half:hover{
+      transform:translateY(-2px);
+    }
+
+    .btn-copy{
+      color:#fff;
+      background:linear-gradient(90deg,var(--green1),var(--green2));
+      box-shadow:0 12px 28px rgba(34,197,94,0.22);
+    }
+
+    .btn-pay{
+      color:#fff;
+      background:linear-gradient(90deg,var(--blue1),var(--blue2));
+      box-shadow:0 12px 28px rgba(56,189,248,0.22);
+    }
+
+    .footer{
+      text-align:center;
+      margin-top:20px;
+      padding:18px 16px;
+      color:var(--muted);
+      font-size:18px;
+      background:var(--footer-bg);
+      border:1px solid var(--footer-border);
+      border-radius:20px;
+      backdrop-filter:blur(10px);
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:28px;
+      transform:translateX(-50%) translateY(30px);
+      background:linear-gradient(90deg,#166534,#15803d);
+      color:#fff;
+      padding:14px 22px;
+      border-radius:999px;
+      font-size:16px;
+      font-weight:800;
+      opacity:0;
+      pointer-events:none;
+      transition:0.3s ease;
+      z-index:9999;
+      box-shadow:0 16px 35px rgba(0,0,0,0.26);
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    @keyframes floatGlow1{
+      0%{ transform:translate(0,0) scale(1); }
+      100%{ transform:translate(40px,20px) scale(1.08); }
+    }
+
+    @keyframes floatGlow2{
+      0%{ transform:translate(0,0) scale(1); }
+      100%{ transform:translate(-35px,-25px) scale(1.1); }
+    }
+
+    @media (max-width:640px){
+      body{
+        padding:16px 10px 30px;
+      }
+
+      .hero{
+        padding:22px 14px;
+      }
+
+      .hero p{
+        font-size:16px;
+      }
+
+      .section{
+        padding:16px;
+      }
+
+      .section-title{
+        font-size:20px;
+      }
+
+      .tab-btn{
+        font-size:16px;
+        padding:18px 14px;
+      }
+
+      .terminal-number{
+        font-size:28px;
+      }
+
+      .terminal-sub,
+      .tab-note,
+      .info-box,
+      .shot-box{
+        font-size:15px;
+      }
+
+      .phone-number{
+        font-size:20px;
+      }
+
+      .btn-half,
+      .copy-btn{
+        font-size:17px;
+      }
+
+      .topbar{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .lang-switch{
+        justify-content:center;
+      }
+
+      body::before,
+      body::after{
+        width:300px;
+        height:300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <div class="container">
+
+    <div class="topbar">
+      <div class="lang-switch">
+        <button class="lang-btn active" id="btnTk" onclick="setLang('tk')">🇹🇲 Türkmençe</button>
+        <button class="lang-btn" id="btnRu" onclick="setLang('ru')">🇷🇺 Русский</button>
+        <button class="lang-btn" id="btnTr" onclick="setLang('tr')">🇹🇷 Türkçe</button>
+      </div>
+
+      <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">☀️ Light</button>
+    </div>
+
+    <div class="hero">
+      <h1>UserrTM Payment</h1>
+      <p id="heroText">Töleg görnüşini saýlaň. Töleg geçireniňizden soň, tassyklaýjy suraty iberiň.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title" id="paymentTitle">💳 Töleg görnüşini saýla</div>
+
+      <div class="tab-buttons">
+        <button class="tab-btn active-terminal" id="terminalTabBtn" onclick="showTerminal()">💳 Terminal arkaly töleg</button>
+        <button class="tab-btn active-phone" id="phoneTabBtn" onclick="showPhone()">📱 Telefondan 0804 bilen töleg</button>
+      </div>
+
+      <div class="tab-note" id="tabNote">
+        Terminal üçin bir esasy nomer görkezilýär. Telefondan 0804 töleg etjek bolsaňyz, “Telefondan 0804 bilen töleg” düwmesine basyň, saýlan nomerler çykar, şol nomerleriň haýsydyr birine töleg edip bilersiňiz.
+      </div>
+    </div>
+
+    <div class="section" id="terminalSection">
+      <div class="section-title" id="terminalTitle">💳 Terminal arkaly töleg</div>
+
+      <div class="terminal-card">
+        <div class="terminal-number" id="terminalNumber">62434203</div>
+
+        <div class="terminal-sub" id="terminalSub">
+          Terminaldan töleg geçirjek bolsaňyz, şu nomere geçiriň. Töleg edileninden soň, geçiren bölegiňiziň suratyny admine iberiň.
+        </div>
+
+        <button class="copy-btn" id="terminalCopyBtn" onclick="copyText('62434203')">📋 Kopya et</button>
+      </div>
+
+      <div class="shot-box" id="terminalShotBox">
+        Töleg geçireniňizden soň: <strong>tassyklama suratyny admine iberiň</strong>.
+      </div>
+    </div>
+
+    <div class="section hidden" id="phoneSection">
+      <div class="section-title" id="phoneTitle">📱 0804 arkaly töleg</div>
+
+      <div class="info-box" id="infoBox">
+        <strong>Möhüm:</strong> “Töle” düwmesi 0804 üçin SMS penjirisini açýar. Açylan SMS içinde nomer <strong>+993...</strong> görnüşde taýýar goýlar we soňunda <strong>1 sany boşluk</strong> hem bolar. Soň müşderi özi dowamyna töleg mukdaryny ýazyp töleg iberip biler.
+      </div>
+
+      <div class="phone-list" id="phoneList"></div>
+
+      <div class="shot-box" id="phoneShotBox">
+        Tölegi geçireniňizden soň <strong>0801 belgiden gelen töleg çeginiň suratyny admine ugradyň</strong>.
+      </div>
+    </div>
+
+    <div class="footer">
+      © <span id="year"></span> UserrTM Servers
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast">Kopyalandy.</div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const phoneNumbers = [
+      "+99362434203",
+      "+99364883003",
+      "+99364517607",
+      "+99361703386",
+      "+99361027826",
+      "+99362016486",
+      "+99371298323",
+      "+99371868833",
+      "+99371086659",
+      "+99364125409",
+      "+99371051073",
+      "+99371051074",
+      "+99361856842",
+      "+99365590742",
+      "+99362723560",
+      "+99361481041",
+      "+99361910924"
+    ];
+
+    const texts = {
+      tk: {
+        heroText: "Töleg görnüşini saýlaň. Töleg geçireniňizden soň, tassyklaýjy suraty iberiň.",
+        paymentTitle: "💳 Töleg görnüşini saýla",
+        terminalTabBtn: "💳 Terminal arkaly töleg",
+        phoneTabBtn: "📱 Telefondan 0804 bilen töleg",
+        tabNote: "Terminal üçin bir esasy nomer görkezilýär. Telefondan 0804 töleg etjek bolsaňyz, “Telefondan 0804 bilen töleg” düwmesine basyň, saýlan nomerler çykar, şol nomerleriň haýsydyr birine töleg edip bilersiňiz.",
+        terminalTitle: "💳 Terminal arkaly töleg",
+        terminalSub: "Terminaldan töleg geçirjek bolsaňyz, şu nomere geçiriň. Töleg edileninden soň, geçiren bölegiňiziň suratyny admine iberiň.",
+        terminalCopyBtn: "📋 Kopya et",
+        terminalShotBox: "Töleg geçireniňizden soň: <strong>tassyklama suratyny admine iberiň</strong>.",
+        phoneTitle: "📱 0804 arkaly töleg",
+        infoBox: "<strong>Möhüm:</strong> “Töle” düwmesi 0804 üçin SMS penjirisini açýar. Açylan SMS içinde nomer <strong>+993...</strong> görnüşde taýýar goýlar we soňunda <strong>1 sany boşluk</strong> hem bolar. Soň müşderi özi dowamyna töleg mukdaryny ýazyp töleg iberip biler.",
+        phoneShotBox: "Tölegi geçireniňizden soň <strong>0801 belgiden gelen töleg çeginiň suratyny admine ugradyň</strong>.",
+        copyBtn: "📋 Kopya et",
+        payBtn: "💸 Töle",
+        numberLabel: "Nomer",
+        copied: "Kopyalandy.",
+        themeLight: "☀️ Light",
+        themeDark: "🌙 Dark"
+      },
+      ru: {
+        heroText: "Выберите способ оплаты. После перевода отправьте подтверждающий скриншот.",
+        paymentTitle: "💳 Выберите способ оплаты",
+        terminalTabBtn: "💳 Оплата через терминал",
+        phoneTabBtn: "📱 Оплата с телефона через 0804",
+        tabNote: "Для терминала показан один основной номер. Если хотите оплатить с телефона через 0804, нажмите кнопку “Оплата с телефона через 0804”, появятся номера, и вы сможете перевести на любой из них.",
+        terminalTitle: "💳 Оплата через терминал",
+        terminalSub: "Если будете переводить через терминал, отправьте на этот номер. После оплаты отправьте администратору фото чека.",
+        terminalCopyBtn: "📋 Копировать",
+        terminalShotBox: "После оплаты: <strong>отправьте администратору подтверждающий скриншот</strong>.",
+        phoneTitle: "📱 Оплата через 0804",
+        infoBox: "<strong>Важно:</strong> кнопка “Оплатить” открывает SMS-окно для 0804. В открытом SMS номер будет уже вставлен в виде <strong>+993...</strong>, и в конце будет <strong>1 пробел</strong>. Затем клиент сам может дописать сумму и отправить оплату.",
+        phoneShotBox: "После оплаты отправьте администратору <strong>фото чека оплаты, пришедшего с номера 0801</strong>.",
+        copyBtn: "📋 Копировать",
+        payBtn: "💸 Оплатить",
+        numberLabel: "Номер",
+        copied: "Скопировано.",
+        themeLight: "☀️ Светлая",
+        themeDark: "🌙 Тёмная"
+      },
+      tr: {
+        heroText: "Ödeme türünü seçin. Ödeme yaptıktan sonra doğrulama ekran görüntüsünü gönderin.",
+        paymentTitle: "💳 Ödeme türünü seçin",
+        terminalTabBtn: "💳 Terminal ile ödeme",
+        phoneTabBtn: "📱 Telefondan 0804 ile ödeme",
+        tabNote: "Terminal için bir ana numara gösterilir. Telefondan 0804 ile ödeme yapmak istiyorsanız, “Telefondan 0804 ile ödeme” butonuna basın, numaralar açılır ve bu numaralardan herhangi birine ödeme yapabilirsiniz.",
+        terminalTitle: "💳 Terminal ile ödeme",
+        terminalSub: "Terminalden ödeme yapacaksanız, bu numaraya gönderin. Ödeme yapıldıktan sonra dekontun fotoğrafını admine gönderin.",
+        terminalCopyBtn: "📋 Kopyala",
+        terminalShotBox: "Ödeme yaptıktan sonra: <strong>doğrulama ekran görüntüsünü admine gönderin</strong>.",
+        phoneTitle: "📱 0804 ile ödeme",
+        infoBox: "<strong>Önemli:</strong> “Öde” butonu 0804 için SMS penceresini açar. Açılan SMS içinde numara <strong>+993...</strong> şeklinde hazır gelir ve sonunda <strong>1 boşluk</strong> bırakılır. Sonra müşteri devamına ödeme tutarını yazıp ödemeyi gönderebilir.",
+        phoneShotBox: "Ödeme yaptıktan sonra admine <strong>0801 numarasından gelen ödeme dekontunun fotoğrafını gönderin</strong>.",
+        copyBtn: "📋 Kopyala",
+        payBtn: "💸 Öde",
+        numberLabel: "Numara",
+        copied: "Kopyalandı.",
+        themeLight: "☀️ Açık",
+        themeDark: "🌙 Koyu"
+      }
+    };
+
+    let currentLang = localStorage.getItem("lang") || "tk";
+
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem("lang", lang);
+      document.documentElement.lang = lang;
+
+      const t = texts[lang];
+
+      document.getElementById("heroText").textContent = t.heroText;
+      document.getElementById("paymentTitle").textContent = t.paymentTitle;
+      document.getElementById("terminalTabBtn").textContent = t.terminalTabBtn;
+      document.getElementById("phoneTabBtn").textContent = t.phoneTabBtn;
+      document.getElementById("tabNote").textContent = t.tabNote;
+      document.getElementById("terminalTitle").textContent = t.terminalTitle;
+      document.getElementById("terminalSub").textContent = t.terminalSub;
+      document.getElementById("terminalCopyBtn").textContent = t.terminalCopyBtn;
+      document.getElementById("terminalShotBox").innerHTML = t.terminalShotBox;
+      document.getElementById("phoneTitle").textContent = t.phoneTitle;
+      document.getElementById("infoBox").innerHTML = t.infoBox;
+      document.getElementById("phoneShotBox").innerHTML = t.phoneShotBox;
+
+      document.getElementById("btnTk").classList.toggle("active", lang === "tk");
+      document.getElementById("btnRu").classList.toggle("active", lang === "ru");
+      document.getElementById("btnTr").classList.toggle("active", lang === "tr");
+
+      updateThemeButtonText();
+      buildPhoneList();
+    }
+
+    function updateThemeButtonText() {
+      const btn = document.getElementById("themeToggle");
+      const isLight = document.body.classList.contains("light");
+      const t = texts[currentLang];
+      btn.textContent = isLight ? t.themeDark : t.themeLight;
+    }
+
+    function applyTheme(theme) {
+      document.body.classList.toggle("light", theme === "light");
+      localStorage.setItem("theme", theme);
+      updateThemeButtonText();
+    }
+
+    function toggleTheme() {
+      const isLight = document.body.classList.contains("light");
+      applyTheme(isLight ? "dark" : "light");
+    }
+
+    function showTerminal() {
+      document.getElementById("terminalSection").classList.remove("hidden");
+      document.getElementById("phoneSection").classList.add("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showPhone() {
+      document.getElementById("phoneSection").classList.remove("hidden");
+      document.getElementById("terminalSection").classList.add("hidden");
+      setTimeout(() => {
+        document.getElementById("phoneSection").scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById("toast");
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1800);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast(texts[currentLang].copied);
+      } catch (e) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast(texts[currentLang].copied);
+      }
+    }
+
+    function openSMS(number) {
+      const smsNumber = "0804";
+      const smsBody = number + " ";
+      const url = `sms:${smsNumber}?body=${encodeURIComponent(smsBody)}`;
+      window.location.href = url;
+    }
+
+    function buildPhoneList() {
+      const list = document.getElementById("phoneList");
+      const t = texts[currentLang];
+      list.innerHTML = "";
+
+      phoneNumbers.forEach((num, index) => {
+        const card = document.createElement("div");
+        card.className = "phone-card";
+
+        card.innerHTML = `
+          <div class="phone-number">${num}</div>
+          <div class="phone-badge">${t.numberLabel} ${index + 1}</div>
+          <div class="btn-row">
+            <button class="btn-half btn-copy" onclick="copyText('${num}')">${t.copyBtn}</button>
+            <button class="btn-half btn-pay" onclick="openSMS('${num}')">${t.payBtn}</button>
+          </div>
+        `;
+
+        list.appendChild(card);
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      applyTheme(savedTheme);
+      setLang(currentLang);
+    });
+  </script>
+</body>
+</html>
