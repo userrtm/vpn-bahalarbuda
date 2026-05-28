@@ -2,24 +2,25 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
+
 const PORT = process.env.PORT || 8080;
 
 app.use(express.static(__dirname));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
+app.get("*", (req, res) => {
+  let filePath = path.join(__dirname, req.path);
 
-app.get("/:page", (req, res) => {
-  const page = req.params.page;
-
-  if (page.includes(".")) {
-    return res.sendFile(path.join(__dirname, page));
+  if (req.path === "/") {
+    filePath = path.join(__dirname, "index.html");
   }
 
-  res.sendFile(path.join(__dirname, page + ".html"));
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      res.status(404).send("404 page not found");
+    }
+  });
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log("UserrTM site running on port " + PORT);
+  console.log("SERVER STARTED ON " + PORT);
 });
