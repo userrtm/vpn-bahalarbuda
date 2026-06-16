@@ -1,256 +1,64 @@
 <!DOCTYPE html>
 <html lang="tk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UserrTM Servers</title>
-
-  <meta name="description" content="UserrTM Servers - Dünýä boýunça serwerler, TikTok, YouTube, Instagram, Telegram we beýleki platformalar üçin ýokary tizlikli, durnukly VPN hyzmaty." />
-  <link rel="canonical" href="https://userrtm.org/" />
-  <meta name="google-site-verification" content="6AnpEnicDSm4vwaTVfxBRVacsqPzbEnGtTsfsFWh6eY" />
-
-  <link rel="icon" href="/favicon.ico?v=3">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
-  <meta name="theme-color" content="#020617" />
-
-  <meta property="og:title" content="UserrTM Servers" />
-  <meta property="og:description" content="Dünýä boýunça serwerler, ýokary tizlikli we durnukly VPN hyzmaty." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://userrtm.org/" />
-  <meta property="og:image" content="https://userrtm.org/elon-vpn.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://userrtm.org/elon-vpn.png" />
-
-  <style>
-    :root{
-      --bg:#020617;
-      --bg2:#050816;
-      --text:#ffffff;
-      --soft:#dbeafe;
-      --muted:#94a3b8;
-      --panel:linear-gradient(180deg,rgba(15,23,42,.92),rgba(2,6,23,.94));
-      --line:rgba(255,255,255,.13);
-      --shadow:0 20px 60px rgba(0,0,0,.48);
-      --map-filter:brightness(.7) saturate(1.15);
-      --map-opacity:.38;
-      --grid:rgba(255,255,255,.05);
-      --contact-bg:rgba(255,255,255,.07);
-      --contact-border:rgba(255,255,255,.08);
-      --footer-bg:rgba(15,23,42,.75);
-    }
-    body.light{
-      --bg:#f8fbff;
-      --bg2:#ffffff;
-      --text:#071327;
-      --soft:#1f2937;
-      --muted:#64748b;
-      --panel:linear-gradient(180deg,rgba(255,255,255,.96),rgba(248,250,252,.94));
-      --line:rgba(15,23,42,.10);
-      --shadow:0 18px 45px rgba(15,23,42,.12);
-      --map-filter:brightness(1.55) saturate(.9);
-      --map-opacity:.22;
-      --grid:rgba(15,23,42,.06);
-      --contact-bg:rgba(255,255,255,.82);
-      --contact-border:rgba(15,23,42,.08);
-      --footer-bg:rgba(255,255,255,.78);
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{
-      font-family:Arial, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at 18% 8%,rgba(0,140,255,.34),transparent 27%),
-        radial-gradient(circle at 85% 24%,rgba(168,85,247,.28),transparent 30%),
-        radial-gradient(circle at 50% 88%,rgba(249,115,22,.14),transparent 30%),
-        linear-gradient(135deg,var(--bg),var(--bg2) 58%,#090b1f);
-      min-height:100vh;
-      padding:0 12px 28px;
-      overflow-x:hidden;
-      transition:background .35s ease,color .35s ease;
-    }
-    body.light{
-      background:
-        radial-gradient(circle at 18% 8%,rgba(14,165,233,.14),transparent 28%),
-        radial-gradient(circle at 86% 28%,rgba(168,85,247,.12),transparent 30%),
-        radial-gradient(circle at 52% 88%,rgba(249,115,22,.10),transparent 30%),
-        linear-gradient(135deg,#f8fbff,#ffffff 52%,#eef6ff);
-    }
-    .bg-map{
-      position:fixed;inset:0;z-index:0;pointer-events:none;
-      background:
-        linear-gradient(rgba(2,6,23,.18),rgba(2,6,23,.88)),
-        url('https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg');
-      background-size:cover;background-position:center;
-      opacity:var(--map-opacity);filter:var(--map-filter);
-      animation:mapFloat 18s ease-in-out infinite;
-      transition:opacity .35s ease,filter .35s ease;
-    }
-    body.light .bg-map{background:url('https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg');}
-    .grid-layer{
-      position:fixed;inset:0;z-index:1;pointer-events:none;
-      background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-      background-size:52px 52px;
-      mask-image:radial-gradient(circle at 50% 22%,black 42%,transparent 84%);
-      animation:gridMove 14s linear infinite;
-    }
-    .particles,.orbs{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}
-    .p{position:absolute;width:5px;height:5px;border-radius:50%;background:#38bdf8;box-shadow:0 0 18px #38bdf8;animation:twinkle 3s ease-in-out infinite}
-    .p:nth-child(1){top:14%;left:15%;animation-delay:0s}.p:nth-child(2){top:20%;left:70%;animation-delay:.7s}.p:nth-child(3){top:52%;left:88%;animation-delay:1.4s}.p:nth-child(4){top:76%;left:55%;animation-delay:2s}.p:nth-child(5){top:42%;left:30%;animation-delay:1s}.p:nth-child(6){top:65%;left:12%;animation-delay:2.7s}.p:nth-child(7){top:88%;left:82%;animation-delay:1.8s}.p:nth-child(8){top:31%;left:48%;animation-delay:.3s}
-    .orb{position:absolute;border-radius:50%;filter:blur(26px);opacity:.28;animation:orbMove 9s ease-in-out infinite}
-    .orb.one{width:160px;height:160px;background:#0ea5e9;left:4%;top:18%}.orb.two{width:180px;height:180px;background:#8b5cf6;right:8%;top:25%;animation-delay:2s}.orb.three{width:160px;height:160px;background:#f97316;right:16%;bottom:8%;animation-delay:4s}
-    .container{max-width:1280px;margin:0 auto;position:relative;z-index:5}
-    .hero{position:relative;text-align:center;min-height:430px;padding:55px 12px 34px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
-    .menu-wrap{position:absolute;right:10px;top:18px;z-index:20}.top-controls{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:20}
-    .menu-btn,.theme-btn{border:1px solid rgba(255,255,255,.28);background:rgba(2,6,23,.66);color:#fff;border-radius:999px;padding:10px 16px;font-weight:900;backdrop-filter:blur(12px);cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.22);transition:.25s}
-    body.light .menu-btn,body.light .theme-btn{background:rgba(255,255,255,.86);color:#071327;border-color:rgba(15,23,42,.10);box-shadow:0 10px 26px rgba(15,23,42,.10)}
-    .menu-btn:hover,.theme-btn:hover{transform:translateY(-2px)}
-    .menu-dropdown{position:absolute;top:52px;right:0;min-width:225px;background:rgba(2,6,23,.96);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:10px;display:none;box-shadow:0 18px 50px rgba(0,0,0,.45);backdrop-filter:blur(12px)}
-    body.light .menu-dropdown{background:rgba(255,255,255,.96);border-color:rgba(15,23,42,.08)}
-    .menu-dropdown.show{display:block;animation:pop .18s ease-out}.menu-link{display:block;text-decoration:none;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);padding:13px 14px;border-radius:14px;margin-bottom:8px;font-weight:800}.menu-link:last-child{margin-bottom:0}body.light .menu-link{color:#071327;background:rgba(15,23,42,.04);border-color:rgba(15,23,42,.08)}
-    .site-name{font-size:clamp(58px,10vw,112px);font-weight:900;letter-spacing:-2px;line-height:.95;margin:26px 0 12px;background:linear-gradient(180deg,#fff 0%,#dbeafe 30%,#38bdf8 57%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 35px rgba(56,189,248,.32);animation:titleIn .9s ease-out both, titleGlow 4s ease-in-out infinite}
-    body.light .site-name{background:linear-gradient(180deg,#071327 0%,#0f2b55 32%,#2688ff 58%,#8b5cf6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none}
-    .premium-line{letter-spacing:10px;font-weight:900;color:#c084fc;margin-bottom:20px;font-size:clamp(13px,2vw,22px);animation:fadeUp .8s .12s both}
-    .site-desc{max-width:760px;color:var(--soft);font-size:18px;line-height:1.75;margin-bottom:22px;animation:fadeUp .8s .22s both}
-    .lang-switch{display:inline-flex;gap:10px;justify-content:center;background:rgba(15,23,42,.68);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px;backdrop-filter:blur(12px);animation:fadeUp .8s .32s both}
-    body.light .lang-switch{background:rgba(255,255,255,.84);border-color:rgba(15,23,42,.09);box-shadow:0 14px 28px rgba(15,23,42,.08)}
-    .lang-btn{border:0;background:transparent;color:var(--soft);border-radius:999px;padding:10px 16px;font-weight:900;cursor:pointer;transition:.25s}.lang-btn.active{background:linear-gradient(90deg,rgba(56,189,248,.28),rgba(168,85,247,.24));color:#fff;box-shadow:inset 0 0 0 1px rgba(56,189,248,.35)}body.light .lang-btn.active{color:#071327;background:linear-gradient(90deg,rgba(56,189,248,.18),rgba(168,85,247,.14))}
-    .plans-wrap{display:grid;grid-template-columns:repeat(2,minmax(250px,1fr));gap:26px;margin-top:10px}.card{position:relative;border-radius:26px;padding:28px;min-height:360px;background:var(--panel);border:1px solid rgba(56,189,248,.35);box-shadow:var(--shadow),0 0 28px rgba(56,189,248,.15);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;transition:transform .25s ease,box-shadow .25s ease;background-size:180% 180%;animation:cardIn .75s ease both, gradientShift 8s ease-in-out infinite}
-    .card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.12s}.card:nth-child(3){animation-delay:.18s}.card:nth-child(4){animation-delay:.25s}.card:nth-child(5){animation-delay:.32s}
-    .card:hover{transform:translateY(-7px) scale(1.01)}.card:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.08),transparent 35%);pointer-events:none}.card:after{content:"";position:absolute;top:-50%;left:-70%;width:55%;height:200%;background:linear-gradient(115deg,transparent,rgba(255,255,255,.14),transparent);transform:rotate(18deg);animation:scan 5.5s linear infinite;pointer-events:none}
-    body.light .card:after{background:linear-gradient(115deg,transparent,rgba(255,255,255,.65),transparent)}
-    .card-content,.buy-btn{position:relative;z-index:2}.plan-title{font-size:31px;font-weight:900;margin-bottom:8px}.plan-subtitle{color:var(--soft);margin-bottom:18px}.price{font-size:36px;font-weight:900;margin-bottom:8px}.week{font-size:17px;color:var(--text);margin-bottom:18px}.divider{height:1px;background:var(--line);margin:18px 0}.features{list-style:none}.features li{display:flex;gap:10px;align-items:flex-start;color:var(--soft);font-size:15.5px;margin-bottom:13px;line-height:1.45}.features li:before{content:"✓";font-weight:900}.mini .features li:before{color:#22c55e}.econom .features li:before{color:#3b82f6}.standart .features li:before{color:#8b5cf6}.premium .features li:before{color:#f59e0b}.vip .features li:before{color:#f97316}
-    .badge,.badge-new{position:absolute;top:-12px;z-index:4;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:900;white-space:nowrap}.badge-new{left:18px;background:#22c55e;color:#fff;box-shadow:0 0 22px rgba(34,197,94,.45)}.badge{right:18px;background:linear-gradient(90deg,#facc15,#fde68a);color:#111827;box-shadow:0 0 22px rgba(250,204,21,.45)}
-    .mini{border-color:rgba(34,197,94,.7);box-shadow:var(--shadow),0 0 28px rgba(34,197,94,.22)}.mini .price{color:#22c55e}.econom{border-color:rgba(59,130,246,.75);box-shadow:var(--shadow),0 0 28px rgba(59,130,246,.25)}.econom .price{color:#3b82f6}.standart{border-color:rgba(168,85,247,.8);box-shadow:var(--shadow),0 0 28px rgba(168,85,247,.25)}.standart .price{color:#8b5cf6}.premium{border-color:rgba(250,204,21,.95);box-shadow:var(--shadow),0 0 35px rgba(250,204,21,.35)}.premium .price{color:#f59e0b}
-    .vip{grid-column:1/-1;min-height:385px;border-color:rgba(249,115,22,.95);box-shadow:var(--shadow),0 0 42px rgba(249,115,22,.38);background:radial-gradient(circle at 82% 52%,rgba(249,115,22,.36),transparent 27%),var(--panel)}.vip .price{color:#fb923c}.vip:after{content:"VPN";position:absolute;right:8%;top:50%;transform:translateY(-50%);font-size:clamp(72px,12vw,150px);font-weight:900;color:rgba(249,115,22,.90);text-shadow:0 0 35px rgba(249,115,22,.9);opacity:.95;animation:vpnPulse 3.5s ease-in-out infinite}body.light .vip:after{opacity:.82;text-shadow:0 0 20px rgba(249,115,22,.25)}
-    .buy-btn{display:flex;justify-content:center;align-items:center;text-decoration:none;color:#fff;border:0;border-radius:16px;padding:15px 18px;margin-top:24px;font-weight:900;overflow:hidden;transition:.25s}.buy-btn:before{content:"🛒";margin-right:10px}.buy-btn:hover{transform:translateY(-2px)}.buy-btn:after{content:"";position:absolute;top:0;left:-120%;width:80%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.42),transparent);transform:skewX(-24deg);animation:buttonShine 3.2s linear infinite}.mini .buy-btn{background:linear-gradient(90deg,#16a34a,#22c55e);box-shadow:0 0 25px rgba(34,197,94,.3)}.econom .buy-btn{background:linear-gradient(90deg,#2563eb,#0ea5e9);box-shadow:0 0 25px rgba(59,130,246,.3)}.standart .buy-btn{background:linear-gradient(90deg,#7c3aed,#a855f7);box-shadow:0 0 25px rgba(168,85,247,.3)}.premium .buy-btn{background:linear-gradient(90deg,#facc15,#f59e0b);color:#111827;box-shadow:0 0 30px rgba(250,204,21,.38)}.vip .buy-btn{max-width:620px;background:linear-gradient(90deg,#f97316,#ea580c);box-shadow:0 0 30px rgba(249,115,22,.4);color:#fff}
-    .footer{max-width:1280px;margin:18px auto 28px;text-align:center;padding:18px;color:var(--soft);background:var(--footer-bg);border:1px solid rgba(56,189,248,.18);border-radius:18px;backdrop-filter:blur(12px);animation:fadeUp .7s .35s both}.contacts{margin:30px 0;padding:32px;border-radius:28px;background:var(--panel);border:1px solid rgba(56,189,248,.2);box-shadow:var(--shadow),0 0 35px rgba(56,189,248,.12);animation:fadeUp .7s .42s both}.contacts-title{text-align:center;color:#38bdf8;font-size:26px;font-weight:900;margin-bottom:24px}.contact-single{max-width:980px;margin:0 auto}.contact-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:18px}body.light .contact-box{background:rgba(255,255,255,.65);border-color:rgba(15,23,42,.08)}.contact-list{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.contact-item{display:flex;align-items:center;gap:13px;background:var(--contact-bg);border:1px solid var(--contact-border);border-radius:16px;padding:13px 15px;transition:.25s}.contact-item:hover{transform:translateY(-3px)}.contact-icon{width:46px;height:46px;min-width:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px rgba(0,0,0,.18)}.contact-icon svg{width:21px;height:21px}.icon-link{background:linear-gradient(135deg,#38bdf8,#0ea5e9)}.icon-imo{background:linear-gradient(135deg,#60a5fa,#2563eb)}.icon-sms{background:linear-gradient(135deg,#a78bfa,#7c3aed)}.icon-wa{background:linear-gradient(135deg,#22c55e,#16a34a)}.icon-mail{background:linear-gradient(135deg,#f97316,#ea580c)}.icon-tg{background:linear-gradient(135deg,#38bdf8,#2563eb)}.contact-text{display:flex;flex-direction:column;gap:4px;min-width:0}.contact-label{font-size:13px;color:var(--muted)}.contact-value{color:var(--text);text-decoration:none;word-break:break-word}.copyright{font-size:14px;margin-top:10px;margin-bottom:0}
-    @keyframes twinkle{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1.8)}}@keyframes mapFloat{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.05) translateY(-10px)}}@keyframes gridMove{0%{background-position:0 0}100%{background-position:52px 52px}}@keyframes orbMove{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(26px,-18px) scale(1.08)}}@keyframes titleIn{0%{opacity:0;transform:translateY(22px) scale(.98)}100%{opacity:1;transform:none}}@keyframes titleGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(56,189,248,.22))}50%{filter:drop-shadow(0 0 20px rgba(168,85,247,.34))}}@keyframes fadeUp{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:none}}@keyframes cardIn{0%{opacity:0;transform:translateY(26px) scale(.98)}100%{opacity:1;transform:none}}@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}@keyframes scan{0%{left:-80%}55%,100%{left:130%}}@keyframes buttonShine{0%{left:-120%}55%,100%{left:140%}}@keyframes vpnPulse{0%,100%{filter:brightness(1);transform:translateY(-50%) scale(1)}50%{filter:brightness(1.25);transform:translateY(-50%) scale(1.04)}}@keyframes pop{0%{opacity:0;transform:translateY(-6px) scale(.98)}100%{opacity:1;transform:none}}
-    @media(max-width:768px){body{padding:0 10px 28px}.hero{min-height:390px;padding-top:58px}.site-name{font-size:50px}.premium-line{letter-spacing:5px;font-size:13px}.site-desc{font-size:15px}.plans-wrap{grid-template-columns:1fr;gap:22px}.card{min-height:auto;padding:24px}.vip{grid-column:auto}.vip:after{position:relative;display:block;right:auto;top:auto;transform:none;font-size:86px;margin-top:18px;text-align:center;animation:none}.main-site-box{display:none}.top-controls{top:18px;left:12px;transform:none}.menu-wrap{top:18px}.menu-btn,.theme-btn{font-size:13px;padding:9px 12px}.contact-list{grid-template-columns:1fr}.contact-single{max-width:620px}.contacts{padding:26px 14px}.contact-box{padding:14px}}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UserrTM Servers</title>
+<meta name="description" content="UserrTM Servers - Dünýä boýunça serwerler, TikTok, YouTube, Instagram, Telegram we beýleki platformalar üçin ýokary tizlikli, durnukly VPN hyzmaty." />
+<link rel="canonical" href="https://userrtm.org/" />
+<meta name="google-site-verification" content="6AnpEnicDSm4vwaTVfxBRVacsqPzbEnGtTsfsFWh6eY" />
+<link rel="icon" href="/favicon.ico?v=3">
+<meta name="theme-color" content="#020617" />
+<meta property="og:title" content="UserrTM Servers" />
+<meta property="og:description" content="Dünýä boýunça serwerler, ýokary tizlikli we durnukly VPN hyzmaty." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://userrtm.org/" />
+<meta property="og:image" content="https://userrtm.org/elon-vpn.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<style>
+:root{--bg:#020712;--text:#f8fbff;--muted:#b8c3d3;--soft:#dfe7f5;--panel:#050b18;--card:#040914;--line:rgba(255,255,255,.12);--shadow:rgba(0,0,0,.55)}
+body.light{--bg:#f8fbff;--text:#071225;--muted:#32445a;--soft:#0b172b;--panel:#fff;--card:#fff;--line:rgba(15,23,42,.12);--shadow:rgba(15,23,42,.12)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:.3s;color-scheme:dark}body.light{color-scheme:light}.page-bg{position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 18% 15%,rgba(0,162,255,.18),transparent 22%),radial-gradient(circle at 70% 18%,rgba(143,65,255,.18),transparent 24%),radial-gradient(circle at 78% 34%,rgba(255,82,0,.12),transparent 20%),linear-gradient(180deg,#02050c,#031122 55%,#020712)}body.light .page-bg{background:radial-gradient(circle at 20% 15%,rgba(0,162,255,.12),transparent 22%),radial-gradient(circle at 70% 18%,rgba(143,65,255,.13),transparent 24%),linear-gradient(180deg,#fff,#f6fbff 60%,#edf6ff)}.map{position:fixed;inset:0;z-index:-2;opacity:.75;background-image:radial-gradient(circle,rgba(0,174,255,.95) 0 1px,transparent 1.6px),radial-gradient(circle,rgba(144,63,255,.75) 0 1px,transparent 1.7px),radial-gradient(circle,rgba(255,91,0,.8) 0 1px,transparent 1.8px),linear-gradient(rgba(86,180,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(86,180,255,.08) 1px,transparent 1px);background-size:5px 5px,5px 5px,5px 5px,52px 52px,52px 52px;background-position:0 0,230px 60px,720px 210px,0 0,0 0;mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 520'%3E%3Cpath fill='white' d='M47 118c48-55 124-64 200-42 60 17 94 59 142 95 67 49 103 22 170 6 78-19 157 5 227 45 71 41 123 77 205 59 62-14 112-54 176-45 51 8 73 39 81 82 8 46-28 77-71 88-65 17-142-1-207 16-84 22-159 73-250 70-64-2-120-29-174-61-54-31-109-65-174-66-71-1-139 36-211 22-57-11-96-50-118-103-23-55-37-120 4-166z'/%3E%3C/svg%3E");mask-size:115% 42%;mask-repeat:no-repeat;mask-position:center 20px}body.light .map{opacity:.34}.glow{position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 21% 18%,rgba(0,174,255,.25),transparent 4%),radial-gradient(circle at 64% 16%,rgba(0,120,255,.25),transparent 4%),radial-gradient(circle at 72% 21%,rgba(180,50,255,.2),transparent 4%),radial-gradient(circle at 89% 29%,rgba(255,90,0,.2),transparent 4%)}.container{width:min(1060px,100%);margin:auto;padding:18px 18px 28px}.hero{position:relative;text-align:center;padding:0 0 24px}.topbar{height:42px;position:relative}.theme-btn,.menu-btn{position:absolute;top:0;border:1px solid rgba(255,255,255,.22);background:rgba(2,6,23,.58);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:800;backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.25);cursor:pointer}.theme-btn{left:50%;transform:translateX(-50%)}.menu-btn{right:0}.menu-dropdown{position:absolute;right:0;top:52px;display:none;background:rgba(3,8,19,.95);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:10px;width:235px;z-index:5;box-shadow:0 25px 60px rgba(0,0,0,.45);backdrop-filter:blur(16px)}.menu-dropdown.show{display:block}.menu-link{display:block;color:#fff;text-decoration:none;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:13px;padding:12px;margin-bottom:8px;font-weight:700}.menu-link:last-child{margin-bottom:0}body.light .theme-btn,body.light .menu-btn{background:rgba(255,255,255,.78);color:#071225;border-color:rgba(15,23,42,.12)}body.light .menu-dropdown{background:rgba(255,255,255,.96)}body.light .menu-link{color:#071225;background:rgba(15,23,42,.04);border-color:rgba(15,23,42,.08)}.site-name{font-size:clamp(66px,10vw,112px);line-height:.88;font-weight:950;letter-spacing:-3px;margin:12px auto 20px;text-shadow:0 0 22px rgba(92,198,255,.45);background:linear-gradient(180deg,#fff 4%,#cdefff 32%,#23b8ff 48%,#9067ff 78%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 18px rgba(68,184,255,.18));animation:titleFloat 5s ease-in-out infinite}.premium-sub{font-size:25px;letter-spacing:13px;font-weight:900;color:#c05bff;text-shadow:0 0 18px rgba(190,87,255,.55);margin-bottom:18px}.site-desc{font-size:18px;line-height:1.5;color:var(--soft);max-width:760px;margin:0 auto 22px;text-shadow:0 2px 16px rgba(0,0,0,.5)}body.light .site-desc{text-shadow:none}.lang-switch{display:inline-flex;gap:9px;padding:8px;border-radius:999px;background:rgba(3,8,18,.72);border:1px solid rgba(255,255,255,.18);box-shadow:0 0 20px rgba(0,174,255,.18);backdrop-filter:blur(14px)}body.light .lang-switch{background:rgba(255,255,255,.8);border-color:rgba(15,23,42,.12)}.lang-btn{border:0;border-radius:999px;padding:9px 15px;background:transparent;color:var(--text);font-weight:800;cursor:pointer}.lang-btn.active{background:linear-gradient(90deg,rgba(14,165,233,.45),rgba(125,58,237,.45));box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}.plans{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:24px}.card{position:relative;min-height:335px;background:linear-gradient(180deg,rgba(8,15,31,.96),rgba(1,5,13,.98));border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:0 18px 45px var(--shadow),inset 0 0 0 1px rgba(255,255,255,.02);overflow:hidden;animation:rise .7s ease both}.card:before{content:"";position:absolute;inset:-60% -30%;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.08),transparent 62%);transform:translateX(-70%);animation:sweep 5.5s linear infinite}.card:hover{transform:translateY(-5px);transition:.25s}body.light .card{background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(255,255,255,.92));box-shadow:0 18px 45px rgba(15,23,42,.10)}.mini{border-color:rgba(0,218,100,.7);box-shadow:0 0 24px rgba(0,218,100,.22),0 18px 45px var(--shadow)}.econom{border-color:rgba(0,140,255,.75);box-shadow:0 0 24px rgba(0,140,255,.22),0 18px 45px var(--shadow)}.standart{border-color:rgba(160,56,255,.75);box-shadow:0 0 24px rgba(160,56,255,.22),0 18px 45px var(--shadow)}.premium{border-color:rgba(255,184,0,.85);box-shadow:0 0 28px rgba(255,184,0,.26),0 18px 45px var(--shadow)}.vip{grid-column:1/-1;min-height:345px;border-color:rgba(255,91,0,.85);box-shadow:0 0 30px rgba(255,91,0,.24),0 18px 45px var(--shadow);background:radial-gradient(circle at 78% 50%,rgba(255,91,0,.26),transparent 22%),linear-gradient(180deg,rgba(15,8,5,.98),rgba(2,5,13,.98))}.card-content{position:relative;z-index:1}.plan-title{font-size:30px;font-weight:950;margin-bottom:8px}.plan-subtitle{font-size:17px;color:var(--soft);margin-bottom:21px}.price{font-size:32px;font-weight:950;margin-bottom:8px}.week{font-size:18px;color:var(--soft);margin-bottom:24px}.divider{height:1px;background:rgba(255,255,255,.14);margin-bottom:23px}body.light .divider{background:rgba(15,23,42,.12)}.features{list-style:none}.features li{font-size:16px;line-height:1.35;color:var(--soft);margin-bottom:14px;display:flex;gap:12px}.features li:before{content:"✓";font-weight:900}.mini .price,.mini .features li:before{color:#05d965}.econom .price,.econom .features li:before{color:#2196ff}.standart .price,.standart .features li:before{color:#a44cff}.premium .price,.premium .features li:before{color:#ffbf00}.vip .price,.vip .features li:before{color:#ff6b14}.badge-new,.badge{position:absolute;z-index:2;top:-12px;border-radius:999px;font-size:13px;font-weight:950;padding:6px 14px}.badge-new{left:20px;background:#00d964;color:#fff;box-shadow:0 0 18px rgba(0,217,100,.6)}.badge{right:20px;background:rgba(255,184,0,.13);color:#ffe082;border:1px solid rgba(255,184,0,.65);box-shadow:0 0 18px rgba(255,184,0,.25)}body.light .badge{color:#8a5a00;background:#fff9e8}.buy-btn{position:absolute;left:28px;right:28px;bottom:28px;height:49px;border-radius:11px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-weight:950;font-size:17px;z-index:1;overflow:hidden}.buy-btn:before{content:"🛒";margin-right:10px;font-size:14px}.buy-btn:after{content:"";position:absolute;top:0;bottom:0;width:70px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-22deg);left:-90px;animation:btnShine 2.7s infinite}.mini .buy-btn{background:linear-gradient(90deg,#00a840,#21dc68);box-shadow:0 0 24px rgba(0,217,100,.45)}.econom .buy-btn{background:linear-gradient(90deg,#1267ff,#12b9ff);box-shadow:0 0 24px rgba(0,140,255,.42)}.standart .buy-btn{background:linear-gradient(90deg,#7b1dff,#bf49ff);box-shadow:0 0 24px rgba(160,56,255,.42)}.premium .buy-btn{background:linear-gradient(90deg,#ffca12,#ff9d00);color:#151006;box-shadow:0 0 24px rgba(255,184,0,.43)}.vip .buy-btn{background:linear-gradient(90deg,#ff5a10,#ff7a00);box-shadow:0 0 26px rgba(255,91,0,.5)}.vpn-orb{position:absolute;right:7%;top:50%;transform:translateY(-50%);width:250px;height:250px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#ff7917;font-size:86px;font-weight:950;text-shadow:0 0 22px #ff6b13,0 0 45px rgba(255,91,0,.7);z-index:1}.vpn-orb:before,.vpn-orb:after{content:"";position:absolute;inset:8%;border-radius:50%;border:1px solid rgba(255,111,20,.34);animation:spin 10s linear infinite}.vpn-orb:after{inset:20%;animation-direction:reverse;animation-duration:7s}.guarantee{margin:18px 0 10px;border:1px solid rgba(82,151,223,.28);border-radius:999px;padding:12px 16px;text-align:center;background:rgba(10,22,42,.7);color:var(--soft);font-size:18px;box-shadow:inset 0 0 24px rgba(46,142,255,.05)}body.light .guarantee{background:rgba(255,255,255,.85)}.guarantee:before{content:"🛡️";margin-right:9px}.contacts{border:1px solid rgba(82,151,223,.25);border-radius:18px;padding:18px 22px 22px;background:rgba(5,12,25,.72);box-shadow:0 14px 40px rgba(0,0,0,.3)}body.light .contacts{background:rgba(255,255,255,.88);box-shadow:0 14px 40px rgba(15,23,42,.08)}.contacts-title{text-align:center;color:#12b9ff;font-weight:950;font-size:25px;margin-bottom:16px;text-shadow:0 0 18px rgba(18,185,255,.4)}.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px}.contact-item{display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);border-radius:11px;padding:11px 14px;color:var(--text);text-decoration:none}body.light .contact-item{background:rgba(255,255,255,.9);border-color:rgba(15,23,42,.08)}.contact-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900}.ic-link{background:linear-gradient(135deg,#07c8ff,#087cff)}.ic-imo{background:linear-gradient(135deg,#2a9bff,#1e58ff)}.ic-sms{background:linear-gradient(135deg,#ad4cff,#7439ff)}.ic-wa{background:linear-gradient(135deg,#25d366,#0fae4e)}.ic-mail{background:linear-gradient(135deg,#ff7917,#ff4d00)}.ic-tg{background:linear-gradient(135deg,#1fc4ff,#1f6bff)}.contact-label{font-size:14px;color:var(--muted)}.contact-value{font-size:17px;color:var(--text);font-weight:600}.copyright{text-align:center;color:var(--muted);padding:16px 0 4px;font-size:18px}@keyframes titleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}@keyframes sweep{0%{transform:translateX(-75%)}48%,100%{transform:translateX(75%)}}@keyframes btnShine{0%{left:-90px}60%,100%{left:110%}}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:860px){.container{padding:14px 9px 24px}.site-name{font-size:clamp(58px,15vw,86px)}.premium-sub{font-size:15px;letter-spacing:9px}.site-desc{font-size:14px;padding:0 12px}.plans{grid-template-columns:1fr 1fr;gap:16px}.card{min-height:306px;padding:20px}.plan-title{font-size:25px}.price{font-size:26px}.week,.features li{font-size:13px}.buy-btn{left:20px;right:20px;bottom:20px;height:42px;font-size:13px}.vip{min-height:320px}.vpn-orb{right:4%;width:180px;height:180px;font-size:64px}.contact-grid{grid-template-columns:1fr}.contacts{padding:18px}.guarantee{font-size:14px}}@media(max-width:560px){.plans{grid-template-columns:1fr}.vip .features{max-width:58%}.vpn-orb{opacity:.8;right:0}.topbar{height:46px}.theme-btn{padding:9px 13px}.menu-btn{padding:9px 12px}.site-name{letter-spacing:-2px}.hero{padding-bottom:18px}}
+</style>
 </head>
 <body>
-  <div class="bg-map"></div>
-  <div class="grid-layer"></div>
-  <div class="orbs"><span class="orb one"></span><span class="orb two"></span><span class="orb three"></span></div>
-  <div class="particles"><span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span></div>
-
-  <div class="container">
-    <div class="hero">
-      <div class="menu-wrap">
-        <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">☰ Menü</button>
-        <div class="menu-dropdown" id="menuDropdown">
-          <a class="menu-link" id="workLink" href="islesmek.html">🤝 Biz bilen işleşmek</a>
-          <a class="menu-link" href="autoshop.html">Online Auto Shop</a>
-        </div>
-      </div>
-      <div class="top-controls"><button class="theme-btn" id="themeToggle" onclick="toggleTheme()">🌙 Dark</button></div>
-      <h1 class="site-name" id="siteName">UserrTM<br>Servers</h1>
-      <div class="premium-line">PREMIUM VPN SERVICE</div>
-      <div class="site-desc" id="siteDesc">Özüňize laýyk serwer hyzmatyny saýlaň we ýokary tizlikli, durnukly hem-de amatly tejribeden peýdalanyň.</div>
-      <div class="lang-switch">
-        <button class="lang-btn active" id="btnTk" onclick="setLang('tk')">🇹🇲 Türkmençe</button>
-        <button class="lang-btn" id="btnRu" onclick="setLang('ru')">🇷🇺 Русский</button>
+<div class="page-bg"></div><div class="map"></div><div class="glow"></div>
+<div class="container">
+  <section class="hero">
+    <div class="topbar">
+      <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">🌙 Dark</button>
+      <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">☰ Menü</button>
+      <div class="menu-dropdown" id="menuDropdown">
+        <a class="menu-link" id="workLink" href="islesmek.html">🤝 Biz bilen işleşmek</a>
+        <a class="menu-link" href="autoshop.html">Online Auto Shop</a>
       </div>
     </div>
-
-    <div class="plans-wrap">
-      <div class="card mini">
-        <div class="badge-new" id="miniBadge">NEW</div>
-        <div class="card-content">
-          <div class="plan-title" id="miniTitle">Mini</div>
-          <div class="plan-subtitle" id="miniSubtitle">(Basic)</div>
-          <div class="price" id="miniPrice">70 TMT / aýyna</div>
-          <div class="week" id="miniWeek">18 TMT / hepdä</div>
-          <div class="divider"></div>
-          <ul class="features"><li><span id="miniF1">Diňe Niderland serweri</span></li><li><span id="miniF2">TikTok, YouTube, Instagram, Telegram</span></li><li><span id="miniF3">Ýeňil ulanmak üçin amatly</span></li></ul>
-        </div>
-        <a class="buy-btn" id="miniBtn" href="https://linkm.me/users/userrtm" target="_blank" rel="noopener noreferrer">Satyn al</a>
-      </div>
-
-      <div class="card econom">
-        <div class="card-content">
-          <div class="plan-title" id="economTitle">Econom</div>
-          <div class="price" id="economPrice">100 TMT / aýyna</div>
-          <div class="week" id="economWeek">25 TMT / hepdä</div>
-          <div class="divider"></div>
-          <ul class="features"><li><span id="economF1">5 ýurt serweri</span></li><li><span id="economF2">TikTok, YouTube, Instagram, Telegram</span></li><li><span id="economF3">Ähli programmalara laýyk</span></li></ul>
-        </div>
-        <a class="buy-btn" id="economBtn" href="https://linkm.me/users/userrtm" target="_blank" rel="noopener noreferrer">Satyn al</a>
-      </div>
-
-      <div class="card standart">
-        <div class="card-content">
-          <div class="plan-title" id="standartTitle">Standart</div>
-          <div class="price" id="standartPrice">150 TMT / aýyna</div>
-          <div class="week" id="standartWeek">40 TMT / hepdä</div>
-          <div class="divider"></div>
-          <ul class="features"><li><span id="standartF1">Dünýä boýunça serwerler</span></li><li><span id="standartF2">TikTok, YouTube, Instagram, Telegram, Copart we ş.m</span></li><li><span id="standartF3">Ähli programmalara laýyk</span></li></ul>
-        </div>
-        <a class="buy-btn" id="standartBtn" href="https://linkm.me/users/userrtm" target="_blank" rel="noopener noreferrer">Satyn al</a>
-      </div>
-
-      <div class="card premium">
-        <div class="badge" id="premiumBadge">⭐ Iň köp saýlanylýan</div>
-        <div class="card-content">
-          <div class="plan-title" id="premiumTitle">Premium</div>
-          <div class="price" id="premiumPrice">200 TMT / aýyna</div>
-          <div class="week" id="premiumWeek">50 TMT / hepdä</div>
-          <div class="divider"></div>
-          <ul class="features"><li><span id="premiumF1">Dünýä boýunça serwerler</span></li><li><span id="premiumF2">Ähli platformalara doly</span></li><li><span id="premiumF3">TikTok, YouTube, Instagram, Telegram, Copart we ş.m</span></li><li><span id="premiumF4">Ähli VPN programmalara laýyk</span></li></ul>
-        </div>
-        <a class="buy-btn" id="premiumBtn" href="https://linkm.me/users/userrtm" target="_blank" rel="noopener noreferrer">Satyn al</a>
-      </div>
-
-      <div class="card vip">
-        <div class="card-content">
-          <div class="plan-title" id="vipTitle">VIP ELIT</div>
-          <div class="price" id="vipPrice">300 TMT / aýyna</div>
-          <div class="week" id="vipWeek">70 TMT / hepdä</div>
-          <div class="divider"></div>
-          <ul class="features"><li><span id="vipF1">Dünýä boýunça serwerler</span></li><li><span id="vipF2">Ähli platformalara doly</span></li><li><span id="vipF3">Oýun üçin niýetlenen</span></li><li><span id="vipF4">Ähli VPN programmalara laýyk</span></li><li><span id="vipF5">Iň ýokary tizlik</span></li></ul>
-        </div>
-        <a class="buy-btn" id="vipBtn" href="https://linkm.me/users/userrtm" target="_blank" rel="noopener noreferrer">Satyn al</a>
-      </div>
-    </div>
-
-    <div class="footer" id="footerGuarantee">Ähli planlara 30 günlük pul yzyna kepilligi giryär</div>
-
-    <div class="contacts">
-      <div class="contacts-title" id="contactsTitle">Habarlaşmak üçin</div>
-      <div class="contact-single">
-        <div class="contact-box">
-          <div class="contact-list">
-            <div class="contact-item"><div class="contact-icon icon-link"><svg viewBox="0 0 24 24" fill="none"><path d="M15 7h3a5 5 0 010 10h-3" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M9 17H6a5 5 0 010-10h3" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M8 12h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div><div class="contact-text"><div class="contact-label">Link</div><a class="contact-value" href="tel:+99362723560">+993 62 72 35 60</a></div></div>
-            <div class="contact-item"><div class="contact-icon icon-wa"><svg viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 01-11.8 7l-4.2 1 1.1-4A8 8 0 1120 12z" stroke="#fff" stroke-width="1.9"/><path d="M9.5 9.8c.3-.7.7-.7 1-.7h.3c.1 0 .4 0 .6.4.2.4.7 1.7.8 1.8.1.1.1.3 0 .5-.1.2-.2.3-.4.5-.2.2-.3.3-.1.6.2.3.8 1.3 1.8 2 .4.3.8.5 1.1.2.3-.3.5-.6.7-.6s1.2.5 1.4.6c.2.1.4.2.4.4 0 .2-.1.9-.6 1.3-.4.4-1 .6-1.6.6-.6 0-1.3-.1-2.7-.8s-3.2-2.9-3.5-5c-.1-.8.1-1.5.4-1.8z" fill="#fff"/></svg></div><div class="contact-text"><div class="contact-label">WhatsApp</div><a class="contact-value" href="https://wa.me/99362434203" target="_blank" rel="noopener noreferrer">+993 62 43 42 03</a></div></div>
-            <div class="contact-item"><div class="contact-icon icon-imo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3C7 3 3 6.6 3 11c0 2.1.9 4 2.3 5.4L4.5 21l4.6-1.9c.9.2 1.9.4 2.9.4 5 0 9-3.6 9-8s-4-8.5-9-8.5z" stroke="#fff" stroke-width="1.8"/><circle cx="9" cy="11" r="1.1" fill="#fff"/><circle cx="12" cy="11" r="1.1" fill="#fff"/><circle cx="15" cy="11" r="1.1" fill="#fff"/></svg></div><div class="contact-text"><div class="contact-label">IMO</div><a class="contact-value" href="tel:+99364125409">+993 64 12 54 09</a></div></div>
-            <div class="contact-item"><div class="contact-icon icon-mail"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#fff" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="#fff" stroke-width="2"/></svg></div><div class="contact-text"><div class="contact-label">Gmail</div><a class="contact-value" href="mailto:userrtmservers@gmail.com">userrtmservers@gmail.com</a></div></div>
-            <div class="contact-item"><div class="contact-icon icon-sms"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#fff" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="#fff" stroke-width="2"/></svg></div><div class="contact-text"><div class="contact-label">SMS</div><a class="contact-value" href="sms:+99362434203">+993 62 43 42 03</a></div></div>
-            <div class="contact-item"><div class="contact-icon icon-tg"><svg viewBox="0 0 24 24" fill="none"><path d="M21 4L3 11.5l6 2 2 6L21 4z" stroke="#fff" stroke-width="2"/><path d="M9 13.5l8-6.5" stroke="#fff" stroke-width="2"/></svg></div><div class="contact-text"><div class="contact-label">Telegram</div><a class="contact-value" href="https://t.me/UserrTM" target="_blank" rel="noopener noreferrer">@UserrTM</a></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer copyright">© <span id="year"></span> UserrTM Servers</div>
-  </div>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    const texts = {
-      tk:{siteName:'UserrTM<br>Servers',siteDesc:'Özüňize laýyk serwer hyzmatyny saýlaň we ýokary tizlikli, durnukly hem-de amatly tejribeden peýdalanyň.',miniBadge:'NEW',miniTitle:'Mini',miniSubtitle:'(Basic)',miniPrice:'70 TMT / aýyna',miniWeek:'18 TMT / hepdä',miniF1:'Diňe Niderland serweri',miniF2:'TikTok, YouTube, Instagram, Telegram',miniF3:'Ýeňil ulanmak üçin amatly',economTitle:'Econom',economPrice:'100 TMT / aýyna',economWeek:'25 TMT / hepdä',economF1:'5 ýurt serweri',economF2:'TikTok, YouTube, Instagram, Telegram',economF3:'Ähli programmalara laýyk',standartTitle:'Standart',standartPrice:'150 TMT / aýyna',standartWeek:'40 TMT / hepdä',standartF1:'Dünýä boýunça serwerler',standartF2:'TikTok, YouTube, Instagram, Telegram, Copart we ş.m',standartF3:'Ähli programmalara laýyk',premiumBadge:'⭐ Iň köp saýlanylýan',premiumTitle:'Premium',premiumPrice:'200 TMT / aýyna',premiumWeek:'50 TMT / hepdä',premiumF1:'Dünýä boýunça serwerler',premiumF2:'Ähli platformalara doly',premiumF3:'TikTok, YouTube, Instagram, Telegram, Copart we ş.m',premiumF4:'Ähli VPN programmalara laýyk',vipTitle:'VIP ELIT',vipPrice:'300 TMT / aýyna',vipWeek:'70 TMT / hepdä',vipF1:'Dünýä boýunça serwerler',vipF2:'Ähli platformalara doly',vipF3:'Oýun üçin niýetlenen',vipF4:'Ähli VPN programmalara laýyk',vipF5:'Iň ýokary tizlik',footerGuarantee:'🛡️ Ähli planlara 30 günlük pul yzyna kepilligi giryär',contactsTitle:'Habarlaşmak üçin',menuBtn:'☰ Menü',workLink:'🤝 Biz bilen işleşmek',themeLight:'☀️ Light',themeDark:'🌙 Dark',buy:'Satyn al'},
-      ru:{siteName:'UserrTM<br>Servers',siteDesc:'Выберите подходящий серверный тариф и пользуйтесь высокой скоростью, стабильным и удобным сервисом.',miniBadge:'NEW',miniTitle:'Мини',miniSubtitle:'(Базовый)',miniPrice:'70 TMT / в месяц',miniWeek:'18 TMT / в неделю',miniF1:'Только сервер Нидерланды',miniF2:'TikTok, YouTube, Instagram, Telegram',miniF3:'Удобно для лёгкого использования',economTitle:'Эконом',economPrice:'100 TMT / в месяц',economWeek:'25 TMT / в неделю',economF1:'5 стран серверов',economF2:'TikTok, YouTube, Instagram, Telegram',economF3:'Подходит для всех программ',standartTitle:'Стандарт',standartPrice:'150 TMT / в месяц',standartWeek:'40 TMT / в неделю',standartF1:'Серверы по всему миру',standartF2:'TikTok, YouTube, Instagram, Telegram, Copart и др.',standartF3:'Подходит для всех программ',premiumBadge:'⭐ Самый популярный',premiumTitle:'Премиум',premiumPrice:'200 TMT / в месяц',premiumWeek:'50 TMT / в неделю',premiumF1:'Серверы по всему миру',premiumF2:'Полный доступ ко всем платформам',premiumF3:'TikTok, YouTube, Instagram, Telegram, Copart и др.',premiumF4:'Подходит для всех VPN приложений',vipTitle:'VIP ELIT',vipPrice:'300 TMT / в месяц',vipWeek:'70 TMT / в неделю',vipF1:'Серверы по всему миру',vipF2:'Полный доступ ко всем платформам',vipF3:'Предназначен для игр',vipF4:'Подходит для всех VPN приложений',vipF5:'Максимальная скорость',footerGuarantee:'🛡️ На все тарифы действует 30-дневная гарантия возврата денег',contactsTitle:'Контакты для связи',menuBtn:'☰ Меню',workLink:'🤝 Сотрудничество с нами',themeLight:'☀️ Light',themeDark:'🌙 Dark',buy:'Купить'}
-    };
-    let currentLang = localStorage.getItem('lang') || 'tk';
-    function setText(id,val,html=false){const el=document.getElementById(id); if(el){html ? el.innerHTML=val : el.textContent=val;}}
-    function updateThemeButton(){const t=texts[currentLang]; const isLight=document.body.classList.contains('light'); setText('themeToggle', isLight ? t.themeDark : t.themeLight);}
-    function setLang(lang){currentLang=lang;const t=texts[lang];setText('siteName',t.siteName,true);['siteDesc','miniBadge','miniTitle','miniSubtitle','miniPrice','miniWeek','miniF1','miniF2','miniF3','economTitle','economPrice','economWeek','economF1','economF2','economF3','standartTitle','standartPrice','standartWeek','standartF1','standartF2','standartF3','premiumBadge','premiumTitle','premiumPrice','premiumWeek','premiumF1','premiumF2','premiumF3','premiumF4','vipTitle','vipPrice','vipWeek','vipF1','vipF2','vipF3','vipF4','vipF5','footerGuarantee','contactsTitle','menuBtn','workLink'].forEach(id=>setText(id,t[id]));['miniBtn','economBtn','standartBtn','premiumBtn','vipBtn'].forEach(id=>setText(id,t.buy));document.getElementById('btnTk').classList.toggle('active',lang==='tk');document.getElementById('btnRu').classList.toggle('active',lang==='ru');document.documentElement.lang=lang;localStorage.setItem('lang',lang);updateThemeButton();}
-    function toggleTheme(){document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');updateThemeButton();}
-    function toggleMenu(){document.getElementById('menuDropdown').classList.toggle('show')}
-    document.addEventListener('click',e=>{const m=document.querySelector('.menu-wrap');if(m && !m.contains(e.target))document.getElementById('menuDropdown').classList.remove('show')});
-    window.addEventListener('DOMContentLoaded',()=>{if(localStorage.getItem('theme')==='light')document.body.classList.add('light');setLang(currentLang);});
-  </script>
+    <h1 class="site-name">UserrTM<br>Servers</h1>
+    <div class="premium-sub">PREMIUM VPN SERVICE</div>
+    <p class="site-desc" id="siteDesc">Özüňize laýyk serwer hyzmatyny saýlaň we ýokary tizlikli, durnukly hem-de amatly tejribeden peýdalanyň.</p>
+    <div class="lang-switch"><button class="lang-btn active" id="btnTk" onclick="setLang('tk')">🇹🇲 Türkmençe</button><button class="lang-btn" id="btnRu" onclick="setLang('ru')">🇷🇺 Русский</button></div>
+  </section>
+  <section class="plans">
+    <article class="card mini"><div class="badge-new">NEW</div><div class="card-content"><h2 class="plan-title" id="miniTitle">Mini</h2><div class="plan-subtitle" id="miniSubtitle">(Basic)</div><div class="price" id="miniPrice">70 TMT / aýyna</div><div class="week" id="miniWeek">18 TMT / hepdä</div><div class="divider"></div><ul class="features"><li id="miniF1">Diňe Niderland serweri</li><li id="miniF2">TikTok, YouTube, Instagram, Telegram</li><li id="miniF3">Ýeňil ulanmak üçin amatly</li></ul></div><a class="buy-btn" id="miniBtn" href="https://linkm.me/users/userrtm" target="_blank">Satyn al</a></article>
+    <article class="card econom"><div class="card-content"><h2 class="plan-title" id="economTitle">Econom</h2><div class="price" id="economPrice">100 TMT / aýyna</div><div class="week" id="economWeek">25 TMT / hepdä</div><div class="divider"></div><ul class="features"><li id="economF1">5 ýurt serweri</li><li id="economF2">TikTok, YouTube, Instagram, Telegram</li><li id="economF3">Ähli programmalara laýyk</li></ul></div><a class="buy-btn" id="economBtn" href="https://linkm.me/users/userrtm" target="_blank">Satyn al</a></article>
+    <article class="card standart"><div class="card-content"><h2 class="plan-title" id="standartTitle">Standart</h2><div class="price" id="standartPrice">150 TMT / aýyna</div><div class="week" id="standartWeek">40 TMT / hepdä</div><div class="divider"></div><ul class="features"><li id="standartF1">Dünýä boýunça serwerler</li><li id="standartF2">TikTok, YouTube, Instagram, Telegram, Copart we ş.m</li><li id="standartF3">Ähli programmalara laýyk</li></ul></div><a class="buy-btn" id="standartBtn" href="https://linkm.me/users/userrtm" target="_blank">Satyn al</a></article>
+    <article class="card premium"><div class="badge" id="premiumBadge">⭐ Iň köp saýlanylýan</div><div class="card-content"><h2 class="plan-title" id="premiumTitle">Premium</h2><div class="price" id="premiumPrice">200 TMT / aýyna</div><div class="week" id="premiumWeek">50 TMT / hepdä</div><div class="divider"></div><ul class="features"><li id="premiumF1">Dünýä boýunça serwerler</li><li id="premiumF2">Ähli platformalara doly</li><li id="premiumF3">TikTok, YouTube, Instagram, Telegram, Copart we ş.m</li><li id="premiumF4">Ähli VPN programmalara laýyk</li></ul></div><a class="buy-btn" id="premiumBtn" href="https://linkm.me/users/userrtm" target="_blank">Satyn al</a></article>
+    <article class="card vip"><div class="card-content"><h2 class="plan-title" id="vipTitle">VIP ELIT</h2><div class="price" id="vipPrice">300 TMT / aýyna</div><div class="week" id="vipWeek">70 TMT / hepdä</div><div class="divider"></div><ul class="features"><li id="vipF1">Dünýä boýunça serwerler</li><li id="vipF2">Ähli platformalara doly</li><li id="vipF3">Oýun üçin niýetlenen</li><li id="vipF4">Ähli VPN programmalara laýyk</li><li id="vipF5">Iň ýokary tizlik</li></ul></div><div class="vpn-orb">VPN</div><a class="buy-btn" id="vipBtn" href="https://linkm.me/users/userrtm" target="_blank">Satyn al</a></article>
+  </section>
+  <div class="guarantee" id="footerGuarantee">Ähli planlara 30 günlük pul yzyna kepilligi girýär</div>
+  <section class="contacts"><h2 class="contacts-title" id="contactsTitle">Habarlaşmak üçin</h2><div class="contact-grid">
+    <a class="contact-item" href="tel:+99362723560"><span class="contact-icon ic-link">🔗</span><span><div class="contact-label">Link</div><div class="contact-value">+993 62 72 35 60</div></span></a>
+    <a class="contact-item" href="https://wa.me/99362434203" target="_blank"><span class="contact-icon ic-wa">☘</span><span><div class="contact-label">WhatsApp</div><div class="contact-value">+993 62 43 42 03</div></span></a>
+    <a class="contact-item" href="tel:+99364125409"><span class="contact-icon ic-imo">💬</span><span><div class="contact-label">IMO</div><div class="contact-value">+993 64 12 54 09</div></span></a>
+    <a class="contact-item" href="mailto:userrtmservers@gmail.com"><span class="contact-icon ic-mail">✉</span><span><div class="contact-label">Gmail</div><div class="contact-value">userrtmservers@gmail.com</div></span></a>
+    <a class="contact-item" href="sms:+99362434203"><span class="contact-icon ic-sms">✉</span><span><div class="contact-label">SMS</div><div class="contact-value">+993 62 43 42 03</div></span></a>
+    <a class="contact-item" href="https://t.me/UserrTM" target="_blank"><span class="contact-icon ic-tg">➤</span><span><div class="contact-label">Telegram</div><div class="contact-value">@UserrTM</div></span></a>
+  </div></section>
+  <div class="copyright">© <span id="year"></span> UserrTM Servers</div>
+</div>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const texts={tk:{siteDesc:'Özüňize laýyk serwer hyzmatyny saýlaň we ýokary tizlikli, durnukly hem-de amatly tejribeden peýdalanyň.',miniTitle:'Mini',miniSubtitle:'(Basic)',miniPrice:'70 TMT / aýyna',miniWeek:'18 TMT / hepdä',miniF1:'Diňe Niderland serweri',miniF2:'TikTok, YouTube, Instagram, Telegram',miniF3:'Ýeňil ulanmak üçin amatly',miniBtn:'Satyn al',economTitle:'Econom',economPrice:'100 TMT / aýyna',economWeek:'25 TMT / hepdä',economF1:'5 ýurt serweri',economF2:'TikTok, YouTube, Instagram, Telegram',economF3:'Ähli programmalara laýyk',economBtn:'Satyn al',standartTitle:'Standart',standartPrice:'150 TMT / aýyna',standartWeek:'40 TMT / hepdä',standartF1:'Dünýä boýunça serwerler',standartF2:'TikTok, YouTube, Instagram, Telegram, Copart we ş.m',standartF3:'Ähli programmalara laýyk',standartBtn:'Satyn al',premiumBadge:'⭐ Iň köp saýlanylýan',premiumTitle:'Premium',premiumPrice:'200 TMT / aýyna',premiumWeek:'50 TMT / hepdä',premiumF1:'Dünýä boýunça serwerler',premiumF2:'Ähli platformalara doly',premiumF3:'TikTok, YouTube, Instagram, Telegram, Copart we ş.m',premiumF4:'Ähli VPN programmalara laýyk',premiumBtn:'Satyn al',vipTitle:'VIP ELIT',vipPrice:'300 TMT / aýyna',vipWeek:'70 TMT / hepdä',vipF1:'Dünýä boýunça serwerler',vipF2:'Ähli platformalara doly',vipF3:'Oýun üçin niýetlenen',vipF4:'Ähli VPN programmalara laýyk',vipF5:'Iň ýokary tizlik',vipBtn:'Satyn al',footerGuarantee:'Ähli planlara 30 günlük pul yzyna kepilligi girýär',contactsTitle:'Habarlaşmak üçin',menuBtn:'☰ Menü',workLink:'🤝 Biz bilen işleşmek',dark:'🌙 Dark',light:'☀️ Light'},ru:{siteDesc:'Выберите подходящий серверный тариф и пользуйтесь высокой скоростью, стабильным и удобным сервисом.',miniTitle:'Мини',miniSubtitle:'(Базовый)',miniPrice:'70 TMT / в месяц',miniWeek:'18 TMT / в неделю',miniF1:'Только сервер Нидерланды',miniF2:'TikTok, YouTube, Instagram, Telegram',miniF3:'Удобно для лёгкого использования',miniBtn:'Купить',economTitle:'Эконом',economPrice:'100 TMT / в месяц',economWeek:'25 TMT / в неделю',economF1:'5 стран серверов',economF2:'TikTok, YouTube, Instagram, Telegram',economF3:'Подходит для всех программ',economBtn:'Купить',standartTitle:'Стандарт',standartPrice:'150 TMT / в месяц',standartWeek:'40 TMT / в неделю',standartF1:'Серверы по всему миру',standartF2:'TikTok, YouTube, Instagram, Telegram, Copart и др.',standartF3:'Подходит для всех программ',standartBtn:'Купить',premiumBadge:'⭐ Самый популярный',premiumTitle:'Премиум',premiumPrice:'200 TMT / в месяц',premiumWeek:'50 TMT / в неделю',premiumF1:'Серверы по всему миру',premiumF2:'Полный доступ ко всем платформам',premiumF3:'TikTok, YouTube, Instagram, Telegram, Copart и др.',premiumF4:'Подходит для всех VPN приложений',premiumBtn:'Купить',vipTitle:'VIP ELIT',vipPrice:'300 TMT / в месяц',vipWeek:'70 TMT / в неделю',vipF1:'Серверы по всему миру',vipF2:'Полный доступ ко всем платформам',vipF3:'Предназначен для игр',vipF4:'Подходит для всех VPN приложений',vipF5:'Максимальная скорость',vipBtn:'Купить',footerGuarantee:'На все тарифы действует 30-дневная гарантия возврата денег',contactsTitle:'Контакты для связи',menuBtn:'☰ Меню',workLink:'🤝 Сотрудничество с нами',dark:'🌙 Dark',light:'☀️ Light'}};let currentLang=localStorage.getItem('lang')||'tk';function setText(id,v){const e=document.getElementById(id);if(e)e.textContent=v}function setLang(lang){currentLang=lang;const t=texts[lang];Object.keys(t).forEach(k=>{if(!['dark','light'].includes(k))setText(k,t[k])});document.getElementById('btnTk').classList.toggle('active',lang==='tk');document.getElementById('btnRu').classList.toggle('active',lang==='ru');document.documentElement.lang=lang;localStorage.setItem('lang',lang);updateThemeBtn()}function updateThemeBtn(){const t=texts[currentLang];document.getElementById('themeToggle').textContent=document.body.classList.contains('light')?t.light:t.dark}function toggleTheme(){document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');updateThemeBtn()}function toggleMenu(){document.getElementById('menuDropdown').classList.toggle('show')}document.addEventListener('click',e=>{const w=document.querySelector('.topbar');if(w&&!w.contains(e.target))document.getElementById('menuDropdown').classList.remove('show')});if(localStorage.getItem('theme')==='light')document.body.classList.add('light');setLang(currentLang);
+</script>
 </body>
 </html>
