@@ -8,102 +8,43 @@
   <link rel="canonical" href="https://userrtm.org/" />
   <meta name="google-site-verification" content="6AnpEnicDSm4vwaTVfxBRVacsqPzbEnGtTsfsFWh6eY" />
   <meta name="theme-color" content="#020617" />
-
   <style>
     :root{
-      --bg:#020814;
-      --card:#030b18;
-      --card2:#06101f;
-      --text:#f8fafc;
-      --muted:#cbd5e1;
-      --soft:#94a3b8;
-      --line:rgba(255,255,255,.14);
-      --blue:#0ea5ff;
-      --green:#00e667;
-      --purple:#b339ff;
-      --yellow:#ffb300;
-      --orange:#ff5b12;
-      --cyan:#22d3ee;
-      --radius:22px;
+      --bg:#020814;--card:#030b18;--text:#f8fafc;--line:rgba(255,255,255,.14);
+      --blue:#0ea5ff;--green:#00e667;--purple:#b339ff;--yellow:#ffb300;--orange:#ff5b12;--cyan:#22d3ee;--radius:22px;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
-    body{
-      min-height:100vh;
-      font-family:Arial,Helvetica,sans-serif;
-      color:var(--text);
-      background:#020814;
-      overflow-x:hidden;
-    }
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background:
-        linear-gradient(rgba(7,18,36,.45),rgba(2,8,20,.92)),
-        url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/2560px-World_map_-_low_resolution.svg.png"),
-        radial-gradient(circle at 18% 16%,rgba(0,170,255,.35),transparent 16%),
-        radial-gradient(circle at 73% 18%,rgba(176,45,255,.35),transparent 18%),
-        radial-gradient(circle at 91% 31%,rgba(255,86,18,.28),transparent 16%),
-        linear-gradient(180deg,#020711,#031225 45%,#020711);
-      background-size:cover, 1250px auto, auto, auto, auto, auto;
-      background-position:center top, center top, center, center, center, center;
-      background-repeat:no-repeat;
-      filter:saturate(1.25) contrast(1.08);
-      z-index:-4;
-    }
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      background-image:
-        linear-gradient(rgba(56,189,248,.08) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(56,189,248,.08) 1px,transparent 1px),
-        radial-gradient(circle at 15% 14%,rgba(0,210,255,.95) 0 2px,transparent 4px),
-        radial-gradient(circle at 45% 20%,rgba(34,211,238,.65) 0 2px,transparent 4px),
-        radial-gradient(circle at 78% 16%,rgba(168,85,247,.85) 0 2px,transparent 4px),
-        radial-gradient(circle at 92% 31%,rgba(249,115,22,.95) 0 2px,transparent 4px);
-      background-size:74px 74px,74px 74px,100% 100%,100% 100%,100% 100%,100% 100%;
-      opacity:.9;
-      pointer-events:none;
-      z-index:-3;
-    }
-    .orb{
-      position:fixed;width:8px;height:8px;border-radius:50%;background:#22d3ee;
-      box-shadow:0 0 18px #22d3ee,0 0 42px #0284c7;z-index:-2;animation:float 6s ease-in-out infinite
-    }
+    body{min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#020814;overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:0;background:
+      linear-gradient(rgba(7,18,36,.32),rgba(2,8,20,.92)),
+      url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/2560px-World_map_-_low_resolution.svg.png"),
+      radial-gradient(circle at 16% 15%,rgba(0,170,255,.55),transparent 16%),
+      radial-gradient(circle at 72% 18%,rgba(176,45,255,.45),transparent 18%),
+      radial-gradient(circle at 91% 29%,rgba(255,86,18,.38),transparent 16%),
+      linear-gradient(180deg,#020711,#031225 45%,#020711);
+      background-size:cover,1450px auto,auto,auto,auto,auto;background-position:center top,center top,center,center,center,center;background-repeat:no-repeat;filter:saturate(1.35) contrast(1.13);z-index:-4}
+    body::after{content:"";position:fixed;inset:0;background-image:
+      linear-gradient(rgba(56,189,248,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.09) 1px,transparent 1px),
+      radial-gradient(circle at 15% 14%,rgba(0,210,255,.95) 0 2px,transparent 4px),radial-gradient(circle at 45% 20%,rgba(34,211,238,.65) 0 2px,transparent 4px),radial-gradient(circle at 78% 16%,rgba(168,85,247,.85) 0 2px,transparent 4px),radial-gradient(circle at 92% 31%,rgba(249,115,22,.95) 0 2px,transparent 4px);
+      background-size:74px 74px,74px 74px,100% 100%,100% 100%,100% 100%,100% 100%;opacity:.9;pointer-events:none;z-index:-3}
+    .orb{position:fixed;width:8px;height:8px;border-radius:50%;background:#22d3ee;box-shadow:0 0 18px #22d3ee,0 0 42px #0284c7;z-index:-2;animation:float 6s ease-in-out infinite}
     .orb:nth-child(1){left:12%;top:11%}.orb:nth-child(2){left:22%;top:26%;animation-delay:1s}.orb:nth-child(3){left:54%;top:19%;animation-delay:2s}.orb:nth-child(4){left:79%;top:15%;background:#a855f7;box-shadow:0 0 20px #a855f7;animation-delay:.6s}.orb:nth-child(5){left:93%;top:29%;background:#fb6b1c;box-shadow:0 0 20px #fb6b1c;animation-delay:1.8s}
     @keyframes float{0%,100%{transform:translateY(0) scale(.8);opacity:.55}50%{transform:translateY(-12px) scale(1.35);opacity:1}}
     @keyframes glowPulse{0%,100%{filter:drop-shadow(0 0 14px rgba(34,211,238,.4))}50%{filter:drop-shadow(0 0 35px rgba(168,85,247,.7))}}
-    @keyframes shine{100%{left:140%}}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    @keyframes borderRun{0%,100%{opacity:.55}50%{opacity:1}}
-
-    .page{max-width:1120px;margin:0 auto;padding:22px 18px 32px;position:relative}
-    .top-actions{position:absolute;top:18px;left:0;right:0;display:flex;justify-content:center;pointer-events:none;z-index:5}
+    @keyframes shine{100%{left:140%}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes borderRun{0%,100%{opacity:.55}50%{opacity:1}}
+    .page{max-width:1120px;margin:0 auto;padding:22px 18px 32px;position:relative}.top-actions{position:absolute;top:18px;left:0;right:0;display:flex;justify-content:center;pointer-events:none;z-index:5}
     .theme-btn,.menu-btn{pointer-events:auto;border:1px solid rgba(255,255,255,.22);background:rgba(2,8,20,.7);color:#fff;border-radius:999px;padding:11px 18px;font-size:15px;font-weight:800;backdrop-filter:blur(10px);box-shadow:0 0 20px rgba(0,0,0,.3);cursor:pointer}
     .menu-wrap{position:absolute;right:18px;top:18px;z-index:10}.menu-dropdown{display:none;position:absolute;right:0;top:52px;width:230px;border:1px solid rgba(255,255,255,.16);background:rgba(2,8,20,.95);border-radius:16px;padding:9px;box-shadow:0 20px 45px rgba(0,0,0,.45)}.menu-dropdown.show{display:block}.menu-link{display:block;color:#fff;text-decoration:none;background:rgba(255,255,255,.06);padding:12px 14px;border-radius:12px;margin-bottom:8px;font-weight:700}.menu-link:last-child{margin-bottom:0}
-
-    .hero{text-align:center;padding:54px 10px 28px;min-height:390px;position:relative}
-    .title{font-size:clamp(58px,9vw,105px);font-weight:950;letter-spacing:-3px;line-height:.9;margin-top:16px;background:linear-gradient(180deg,#fff 0%,#c8f4ff 32%,#1bbcff 58%,#a66cff 84%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(34,211,238,.3);animation:glowPulse 4s ease-in-out infinite}
-    .subtitle{margin-top:22px;letter-spacing:14px;font-size:25px;font-weight:900;color:#d946ef;text-shadow:0 0 18px rgba(217,70,239,.75)}
-    .desc{max-width:760px;margin:22px auto 0;color:#fff;line-height:1.7;font-size:18px;text-shadow:0 2px 12px rgba(0,0,0,.6)}
-    .lang{display:inline-flex;gap:10px;margin-top:24px;padding:8px;border-radius:999px;background:rgba(2,8,20,.72);border:1px solid rgba(255,255,255,.18);box-shadow:0 0 22px rgba(0,0,0,.35);backdrop-filter:blur(12px)}
-    .lang button{border:0;background:transparent;color:#fff;border-radius:999px;padding:9px 16px;font-weight:800;cursor:pointer}.lang button.active{background:linear-gradient(90deg,rgba(6,182,212,.45),rgba(124,58,237,.55));box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
-
-    .plans{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:10px}.card{position:relative;min-height:310px;padding:30px;background:linear-gradient(180deg,rgba(4,12,27,.95),rgba(1,6,16,.97));border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 18px 40px rgba(0,0,0,.35);overflow:visible;transition:.3s}.card:hover{transform:translateY(-6px)}.card::before{content:"";position:absolute;inset:0;border-radius:var(--radius);background:radial-gradient(circle at 50% 100%,rgba(255,255,255,.06),transparent 44%);pointer-events:none}.card>*{position:relative;z-index:2}.plan-title{font-size:32px;font-weight:900;margin-bottom:7px}.small{font-size:18px;color:#fff;margin-bottom:22px}.price{font-size:34px;font-weight:950;margin:10px 0 8px}.week{font-size:18px;color:#fff}.line{height:1px;background:rgba(255,255,255,.16);margin:26px 0}.features{list-style:none}.features li{font-size:16px;line-height:1.45;margin-bottom:13px;color:#fff;display:flex;gap:12px}.check{font-weight:900}.buy{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:50px;margin-top:28px;border-radius:12px;text-decoration:none;font-size:18px;font-weight:900;color:#fff;position:relative;overflow:hidden}.buy::before{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-22deg);animation:shine 3.2s linear infinite}.badge-new{position:absolute;left:18px;top:-13px;background:#06d85f;color:#fff;border-radius:999px;padding:7px 15px;font-weight:950;box-shadow:0 0 22px rgba(0,230,103,.65);z-index:3}.badge-pop{position:absolute;right:18px;top:-14px;background:rgba(20,15,4,.92);border:1px solid rgba(255,179,0,.65);color:#fff3c4;border-radius:999px;padding:9px 15px;font-weight:900;box-shadow:0 0 22px rgba(255,179,0,.55);z-index:3;white-space:nowrap;animation:borderRun 2s ease-in-out infinite}
-    .mini{border-color:rgba(0,230,103,.7);box-shadow:0 0 25px rgba(0,230,103,.22)}.mini .price,.mini .check{color:var(--green)}.mini .buy{background:linear-gradient(90deg,#00a84d,#00e667)}
-    .econom{border-color:rgba(14,165,255,.7);box-shadow:0 0 25px rgba(14,165,255,.22)}.econom .price,.econom .check{color:var(--blue)}.econom .buy{background:linear-gradient(90deg,#0066ff,#11b7ff)}
-    .standart{border-color:rgba(179,57,255,.7);box-shadow:0 0 25px rgba(179,57,255,.22)}.standart .price,.standart .check{color:var(--purple)}.standart .buy{background:linear-gradient(90deg,#8a18ff,#d53cff)}
-    .premium{border-color:rgba(255,179,0,.8);box-shadow:0 0 28px rgba(255,179,0,.25)}.premium .price,.premium .check{color:var(--yellow)}.premium .buy{background:linear-gradient(90deg,#ffc400,#ff9f0a);color:#111827}.premium .buy::after{color:#111827}
-    .vip{grid-column:1/-1;min-height:360px;border-color:rgba(255,91,18,.8);box-shadow:0 0 34px rgba(255,91,18,.25);background:radial-gradient(circle at 78% 55%,rgba(255,91,18,.18),transparent 27%),linear-gradient(180deg,rgba(13,6,6,.96),rgba(1,6,16,.98));padding-right:360px}.vip .price,.vip .check{color:var(--orange)}.vip .buy{background:linear-gradient(90deg,#ff3b0b,#ff7a12);position:absolute;left:30px;right:30px;bottom:30px;width:auto}.vpn-orbit{position:absolute;right:64px;top:74px;width:250px;height:250px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:1}.vpn-orbit::before,.vpn-orbit::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,107,18,.42);inset:0;box-shadow:0 0 25px rgba(255,91,18,.35);animation:spin 9s linear infinite}.vpn-orbit::after{inset:28px;animation-duration:6s;animation-direction:reverse;border-style:dashed}.vpn-text{font-size:82px;font-weight:950;color:#ff6b12;text-shadow:0 0 22px #ff6b12,0 0 60px rgba(255,91,18,.9);animation:glowPulse 2.6s ease-in-out infinite}
-
-    .guarantee{margin-top:18px;border:1px solid rgba(14,165,255,.35);background:rgba(3,14,28,.82);border-radius:999px;padding:13px;text-align:center;font-size:18px;color:#fff;box-shadow:0 0 18px rgba(14,165,255,.14)}.contacts{margin-top:18px;border:1px solid rgba(14,165,255,.35);background:rgba(3,14,28,.86);border-radius:18px;padding:18px 34px 24px;box-shadow:0 0 22px rgba(14,165,255,.14)}.contacts h2{text-align:center;color:#05bfff;text-shadow:0 0 18px rgba(5,191,255,.5);font-size:28px;margin-bottom:12px}.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}.contact{display:flex;align-items:center;gap:16px;padding:12px 18px;border-radius:12px;background:linear-gradient(90deg,rgba(255,255,255,.09),rgba(255,255,255,.04));min-height:60px}.logo{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:white;box-shadow:0 0 18px rgba(0,0,0,.3)}.logo svg{width:26px;height:26px}.link-logo{background:linear-gradient(135deg,#10c7ff,#0077ff)}.imo-logo{background:linear-gradient(135deg,#1f7aff,#0b56d8)}.sms-logo{background:linear-gradient(135deg,#c83dff,#7438ff)}.wa-logo{background:linear-gradient(135deg,#25D366,#06a84f)}.gm-logo{background:linear-gradient(135deg,#ff7a12,#f04438)}.tg-logo{background:linear-gradient(135deg,#2AABEE,#1677ff)}.ct small{display:block;color:#aeb8c7;font-size:13px}.ct a{color:#fff;text-decoration:none;font-size:17px;font-weight:700}.copy{text-align:center;color:#9ca3af;margin-top:16px;font-size:16px}
-
-    body.light{--text:#0f172a;--muted:#334155;--soft:#475569;background:#f8fafc;color:#0f172a}body.light::before{background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.92)),url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/2560px-World_map_-_low_resolution.svg.png"),radial-gradient(circle at 18% 16%,rgba(0,170,255,.22),transparent 16%),radial-gradient(circle at 73% 18%,rgba(176,45,255,.20),transparent 18%),linear-gradient(180deg,#fff,#eef6ff);background-size:cover,1250px auto,auto,auto,auto;background-position:center top,center top,center,center,center}body.light .card,body.light .contacts,body.light .guarantee{background:rgba(255,255,255,.86);color:#0f172a}body.light .features li,body.light .week,body.light .small,body.light .desc{color:#0f172a}body.light .theme-btn,body.light .menu-btn,body.light .lang{background:rgba(255,255,255,.7);color:#0f172a}body.light .lang button{color:#0f172a}body.light .contact{background:rgba(255,255,255,.75)}body.light .ct a{color:#0f172a}
-
-    @media(max-width:760px){.page{padding:18px 10px 28px}.hero{padding-top:54px;min-height:330px}.title{font-size:58px}.subtitle{font-size:18px;letter-spacing:9px}.desc{font-size:14px}.plans{gap:16px}.card{padding:20px;min-height:265px}.plan-title{font-size:26px}.price{font-size:27px}.small,.week{font-size:14px}.features li{font-size:12px;margin-bottom:10px}.buy{height:43px;font-size:13px}.vip{padding-right:190px;min-height:320px}.vpn-orbit{right:20px;top:88px;width:165px;height:165px}.vpn-text{font-size:56px}.vip .buy{left:20px;right:20px;bottom:20px}.contacts{padding:16px}.contact-grid{grid-template-columns:1fr 1fr;gap:8px}.contact{padding:9px;gap:9px}.logo{width:40px;height:40px}.ct small{font-size:11px}.ct a{font-size:12px}.badge-pop{font-size:11px;right:10px}.menu-wrap{right:10px}.theme-btn,.menu-btn{font-size:12px;padding:8px 12px}}
-    @media(max-width:430px){.plans{grid-template-columns:1fr 1fr}.card{padding:18px}.title{font-size:50px}.vip{padding-right:150px}.vpn-orbit{width:130px;height:130px;right:15px}.vpn-text{font-size:46px}.contact-grid{grid-template-columns:1fr 1fr}.contacts h2{font-size:21px}}
+    .hero{text-align:center;padding:54px 10px 28px;min-height:390px;position:relative}.title{font-size:clamp(58px,9vw,105px);font-weight:950;letter-spacing:-3px;line-height:.9;margin-top:16px;background:linear-gradient(180deg,#fff 0%,#c8f4ff 32%,#1bbcff 58%,#a66cff 84%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(34,211,238,.3);animation:glowPulse 4s ease-in-out infinite}.subtitle{margin-top:22px;letter-spacing:14px;font-size:25px;font-weight:900;color:#d946ef;text-shadow:0 0 18px rgba(217,70,239,.75)}.desc{max-width:760px;margin:22px auto 0;color:#fff;line-height:1.7;font-size:18px;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+    .lang{display:inline-flex;gap:10px;margin-top:24px;padding:8px;border-radius:999px;background:rgba(2,8,20,.72);border:1px solid rgba(255,255,255,.18);box-shadow:0 0 22px rgba(0,0,0,.35);backdrop-filter:blur(12px)}.lang button{border:0;background:transparent;color:#fff;border-radius:999px;padding:9px 16px;font-weight:800;cursor:pointer}.lang button.active{background:linear-gradient(90deg,rgba(6,182,212,.45),rgba(124,58,237,.55));box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+    .plans{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:10px}.card{position:relative;min-height:310px;padding:30px;background:linear-gradient(180deg,rgba(4,12,27,.95),rgba(1,6,16,.97));border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 18px 40px rgba(0,0,0,.35);overflow:visible;transition:.3s}.card:hover{transform:translateY(-6px)}.card::before{content:"";position:absolute;inset:0;border-radius:var(--radius);background:radial-gradient(circle at 50% 100%,rgba(255,255,255,.06),transparent 44%);pointer-events:none}.card>*{position:relative;z-index:2}.plan-title{font-size:32px;font-weight:900;margin-bottom:7px}.small{font-size:18px;color:#fff;margin-bottom:22px}.price{font-size:34px;font-weight:950;margin:10px 0 8px}.week{font-size:18px;color:#fff}.line{height:1px;background:rgba(255,255,255,.16);margin:26px 0}.features{list-style:none}.features li{font-size:16px;line-height:1.45;margin-bottom:13px;color:#fff;display:flex;gap:12px}.check{font-weight:900}.buy{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:50px;margin-top:28px;border-radius:12px;text-decoration:none;font-size:18px;font-weight:900;color:#fff;position:relative;overflow:hidden;max-width:100%;box-sizing:border-box}.buy::before{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-22deg);animation:shine 3.2s linear infinite}.badge-new{position:absolute;left:18px;top:-13px;background:#06d85f;color:#fff;border-radius:999px;padding:7px 15px;font-weight:950;box-shadow:0 0 22px rgba(0,230,103,.65);z-index:3}.badge-pop{position:absolute;right:18px;top:-14px;background:rgba(20,15,4,.92);border:1px solid rgba(255,179,0,.65);color:#fff3c4;border-radius:999px;padding:9px 15px;font-weight:900;box-shadow:0 0 22px rgba(255,179,0,.55);z-index:3;white-space:nowrap;animation:borderRun 2s ease-in-out infinite}
+    .mini{border-color:rgba(0,230,103,.7);box-shadow:0 0 25px rgba(0,230,103,.22)}.mini .price,.mini .check{color:var(--green)}.mini .buy{background:linear-gradient(90deg,#00a84d,#00e667)}.econom{border-color:rgba(14,165,255,.7);box-shadow:0 0 25px rgba(14,165,255,.22)}.econom .price,.econom .check{color:var(--blue)}.econom .buy{background:linear-gradient(90deg,#0066ff,#11b7ff)}.standart{border-color:rgba(179,57,255,.7);box-shadow:0 0 25px rgba(179,57,255,.22)}.standart .price,.standart .check{color:var(--purple)}.standart .buy{background:linear-gradient(90deg,#8a18ff,#d53cff)}.premium{border-color:rgba(255,179,0,.8);box-shadow:0 0 28px rgba(255,179,0,.25)}.premium .price,.premium .check{color:var(--yellow)}.premium .buy{background:linear-gradient(90deg,#ffc400,#ff9f0a);color:#111827}
+    .vip{grid-column:1/-1;min-height:360px;border-color:rgba(255,91,18,.8);box-shadow:0 0 34px rgba(255,91,18,.25);background:radial-gradient(circle at 78% 55%,rgba(255,91,18,.18),transparent 27%),linear-gradient(180deg,rgba(13,6,6,.96),rgba(1,6,16,.98));padding-right:360px;padding-bottom:100px}.vip .price,.vip .check{color:var(--orange)}.vip .buy{background:linear-gradient(90deg,#ff3b0b,#ff7a12);position:absolute;left:30px;right:30px;bottom:30px;width:auto;margin-top:0}.vpn-orbit{position:absolute;right:64px;top:74px;width:250px;height:250px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:1}.vpn-orbit::before,.vpn-orbit::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,107,18,.42);inset:0;box-shadow:0 0 25px rgba(255,91,18,.35);animation:spin 9s linear infinite}.vpn-orbit::after{inset:28px;animation-duration:6s;animation-direction:reverse;border-style:dashed}.vpn-text{font-size:82px;font-weight:950;color:#ff6b12;text-shadow:0 0 22px #ff6b12,0 0 60px rgba(255,91,18,.9);animation:glowPulse 2.6s ease-in-out infinite}
+    .guarantee{margin-top:18px;border:1px solid rgba(14,165,255,.35);background:rgba(3,14,28,.82);border-radius:999px;padding:13px;text-align:center;font-size:18px;color:#fff;box-shadow:0 0 18px rgba(14,165,255,.14)}.contacts{margin-top:18px;border:1px solid rgba(14,165,255,.35);background:rgba(3,14,28,.86);border-radius:18px;padding:18px 34px 24px;box-shadow:0 0 22px rgba(14,165,255,.14)}.contacts h2{text-align:center;color:#05bfff;text-shadow:0 0 18px rgba(5,191,255,.5);font-size:28px;margin-bottom:12px}.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}.contact{display:flex;align-items:center;gap:16px;padding:12px 18px;border-radius:12px;background:linear-gradient(90deg,rgba(255,255,255,.09),rgba(255,255,255,.04));min-height:60px;min-width:0}.logo{width:46px;height:46px;min-width:46px;border-radius:12px;display:grid;place-items:center;color:white;box-shadow:0 0 18px rgba(0,0,0,.3)}.logo svg{width:26px;height:26px}.link-logo{background:linear-gradient(135deg,#10c7ff,#0077ff)}.imo-logo{background:linear-gradient(135deg,#1f7aff,#0b56d8)}.sms-logo{background:linear-gradient(135deg,#c83dff,#7438ff)}.wa-logo{background:linear-gradient(135deg,#25D366,#06a84f)}.gm-logo{background:linear-gradient(135deg,#ff7a12,#f04438)}.tg-logo{background:linear-gradient(135deg,#2AABEE,#1677ff)}.ct{min-width:0}.ct small{display:block;color:#aeb8c7;font-size:13px}.ct a{color:#fff;text-decoration:none;font-size:17px;font-weight:700;white-space:nowrap}.copy{text-align:center;color:#9ca3af;margin-top:16px;font-size:16px}
+    body.light{--text:#0f172a;background:#f8fafc;color:#0f172a}body.light::before{background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.92)),url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/2560px-World_map_-_low_resolution.svg.png"),radial-gradient(circle at 18% 16%,rgba(0,170,255,.22),transparent 16%),radial-gradient(circle at 73% 18%,rgba(176,45,255,.20),transparent 18%),linear-gradient(180deg,#fff,#eef6ff);background-size:cover,1450px auto,auto,auto,auto;background-position:center top,center top,center,center,center}body.light .card,body.light .contacts,body.light .guarantee{background:rgba(255,255,255,.86);color:#0f172a}body.light .features li,body.light .week,body.light .small,body.light .desc{color:#0f172a}body.light .theme-btn,body.light .menu-btn,body.light .lang{background:rgba(255,255,255,.7);color:#0f172a}body.light .lang button{color:#0f172a}body.light .contact{background:rgba(255,255,255,.75)}body.light .ct a{color:#0f172a}
+    @media(max-width:760px){.page{padding:18px 10px 28px}.hero{padding-top:54px;min-height:330px}.title{font-size:58px}.subtitle{font-size:18px;letter-spacing:9px}.desc{font-size:14px}.plans{gap:16px}.card{padding:20px;min-height:265px}.plan-title{font-size:26px}.price{font-size:27px}.small,.week{font-size:14px}.features li{font-size:12px;margin-bottom:10px}.buy{height:43px;font-size:13px}.vip{padding-right:185px;padding-bottom:85px;min-height:365px}.vip .features{max-width:100%}.vpn-orbit{right:18px;top:86px;width:150px;height:150px;opacity:.92}.vpn-text{font-size:52px}.vip .buy{left:20px;right:20px;bottom:20px;height:48px;font-size:14px}.contacts{padding:18px}.contact-grid{grid-template-columns:1fr;gap:12px}.contact{width:100%;padding:12px 14px;gap:14px}.logo{width:46px;height:46px;min-width:46px}.ct small{font-size:13px}.ct a{font-size:16px;white-space:nowrap}.badge-pop{font-size:11px;right:10px}.guarantee{font-size:15px;padding:12px 16px}.menu-wrap{right:10px}.theme-btn,.menu-btn{font-size:12px;padding:8px 12px}}
+    @media(max-width:430px){.plans{grid-template-columns:1fr 1fr}.card{padding:18px}.title{font-size:50px}.vip{padding-right:145px;padding-bottom:82px;min-height:350px}.vpn-orbit{width:122px;height:122px;right:14px;top:95px}.vpn-text{font-size:42px}.contact-grid{grid-template-columns:1fr}.contacts h2{font-size:24px}.ct a{font-size:15px}.contact{min-height:62px}.logo{width:44px;height:44px;min-width:44px}}
   </style>
 </head>
 <body>
@@ -111,12 +52,7 @@
   <div class="page">
     <div class="top-actions"><button class="theme-btn" id="themeToggle" onclick="toggleTheme()">🌙 Dark</button></div>
     <div class="menu-wrap"><button class="menu-btn" id="menuBtn" onclick="toggleMenu()">☰ Menü</button><div class="menu-dropdown" id="menuDropdown"><a class="menu-link" id="workLink" href="islesmek.html">🤝 Biz bilen işleşmek</a><a class="menu-link" href="autoshop.html">Online Auto Shop</a></div></div>
-    <section class="hero">
-      <h1 class="title">UserrTM<br>Servers</h1>
-      <div class="subtitle">PREMIUM VPN SERVICE</div>
-      <p class="desc" id="siteDesc">Özüňize laýyk serwer hyzmatyny saýlaň we ýokary tizlikli, durnukly hem-de amatly tejribeden peýdalanyň.</p>
-      <div class="lang"><button id="btnTk" class="active" onclick="setLang('tk')">🇹🇲 Türkmençe</button><button id="btnRu" onclick="setLang('ru')">🇷🇺 Русский</button></div>
-    </section>
+    <section class="hero"><h1 class="title">UserrTM<br>Servers</h1><div class="subtitle">PREMIUM VPN SERVICE</div><p class="desc" id="siteDesc">Özüňize laýyk serwer hyzmatyny saýlaň we ýokary tizlikli, durnukly hem-de amatly tejribeden peýdalanyň.</p><div class="lang"><button id="btnTk" class="active" onclick="setLang('tk')">🇹🇲 Türkmençe</button><button id="btnRu" onclick="setLang('ru')">🇷🇺 Русский</button></div></section>
     <section class="plans">
       <div class="card mini"><div class="badge-new">NEW</div><h3 class="plan-title" id="miniTitle">Mini</h3><div class="small" id="miniSubtitle">(Basic)</div><div class="price" id="miniPrice">70 TMT / aýyna</div><div class="week" id="miniWeek">18 TMT / hepdä</div><div class="line"></div><ul class="features"><li><span class="check">✓</span><span id="miniF1">Diňe Niderland serweri</span></li><li><span class="check">✓</span><span id="miniF2">TikTok, YouTube, Instagram, Telegram</span></li><li><span class="check">✓</span><span id="miniF3">Ýeňil ulanmak üçin amatly</span></li></ul><a class="buy" id="miniBtn" href="https://linkm.me/users/userrtm" target="_blank">🛒 Satyn al</a></div>
       <div class="card econom"><h3 class="plan-title" id="economTitle">Econom</h3><div class="price" id="economPrice">100 TMT / aýyna</div><div class="week" id="economWeek">25 TMT / hepdä</div><div class="line"></div><ul class="features"><li><span class="check">✓</span><span id="economF1">5 ýurt serweri</span></li><li><span class="check">✓</span><span id="economF2">TikTok, YouTube, Instagram, Telegram</span></li><li><span class="check">✓</span><span id="economF3">Ähli programmalara laýyk</span></li></ul><a class="buy" id="economBtn" href="https://linkm.me/users/userrtm" target="_blank">🛒 Satyn al</a></div>
