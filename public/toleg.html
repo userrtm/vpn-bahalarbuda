@@ -26,10 +26,10 @@
 
   <style>
     :root {
-      /* VIP Siber Arka Plan Renkleri (Görselinizdeki Canlı Neon Esintileri) */
-      --bg-main: #060a13;
-      --card-bg: rgba(13, 22, 41, 0.65);
-      --card-border: rgba(56, 189, 248, 0.15);
+      /* VIP Siber Arka Plan Renkleri */
+      --bg-main: #050811;
+      --card-bg: rgba(11, 19, 36, 0.7);
+      --card-border: rgba(56, 189, 248, 0.16);
       --text: #f8fafc;
       --muted: #94a3b8;
       --primary: linear-gradient(90deg, #38bdf8, #60a5fa);
@@ -49,7 +49,6 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     
-    /* VIP Siber Arka Plan Katmanı ve Parıltılar */
     body { 
       background-color: var(--bg-main); 
       color: var(--text); 
@@ -60,7 +59,7 @@
       overflow-x: hidden;
     }
     
-    /* 1781821170385.jpeg Sitemizdeki Premium Cyber-Grid ve Işık Efektleri */
+    /* VIP Siber Cyber-Grid Çizgileri */
     body::before {
       content: "";
       position: fixed;
@@ -68,24 +67,39 @@
       background-image: 
         linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
-      background-size: 30px 30px;
+      background-size: 32px 32px;
       z-index: 0;
       pointer-events: none;
     }
     
+    /* VIP Akıcı Hareket Eden Neon Işık Animasyonu (Arka Plan) */
+    @keyframes vipGlowAnimation {
+      0% { transform: scale(1) translate(0px, 0px) rotate(0deg); opacity: 0.8; }
+      33% { transform: scale(1.15) translate(30px, -40px) rotate(120deg); opacity: 1; }
+      66% { transform: scale(0.9) translate(-20px, 30px) rotate(240deg); opacity: 0.7; }
+      100% { transform: scale(1) translate(0px, 0px) rotate(360deg); opacity: 0.8; }
+    }
+
     body::after {
       content: "";
       position: fixed;
-      top: -10%; left: -10%; right: -10%; bottom: -10%;
+      top: -20%; left: -20%; right: -20%; bottom: -20%;
       background: 
-        radial-gradient(circle at 15% 20%, rgba(147, 51, 234, 0.2), transparent 40%),
-        radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.25), transparent 45%),
-        radial-gradient(circle at 50% 85%, rgba(249, 115, 22, 0.12), transparent 40%);
+        radial-gradient(circle at 20% 25%, rgba(147, 51, 234, 0.22), transparent 45%),
+        radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.28), transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.14), transparent 45%);
       z-index: 0;
       pointer-events: none;
+      animation: vipGlowAnimation 22s infinite linear;
+    }
+    
+    body.light::after {
+      animation: none;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.06), transparent 40%);
     }
 
-    /* Sayfa Giriş Animasyonu */
+    /* Giriş Animasyonu */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -102,18 +116,18 @@
     body.light .hero h1 { background: none; -webkit-text-fill-color: var(--text); filter: none; }
     .hero p { color: var(--muted); font-size: 15px; }
 
-    .segmented-control { display: flex; background: rgba(0, 0, 0, 0.4); padding: 5px; border-radius: 18px; margin-bottom: 24px; border: 1px solid var(--card-border); backdrop-filter: blur(12px); }
+    .segmented-control { display: flex; background: rgba(0, 0, 0, 0.45); padding: 5px; border-radius: 18px; margin-bottom: 24px; border: 1px solid var(--card-border); backdrop-filter: blur(12px); }
     .segment-btn { flex: 1; border: none; background: none; color: var(--muted); padding: 15px; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 14px; transition: 0.25s; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .segment-btn.active { background: linear-gradient(135deg, #1e293b, #0f172a); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-    body.light .segment-btn.active { background: #fff; color: #0284c7; border: 1px solid rgba(0,0,0,0.05); }
+    body.light .segment-btn.active { background: #fff; color: #0284c7; border: 1px solid rgba(0,0,0,0.05); box-shadow: none; }
     .segment-btn svg { width: 18px; height: 18px; fill: currentColor; }
 
     .main-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 32px; padding: 36px 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); backdrop-filter: blur(24px); position: relative; }
     
-    /* Kartın etrafındaki hafif VIP ışık hattı */
+    /* Kart Çevresindeki İnce VIP Işık Çizgisi */
     .main-card::before {
       content: ""; position: absolute; top:0; left:0; right:0; bottom:0; border-radius: 32px;
-      padding: 1px; background: linear-gradient(135deg, rgba(56,189,248,0.3), transparent, rgba(147,51,234,0.2));
+      padding: 1px; background: linear-gradient(135deg, rgba(56,189,248,0.35), transparent, rgba(147,51,234,0.25));
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
@@ -122,21 +136,21 @@
     .number-display { font-size: 42px; font-weight: 900; text-align: center; margin: 12px 0 28px 0; background: linear-gradient(135deg, #ffffff, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1.5px; filter: drop-shadow(0 2px 8px rgba(56,189,248,0.2)); }
     body.light .number-display { background: none; -webkit-text-fill-color: var(--text); filter: none; }
 
-    .custom-select { width: 100%; padding: 18px; border-radius: 16px; background: rgba(5, 10, 20, 0.6); border: 1px solid var(--card-border); color: var(--text); font-size: 16px; font-weight: 700; margin-bottom: 24px; outline: none; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2338bdf8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>"); background-repeat: no-repeat; background-position: right 16px center; }
+    .custom-select { width: 100%; padding: 18px; border-radius: 16px; background: rgba(5, 10, 20, 0.65); border: 1px solid var(--card-border); color: var(--text); font-size: 16px; font-weight: 700; margin-bottom: 24px; outline: none; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2338bdf8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>"); background-repeat: no-repeat; background-position: right 16px center; }
     body.light .custom-select { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>"); background-color: #fff; }
 
-    /* Butonlar */
+    /* Premium Buton Tasarımları */
     .btn { width: 100%; padding: 18px; border-radius: 16px; border: none; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 14px; position: relative; }
     .btn svg { width: 20px; height: 20px; fill: currentColor; }
     
-    .btn-primary { background: var(--primary); color: #060a13; }
-    .btn-success { background: var(--success); color: #060a13; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.25); }
+    .btn-primary { background: var(--primary); color: #050811; }
+    .btn-success { background: var(--success); color: #050811; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.25); }
     body.light .btn-success { color: #fff; box-shadow: none; }
     
-    .btn:hover { transform: translateY(-2px); filter: brightness(1.15); box-shadow: 0 8px 24px rgba(56,189,248,0.25); }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.15); box-shadow: 0 8px 24px rgba(56,189,248,0.3); }
     .btn:active { transform: translateY(0); }
 
-    /* Başarı (Kopyalandı) Efekti */
+    /* Başarı Kopyalama Efekti */
     @keyframes successPulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.02); filter: brightness(1.3); }
@@ -147,7 +161,7 @@
     .info-note { font-size: 14px; color: var(--muted); text-align: center; line-height: 1.6; margin-top: 10px; padding: 0 8px; }
     .hidden { display: none; }
     
-    .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(100px); background: linear-gradient(135deg, #00f2fe, #4facfe); color: #060a13; padding: 14px 32px; border-radius: 50px; font-weight: 800; opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 9999; box-shadow: 0 10px 25px rgba(0, 242, 254, 0.4); }
+    .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(100px); background: linear-gradient(135deg, #00f2fe, #4facfe); color: #050811; padding: 14px 32px; border-radius: 50px; font-weight: 800; opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 9999; box-shadow: 0 10px 25px rgba(0, 242, 254, 0.4); }
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   </style>
 </head>
@@ -188,7 +202,7 @@
           <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
           <span id="lblCopy">Kopya et</span>
         </button>
-        <p class="info-note" id="noteTerminal">Şu nomere töleg geçiriň we tassyklama suratyny admine iberiň.</p>
+        <p class="info-note" id="noteTerminal">Şu nomere töleg geçiriň.</p>
       </div>
 
       <!-- TELEFON (0804) BÖLÜMÜ -->
@@ -202,7 +216,7 @@
           <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
           <span id="lblPay">Töle (SMS)</span>
         </button>
-        <p class="info-note" id="notePhone">Töle basanyňyzda SMS açylar, yzyna mukdaryny ýazyp iberiň. Soňra 0801-den gelen çegi admine ugradyň.</p>
+        <p class="info-note" id="notePhone">Töle basanyňyzda SMS açylar, yzyna mukdaryny ýazyp iberiň.</p>
       </div>
 
     </div>
@@ -211,10 +225,11 @@
   <div class="toast" id="toast">Kopyalandy!</div>
 
   <script>
+    // İstenen iki numara güncellenmiş listeden tamamen kaldırıldı
     const phoneNumbers = [
       "+99362434203", "+99364883003", "+99364517607", "+99361703386", 
       "+99361027826", "+99362016486", "+99371298323", "+99371868833", 
-      "+99371086659", "+99364125409", "+99371051073", "+99371051074", 
+      "+99371086659", "+99364125409", 
       "+99361856842", "+99365590742", "+99362723560", "+99361481041", "+99361910924"
     ];
 
@@ -231,7 +246,7 @@
         subtitle: "Выберите способ оплаты и произведите платеж.",
         tabTerminal: "Терминал", tabPhone: "С телефона (0804)",
         lblCopy: "Копировать", lblCopied: "Скопировано!", lblPay: "Оплатить (SMS)",
-        noteTerminal: "Переведите средства на этот номер.",
+        noteTerminal: "Переведите средства на этот nomor.",
         notePhone: "Кнопка откроет SMS. Допишите сумму и отправьте.",
         copied: "Скопировано!"
       },
