@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UserrTM Payment</title>
 
-  <!-- BAĞLANTI PAYLAŞILDIĞINDA ÇIKAN FOTOĞRAF VE BİLGİLER (META TAGS) -->
+  <!-- TELEGRAM VE WHATSAPP İÇİN BÜYÜK ÖNİZLEME RESMİ ETİKETLERİ -->
   <meta name="description" content="Töleg görnüşini saýlaň we aňsat töleg ediň." />
   <link rel="canonical" href="https://www.userrtm.org/toleg.html" />
   <meta property="og:type" content="website" />
@@ -13,13 +13,16 @@
   <meta property="og:description" content="Töleg görnüşini saýlaň we aňsat töleg ediň." />
   <meta property="og:url" content="https://www.userrtm.org/toleg.html" />
   <meta property="og:site_name" content="UserrTM Servers" />
-  <meta property="og:image" content="https://www.userrtm.org/payment-preview.jpg" />
+  
+  <!-- GITHUB'DAKİ RESMİNİN RAW LİNKİNİ BURAYA YAZ -->
+  <meta property="og:image" content="https://raw.githubusercontent.com/GITHUB_KULLANICI_ADIN/REPOSTORY_ADIN/main/payment-preview.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="UserrTM Payment" />
   <meta name="twitter:description" content="Töleg görnüşini saýlaň we aňsat töleg ediň." />
-  <meta name="twitter:image" content="https://www.userrtm.org/payment-preview.jpg" />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/GITHUB_KULLANICI_ADIN/REPOSTORY_ADIN/main/payment-preview.jpg" />
 
   <style>
     :root {
@@ -32,6 +35,7 @@
       --muted: #94a3b8;
       --primary: linear-gradient(90deg, #38bdf8, #60a5fa);
       --success: linear-gradient(90deg, #22c55e, #4ade80);
+      --telegram: linear-gradient(90deg, #229ED9, #0088cc);
       --text-glow: 0 0 20px rgba(56, 189, 248, 0.4);
     }
 
@@ -44,149 +48,66 @@
       --muted: #64748b;
       --primary: linear-gradient(90deg, #0284c7, #3b82f6);
       --success: linear-gradient(90deg, #16a34a, #22c55e);
-      --text-glow: none;
+      --telegram: linear-gradient(90deg, #0088cc, #24A1DE);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: var(--bg-main); background-attachment: fixed; color: var(--text); min-height: 100vh; padding: 24px 16px; transition: 0.3s; position: relative; overflow-x: hidden; }
-    
-    /* İnce Neon Çizgi Üst Kısma */
     body::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #38bdf8, #facc15, #22c55e); opacity: 0.7; }
 
-    .container { max-width: 480px; margin: 0 auto; position: relative; z-index: 2; }
+    /* Sayfa Giriş Animasyonu */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container { max-width: 480px; margin: 0 auto; position: relative; z-index: 2; animation: fadeInUp 0.6s ease-out both; }
     
     .topbar { display: flex; justify-content: space-between; margin-bottom: 32px; align-items: center; }
     .lang-select { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text); padding: 10px 16px; border-radius: 14px; font-weight: 600; cursor: pointer; backdrop-filter: blur(12px); outline: none; }
     .theme-btn { background: var(--card-bg); border: 1px solid var(--card-border); font-size: 18px; cursor: pointer; padding: 8px 12px; border-radius: 14px; backdrop-filter: blur(12px); transition: 0.2s; }
-    .theme-btn:hover { transform: scale(1.05); }
 
     .hero { text-align: center; margin-bottom: 32px; }
-    .hero h1 { font-size: 36px; margin-bottom: 10px; font-weight: 900; background: linear-gradient(90deg, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(var(--text-glow)); letter-spacing: -0.5px; }
+    .hero h1 { font-size: 36px; margin-bottom: 10px; font-weight: 900; background: linear-gradient(90deg, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(var(--text-glow)); }
     body.light .hero h1 { background: none; -webkit-text-fill-color: var(--text); }
-    .hero p { color: var(--muted); font-size: 15px; font-weight: 500; }
+    .hero p { color: var(--muted); font-size: 15px; }
 
-    /* Modern Segmented Tab */
-    .segmented-control {
-      display: flex;
-      background: rgba(0, 0, 0, 0.25);
-      padding: 6px;
-      border-radius: 16px;
-      margin-bottom: 24px;
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(12px);
-    }
-    body.light .segmented-control { background: rgba(0, 0, 0, 0.04); }
-    
-    .segment-btn {
-      flex: 1;
-      border: none;
-      background: none;
-      color: var(--muted);
-      padding: 14px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      border-radius: 12px;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .segment-btn.active {
-      background: var(--card-bg);
-      color: var(--text);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
+    .segmented-control { display: flex; background: rgba(0, 0, 0, 0.25); padding: 6px; border-radius: 16px; margin-bottom: 24px; border: 1px solid var(--card-border); backdrop-filter: blur(12px); }
+    .segment-btn { flex: 1; border: none; background: none; color: var(--muted); padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 12px; transition: 0.25s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .segment-btn.active { background: var(--card-bg); color: var(--text); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+    .segment-btn svg { width: 18px; height: 18px; fill: currentColor; }
 
-    /* Havalı Cam Kart Efekti */
-    .main-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 28px;
-      padding: 32px 24px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-
-    .number-display {
-      font-size: 38px;
-      font-weight: 900;
-      text-align: center;
-      margin: 12px 0 28px 0;
-      letter-spacing: 1px;
-      background: linear-gradient(135deg, #fff, #94a3b8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    .main-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 28px; padding: 32px 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3); backdrop-filter: blur(20px); }
+    .number-display { font-size: 38px; font-weight: 900; text-align: center; margin: 12px 0 28px 0; background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; }
     body.light .number-display { background: none; -webkit-text-fill-color: var(--text); }
 
-    .custom-select {
-      width: 100%;
-      padding: 16px;
-      border-radius: 16px;
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid var(--card-border);
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      outline: none;
-      cursor: pointer;
-      appearance: none;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-    }
+    .custom-select { width: 100%; padding: 16px; border-radius: 16px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border); color: var(--text); font-size: 16px; font-weight: 700; margin-bottom: 24px; outline: none; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>"); background-repeat: no-repeat; background-position: right 16px center; }
     body.light .custom-select { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>"); }
 
-    /* Butonlar */
-    .btn {
-      width: 100%;
-      padding: 18px;
-      border-radius: 16px;
-      border: none;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .btn-primary { background: var(--primary); color: #0f172a; box-shadow: 0 8px 20px rgba(56, 189, 248, 0.15); }
-    .btn-success { background: var(--success); color: #0f172a; box-shadow: 0 8px 20px rgba(34, 197, 94, 0.15); }
-    .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    /* Premium Butonlar */
+    .btn { width: 100%; padding: 18px; border-radius: 16px; border: none; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 14px; position: relative; overflow: hidden; }
+    .btn svg { width: 20px; height: 20px; fill: currentColor; }
+    
+    .btn-primary { background: var(--primary); color: #0f172a; }
+    .btn-success { background: var(--success); color: #0f172a; }
+    .btn-telegram { background: var(--telegram); color: white; margin-top: 10px; }
+    
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
     .btn:active { transform: translateY(0); }
 
-    .info-note {
-      font-size: 14px;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.6;
-      margin-top: 20px;
-      padding: 0 8px;
+    /* Başarı (Kopyalandı) Efekti */
+    @keyframes successPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); filter: brightness(1.2); }
+      100% { transform: scale(1); }
     }
+    .btn-success.copied-animation { animation: successPulse 0.4s ease-out; }
 
+    .divider { height: 1px; background: var(--card-border); margin: 24px 0; }
+    .info-note { font-size: 14px; color: var(--muted); text-align: center; line-height: 1.6; margin-top: 20px; }
     .hidden { display: none; }
     
-    /* Modern Toast */
-    .toast {
-      position: fixed;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: #22c55e;
-      color: #0f172a;
-      padding: 14px 28px;
-      border-radius: 50px;
-      font-weight: 800;
-      opacity: 0;
-      transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s;
-      box-shadow: 0 15px 30px rgba(34, 197, 94, 0.3);
-      z-index: 9999;
-    }
+    .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(100px); background: #22c55e; color: #0f172a; padding: 14px 28px; border-radius: 50px; font-weight: 800; opacity: 0; transition: 0.4s; z-index: 9999; }
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   </style>
 </head>
@@ -208,26 +129,49 @@
     </div>
 
     <div class="segmented-control">
-      <button class="segment-btn active" id="tabTerminal" onclick="switchTab('terminal')">💳 Terminal</button>
-      <button class="segment-btn" id="tabPhone" onclick="switchTab('phone')">📱 Telefondan (0804)</button>
+      <button class="segment-btn active" id="tabTerminal" onclick="switchTab('terminal')">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+        <span id="tabTerminalTxt">Terminal</span>
+      </button>
+      <button class="segment-btn" id="tabPhone" onclick="switchTab('phone')">
+        <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+        <span id="tabPhoneTxt">Telefondan (0804)</span>
+      </button>
     </div>
 
     <div class="main-card">
       
-      <!-- TERMINAL -->
+      <!-- TERMINAL SECTION -->
       <div id="terminalSection">
         <div class="number-display">62434203</div>
-        <button class="btn btn-success" onclick="copyText('62434203')"><span id="lblCopy">📋 Kopya et</span></button>
+        <button class="btn btn-success" id="btnTermCopy" onclick="copyText('62434203', 'btnTermCopy')">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          <span id="lblCopy">Kopya et</span>
+        </button>
         <p class="info-note" id="noteTerminal">Şu nomere töleg geçiriň we tassyklama suratyny admine iberiň.</p>
       </div>
 
-      <!-- TELEFON (0804) -->
+      <!-- TELEFON (0804) SECTION -->
       <div id="phoneSection" class="hidden">
         <select class="custom-select" id="phoneDropdown"></select>
-        <button class="btn btn-success" onclick="copySelectedPhone()"><span id="lblCopy2">📋 Kopya et</span></button>
-        <button class="btn btn-primary" onclick="paySelectedPhone()"><span id="lblPay">💸 Töle (SMS)</span></button>
+        <button class="btn btn-success" id="btnPhoneCopy" onclick="copySelectedPhone()">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          <span id="lblCopy2">Kopya et</span>
+        </button>
+        <button class="btn btn-primary" onclick="paySelectedPhone()">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          <span id="lblPay">Töle (SMS)</span>
+        </button>
         <p class="info-note" id="notePhone">Töle basanyňyzda SMS açylar, yzyna mukdaryny ýazyp iberiň. Soňra 0801-den gelen çegi admine ugradyň.</p>
       </div>
+
+      <div class="divider"></div>
+      
+      <!-- ADMİNE GRAPHI / TELEGRAM YÖNLENDİRME BUTONU -->
+      <button class="btn btn-telegram" onclick="sendScreenshot()">
+        <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.28 7.68-6.92c.34-.31-.07-.48-.52-.19L7.74 13.3 3.64 12c-.89-.28-.89-.89.19-1.31l16.03-6.18c.73-.28 1.38.17 1.17 1.13l-2.73 12.83c-.2 1-.8 1.25-1.64.78l-4.17-3.07-2.01 1.94c-.22.22-.4.4-.83.4z"/></svg>
+        <span id="lblSendAdmin">Suraty Admine Iber</span>
+      </button>
 
     </div>
   </div>
@@ -245,27 +189,27 @@
     const texts = {
       tk: {
         subtitle: "Töleg görnüşini saýlaň we tassyklama suratyny ugradyň.",
-        tabTerminal: "💳 Terminal", tabPhone: "📱 Telefondan (0804)",
-        lblCopy: "📋 Kopya et", lblPay: "💸 Töle (SMS)",
+        tabTerminal: "Terminal", tabPhone: "Telefondan (0804)",
+        lblCopy: "Kopya et", lblCopied: "Kopyalandy!", lblPay: "Töle (SMS)",
         noteTerminal: "Şu nomere töleg geçiriň we tassyklama suratyny admine iberiň.",
         notePhone: "Töle basanyňyzda SMS açylar, yzyna mukdaryny ýazyp iberiň. Soňra 0801-den gelen çegi admine ugradyň.",
-        copied: "Kopyalandy!"
+        lblSendAdmin: "Suraty Admine Iber", copied: "Kopyalandy!"
       },
       ru: {
         subtitle: "Выберите способ оплаты и отправьте скриншот чека.",
-        tabTerminal: "💳 Терминал", tabPhone: "📱 С телефона (0804)",
-        lblCopy: "📋 Копировать", lblPay: "💸 Оплатить (SMS)",
-        noteTerminal: "Переведите на этот nomor и отправьте скриншот администратору.",
+        tabTerminal: "Терминал", tabPhone: "С телефона (0804)",
+        lblCopy: "Копировать", lblCopied: "Скопировано!", lblPay: "Оплатить (SMS)",
+        noteTerminal: "Переведите на этот номер и отправьте скриншот администратору.",
         notePhone: "Кнопка откроет SMS. Допишите сумму и отправьте. Чек от 0801 перешлите админу.",
-        copied: "Скопировано!"
+        lblSendAdmin: "Отправить скриншот админу", copied: "Скопировано!"
       },
       tr: {
         subtitle: "Ödeme türünü seçin ve onay ekran görüntüsünü gönderin.",
-        tabTerminal: "💳 Terminal", tabPhone: "📱 Telefondan (0804)",
-        lblCopy: "📋 Kopyala", lblPay: "💸 Öde (SMS)",
+        tabTerminal: "Terminal", tabPhone: "Telefondan (0804)",
+        lblCopy: "Kopyala", lblCopied: "Kopyalandı!", lblPay: "Öde (SMS)",
         noteTerminal: "Bu numaraya ödeme yapın ve dekontu admine gönderin.",
         notePhone: "Öde'ye basınca SMS açılır, tutarı yazıp gönderin. 0801'den gelen dekontu admine iletin.",
-        copied: "Kopyalandı!"
+        lblSendAdmin: "Dekontu Admine Gönder", copied: "Kopyalandı!"
       }
     };
 
@@ -277,13 +221,16 @@
       const t = texts[lang];
       
       document.getElementById("subtitle").textContent = t.subtitle;
-      document.getElementById("tabTerminal").textContent = t.tabTerminal;
-      document.getElementById("tabPhone").textContent = t.tabPhone;
+      document.getElementById("tabTerminalTxt").textContent = t.tabTerminal;
+      document.getElementById("tabPhoneTxt").textContent = t.tabPhone;
+      
       document.getElementById("lblCopy").textContent = t.lblCopy;
       document.getElementById("lblCopy2").textContent = t.lblCopy;
       document.getElementById("lblPay").textContent = t.lblPay;
+      
       document.getElementById("noteTerminal").textContent = t.noteTerminal;
       document.getElementById("notePhone").textContent = t.notePhone;
+      document.getElementById("lblSendAdmin").textContent = t.lblSendAdmin;
       document.getElementById("langSelect").value = lang;
       buildDropdown();
     }
@@ -318,19 +265,36 @@
       setTimeout(() => toast.classList.remove("show"), 2000);
     }
 
-    async function copyText(text) {
+    async function copyText(text, btnId) {
       await navigator.clipboard.writeText(text);
       showToast(texts[currentLang].copied);
+      
+      const btn = document.getElementById(btnId);
+      const span = btn.querySelector('span');
+      const originalText = span.textContent;
+      
+      // Kopyalama animasyonu tetikleme
+      btn.classList.add('copied-animation');
+      span.textContent = texts[currentLang].lblCopied;
+      
+      setTimeout(() => { 
+        span.textContent = originalText; 
+        btn.classList.remove('copied-animation');
+      }, 1500);
     }
 
     function copySelectedPhone() {
       const val = document.getElementById("phoneDropdown").value;
-      copyText(val);
+      copyText(val, 'btnPhoneCopy');
     }
 
     function paySelectedPhone() {
       const val = document.getElementById("phoneDropdown").value;
       window.location.href = `sms:0804?body=${encodeURIComponent(val + " ")}`;
+    }
+
+    function sendScreenshot() {
+      window.location.href = "https://t.me/userrtm"; 
     }
 
     window.addEventListener("DOMContentLoaded", () => {
